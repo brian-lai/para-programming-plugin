@@ -15,7 +15,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 
 ### 1. Commands Updated
 
-#### `/para-plan` (`claude-skill/commands/para-plan.md`)
+#### `/plan` (`commands/plan.md`)
 
 **New Capabilities:**
 - Detects when work should be phased based on scope analysis
@@ -29,7 +29,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 - Dependencies (migrations before code)
 - Review benefits (easier PR reviews)
 
-#### `/para-execute` (`claude-skill/commands/para-execute.md`)
+#### `/execute` (`commands/execute.md`)
 
 **New Capabilities:**
 - Accepts `--phase=N` option for phased plans
@@ -38,7 +38,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 - Starts each phase from `main` branch (assumes previous phases merged)
 - Updates phase status: `pending` → `in_progress` → `completed`
 
-#### `/para-summarize` (`claude-skill/commands/para-summarize.md`)
+#### `/summarize` (`commands/summarize.md`)
 
 **New Capabilities:**
 - Accepts `--phase=N` option for phased plans
@@ -49,7 +49,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 
 ### 2. Templates Created
 
-#### Master Plan Template (`claude-skill/templates/phased-plan-master-template.md`)
+#### Master Plan Template (`templates/phased-plan-master-template.md`)
 
 **Sections:**
 - Overview & objective
@@ -61,7 +61,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 - Execution plan & branch strategy
 - Review checklist
 
-#### Sub-Plan Template (`claude-skill/templates/phased-plan-sub-template.md`)
+#### Sub-Plan Template (`templates/phased-plan-sub-template.md`)
 
 **Sections:**
 - Phase objective
@@ -76,7 +76,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 
 ### 3. Documentation Created
 
-#### Quick Reference Guide (`claude-skill/docs/phased-plans-quick-reference.md`)
+#### Quick Reference Guide (`docs/phased-plans-quick-reference.md`)
 
 **Contents:**
 - When to use phased plans (decision criteria)
@@ -89,7 +89,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 - Troubleshooting guide
 - Decision tree
 
-#### Complete Example (`claude-skill/docs/phased-plan-example.md`)
+#### Complete Example (`docs/phased-plan-example.md`)
 
 **Contents:**
 - Full walkthrough of user authentication implementation
@@ -99,7 +99,7 @@ Added comprehensive support for phased plans to the PARA-Programming workflow. C
 - Includes example plan contents
 - Shows context.md updates at each step
 
-#### Changelog (`claude-skill/docs/PHASED-PLANS-CHANGELOG.md`)
+#### Changelog (`docs/PHASED-PLANS-CHANGELOG.md`)
 
 This document.
 
@@ -115,7 +115,6 @@ This document.
 ## Files Created
 
 ```
-claude-skill/
 ├── templates/
 │   ├── phased-plan-master-template.md    [NEW] Master plan template
 │   └── phased-plan-sub-template.md       [NEW] Sub-plan template
@@ -130,11 +129,10 @@ claude-skill/
 ## Files Modified
 
 ```
-claude-skill/
 └── commands/
-    ├── para-plan.md         [MODIFIED] Added phased plan support
-    ├── para-execute.md      [MODIFIED] Added --phase option
-    └── para-summarize.md    [MODIFIED] Added --phase option
+    ├── plan.md         [MODIFIED] Added phased plan support
+    ├── execute.md      [MODIFIED] Added --phase option
+    └── summarize.md    [MODIFIED] Added --phase option
 
 README.md                    [MODIFIED] Added phased plans mention
 ```
@@ -262,7 +260,7 @@ Phase 4: Remove from Monolith
 
 ### Detection Logic
 
-When `/para-plan` is invoked, Claude:
+When `/plan` is invoked, Claude:
 1. Analyzes task description
 2. Explores relevant codebase areas
 3. Estimates files affected
@@ -352,9 +350,9 @@ If a simple plan is found to be too large during execution:
 
 - [Quick Reference Guide](./phased-plans-quick-reference.md)
 - [Complete Example](./phased-plan-example.md)
-- [/para-plan Command](../commands/para-plan.md)
-- [/para-execute Command](../commands/para-execute.md)
-- [/para-summarize Command](../commands/para-summarize.md)
+- [/plan Command](../commands/plan.md)
+- [/execute Command](../commands/execute.md)
+- [/summarize Command](../commands/summarize.md)
 
 ---
 

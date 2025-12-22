@@ -126,13 +126,13 @@ These criteria must be met after ALL phases are complete:
 ### Timeline Structure
 
 1. **Review all phases** - Ensure entire approach is sound before starting
-2. **Execute Phase 1** - Run `/para-execute --phase=1`
+2. **Execute Phase 1** - Run `/execute --phase=1`
 3. **Review & Merge Phase 1** - PR, review, merge to main
-4. **Execute Phase 2** - Run `/para-execute --phase=2` (starts from main)
+4. **Execute Phase 2** - Run `/execute --phase=2` (starts from main)
 5. **Review & Merge Phase 2** - PR, review, merge to main
 6. **Continue** - Repeat for remaining phases
 7. **Final Verification** - Ensure overall success criteria met
-8. **Archive** - Run `/para-archive` when complete
+8. **Archive** - Run `/archive` when complete
 
 ### Branch Strategy
 

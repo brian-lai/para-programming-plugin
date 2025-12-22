@@ -53,6 +53,7 @@ claude
 - `/para-program:archive` - Archive context and reset
 - `/para-program:status` - Show current workflow state
 - `/para-program:check` - Decision helper for workflow
+- `/para-program:help` - Comprehensive PARA guide
 
 ### Templates
 
@@ -77,9 +78,9 @@ claude
 ## 🔁 The PARA Workflow
 
 ```
-(Plan) → (Review) → (Execute) → (Summarize) → (Archive)
-   ↓         ↑          ↓              ↓            ↓
-/para-program:plan  Human   /para-program:execute  /para-program:summarize  /para-program:archive
+   (Plan)    →   (Review)   →   (Execute)    →    (Summarize)     →    (Archive)
+      ↓             ↑              ↓                   ↓                   ↓
+/para-program:plan Human /para-program:execute /para-program:summarize /para-program:archive
 ```
 
 ### When to Use
@@ -170,13 +171,14 @@ para-programming-plugin/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin manifest
 ├── commands/                # Slash commands
-│   ├── para-init.md
-│   ├── para-plan.md
-│   ├── para-execute.md
-│   ├── para-summarize.md
-│   ├── para-archive.md
-│   ├── para-status.md
-│   └── para-check.md
+│   ├── init.md
+│   ├── plan.md
+│   ├── execute.md
+│   ├── summarize.md
+│   ├── archive.md
+│   ├── status.md
+│   ├── check.md
+│   └── help.md
 ├── hooks/                   # Event handlers
 │   ├── hooks.json
 │   └── para-session-start.sh

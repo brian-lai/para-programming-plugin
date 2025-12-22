@@ -36,23 +36,23 @@ Create a phased plan when ANY of these apply:
 
 | Step | Command | Output |
 |------|---------|--------|
-| Plan | `/para-plan task-name` | `context/plans/YYYY-MM-DD-task-name.md` |
-| Execute | `/para-execute` | Branch: `para/task-name` |
-| Summarize | `/para-summarize` | `context/summaries/YYYY-MM-DD-task-name-summary.md` |
-| Archive | `/para-archive` | Moves context to archives |
+| Plan | `/plan task-name` | `context/plans/YYYY-MM-DD-task-name.md` |
+| Execute | `/execute` | Branch: `para/task-name` |
+| Summarize | `/summarize` | `context/summaries/YYYY-MM-DD-task-name-summary.md` |
+| Archive | `/archive` | Moves context to archives |
 
 ### Phased Plan
 
 | Step | Command | Output |
 |------|---------|--------|
-| Plan | `/para-plan task-name` | Master + N phase plans |
+| Plan | `/plan task-name` | Master + N phase plans |
 | Review | (Manual) | Review all phases |
-| Execute Phase 1 | `/para-execute --phase=1` | Branch: `para/task-name-phase-1` |
-| Summarize Phase 1 | `/para-summarize --phase=1` | Phase 1 summary |
+| Execute Phase 1 | `/execute --phase=1` | Branch: `para/task-name-phase-1` |
+| Summarize Phase 1 | `/summarize --phase=1` | Phase 1 summary |
 | Merge Phase 1 | `gh pr create` + merge | Phase 1 in main |
-| Execute Phase 2 | `/para-execute --phase=2` | Branch: `para/task-name-phase-2` |
+| Execute Phase 2 | `/execute --phase=2` | Branch: `para/task-name-phase-2` |
 | ... | (Repeat for each phase) | ... |
-| Archive | `/para-archive` | After all phases complete |
+| Archive | `/archive` | After all phases complete |
 
 ---
 
@@ -317,6 +317,6 @@ Multiple layers? NO (just frontend)
 ## See Also
 
 - [Complete Phased Plan Example](./phased-plan-example.md)
-- [/para-plan Command Reference](../commands/para-plan.md)
-- [/para-execute Command Reference](../commands/para-execute.md)
-- [/para-summarize Command Reference](../commands/para-summarize.md)
+- [/plan Command Reference](../commands/plan.md)
+- [/execute Command Reference](../commands/execute.md)
+- [/summarize Command Reference](../commands/summarize.md)

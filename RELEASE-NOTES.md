@@ -12,39 +12,49 @@ The PARA-Programming Claude Code Skill is now available! This skill transforms t
 
 ## ✨ Features
 
-### Slash Commands (6 commands)
+### Slash Commands (8 commands)
 
-- **`/para-init`** - One-command initialization of PARA structure
+- **`/init`** - One-command initialization of PARA structure
   - Creates `context/` directory with all subdirectories
   - Generates `context/context.md` with JSON tracking
   - Creates project `CLAUDE.md` from template
 
-- **`/para-plan [task-name]`** - Structured planning made easy
+- **`/plan [task-name]`** - Structured planning made easy
   - Auto-generates dated plan files (`YYYY-MM-DD-task-name.md`)
   - Populates with standard template (Objective, Approach, Risks, etc.)
   - Updates `context/context.md` automatically
 
-- **`/para-summarize`** - Automatic summary generation
+- **`/execute`** - Start execution with branch and to-dos
+  - Creates feature branches automatically
+  - Extracts implementation steps as to-dos
+  - Tracks progress in context.md
+
+- **`/summarize`** - Automatic summary generation
   - Analyzes git diff for changes
   - Documents what changed and why
   - Creates dated summary with file:line references
   - Captures test results and learnings
 
-- **`/para-archive`** - Clean context management
+- **`/archive`** - Clean context management
   - Archives current context with timestamp
   - Creates fresh context for next task
   - Preserves complete audit trail
 
-- **`/para-status`** - Workflow state visibility
+- **`/status`** - Workflow state visibility
   - Shows current work summary
   - Lists active plans and completed summaries
   - Detects workflow state (planning, executing, etc.)
   - Suggests next action
 
-- **`/para-check [request]`** - Intelligent decision support
+- **`/check [request]`** - Intelligent decision support
   - Determines if PARA workflow should be used
   - Applies decision tree from CLAUDE.md
   - Provides clear reasoning and recommendations
+
+- **`/help`** - Comprehensive PARA guide
+  - Complete workflow explanation
+  - All available commands with examples
+  - Decision tree and troubleshooting
 
 ### Templates (5 templates)
 
@@ -120,7 +130,7 @@ claude
 
 # Check for commands
 /help
-# Should show para-init, para-plan, para-summarize, para-archive, para-status, para-check
+# Should show init, plan, execute, summarize, archive, status, check, help
 ```
 
 ---
@@ -135,13 +145,13 @@ cd your-project/
 claude
 
 # Initialize PARA structure
-/para-init
+/init
 
 # Start your first task
-/para-plan "implement feature"
+/plan "implement feature"
 
 # Check status anytime
-/para-status
+/status
 ```
 
 ---
@@ -150,7 +160,7 @@ claude
 
 | Metric | Value |
 |--------|-------|
-| **Slash Commands** | 6 |
+| **Slash Commands** | 8 |
 | **Templates** | 5 |
 | **Documentation Files** | 5 |
 | **Total Lines** | 1,827 |

@@ -77,7 +77,7 @@ ls -la ~/.claude/CLAUDE.md
 claude
 
 # Test a command
-/para-status
+/status
 ```
 
 ✅ **Done!** You're now on the symlink update path.
@@ -152,7 +152,7 @@ cp claude-skill/commands/*.md ~/.claude/commands/
 
 ```bash
 # Update just one command
-cp claude-skill/commands/para-plan.md ~/.claude/commands/
+cp claude-skill/commands/plan.md ~/.claude/commands/
 ```
 
 ### Update Templates
@@ -270,7 +270,7 @@ We follow semantic versioning:
 After updating, verify:
 
 - [ ] Symlink still points to correct location
-- [ ] Commands work: `/para-status`
+- [ ] Commands work: `/status`
 - [ ] Global CLAUDE.md has latest content
 - [ ] No git conflicts or issues
 - [ ] Documentation reflects current version

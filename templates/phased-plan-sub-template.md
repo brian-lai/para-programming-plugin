@@ -192,4 +192,4 @@ After executing this phase:
 
 ---
 
-**Next Step:** Once reviewed and approved, run `/para-execute --phase={PHASE_NUMBER}` to begin implementation.
+**Next Step:** Once reviewed and approved, run `/execute --phase={PHASE_NUMBER}` to begin implementation.

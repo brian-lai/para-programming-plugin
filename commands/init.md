@@ -22,14 +22,14 @@ This command sets up the complete PARA-Programming directory structure and files
 ## Usage
 
 ```
-/para-init
+/init
 ```
 
 ### Options
 
 ```
-/para-init --template=basic    # Create minimal CLAUDE.md
-/para-init --template=full     # Create comprehensive CLAUDE.md
+/init --template=basic    # Create minimal CLAUDE.md
+/init --template=full     # Create comprehensive CLAUDE.md
 ```
 
 ## After Running
@@ -37,7 +37,7 @@ This command sets up the complete PARA-Programming directory structure and files
 You'll have a complete PARA-Programming setup ready for your first task. Start by:
 
 1. Editing `CLAUDE.md` with your project-specific context
-2. Running `/para-plan` to create your first plan
+2. Running `/plan` to create your first plan
 3. Following the PARA workflow: Plan → Review → Execute → Summarize → Archive
 
 ## Implementation
@@ -116,21 +116,21 @@ context/
 ## 🚀 Next Steps
 
 1. **Edit `CLAUDE.md`** with your project-specific context (architecture, tech stack, conventions)
-2. **Create your first plan:** `/para-plan <task-description>`
-3. **Check workflow status:** `/para-status`
-4. **Get help anytime:** `/para-help`
+2. **Create your first plan:** `/plan <task-description>`
+3. **Check workflow status:** `/status`
+4. **Get help anytime:** `/help`
 
 ---
 
 ## 📚 Available PARA Commands
 
-- **`/para-plan`** - Create a new planning document
-- **`/para-execute`** - Start execution: create branch and track to-dos
-- **`/para-summarize`** - Generate post-work summary
-- **`/para-archive`** - Archive current context
-- **`/para-status`** - Check current workflow state
-- **`/para-check`** - Decision helper (should I use PARA?)
-- **`/para-help`** - Comprehensive PARA guide
+- **`/plan`** - Create a new planning document
+- **`/execute`** - Start execution: create branch and track to-dos
+- **`/summarize`** - Generate post-work summary
+- **`/archive`** - Archive current context
+- **`/status`** - Check current workflow state
+- **`/check`** - Decision helper (should I use PARA?)
+- **`/help`** - Comprehensive PARA guide
 
 ---
 
@@ -138,12 +138,12 @@ context/
 
 **First time using PARA?**
 1. Start with a small task to learn the workflow
-2. Run `/para-help` to see the full guide
-3. Use `/para-check` when unsure if a task needs PARA
+2. Run `/help` to see the full guide
+3. Use `/check` when unsure if a task needs PARA
 
 **Example first task:**
 ```
-/para-plan Add user authentication to API endpoints
+/plan Add user authentication to API endpoints
 ```
 
 Your PARA-Programming environment is ready! 🎉

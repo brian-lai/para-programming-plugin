@@ -20,7 +20,7 @@ This command implements the **Execute** phase of the PARA workflow:
 ### Simple Plans
 
 ```
-/para-execute
+/execute
 ```
 
 The command automatically:
@@ -31,9 +31,9 @@ The command automatically:
 ### Phased Plans
 
 ```
-/para-execute --phase=1               # Execute specific phase
-/para-execute --phase=2               # Execute next phase
-/para-execute                         # Will prompt for which phase to execute
+/execute --phase=1               # Execute specific phase
+/execute --phase=2               # Execute next phase
+/execute                         # Will prompt for which phase to execute
 ```
 
 For phased plans:
@@ -45,9 +45,9 @@ For phased plans:
 ### Options
 
 ```
-/para-execute --branch=custom-name    # Use custom branch name (simple plans only)
-/para-execute --no-branch             # Skip branch creation (continue on current branch)
-/para-execute --phase=N               # Execute specific phase (phased plans only)
+/execute --branch=custom-name    # Use custom branch name (simple plans only)
+/execute --no-branch             # Skip branch creation (continue on current branch)
+/execute --phase=N               # Execute specific phase (phased plans only)
 ```
 
 ## Workflow Integration
@@ -56,24 +56,24 @@ For phased plans:
 
 This command bridges planning and summarizing:
 
-1. **Plan** - `/para-plan` creates the plan (done before this)
+1. **Plan** - `/plan` creates the plan (done before this)
 2. **Review** - Human validates the approach (done before this)
-3. **Execute** - `/para-execute` sets up execution tracking ← YOU ARE HERE
-4. **Summarize** - `/para-summarize` captures results (after work is done)
-5. **Archive** - `/para-archive` cleans up (after summarizing)
+3. **Execute** - `/execute` sets up execution tracking ← YOU ARE HERE
+4. **Summarize** - `/summarize` captures results (after work is done)
+5. **Archive** - `/archive` cleans up (after summarizing)
 
 ### Phased Plan Workflow
 
 For each phase:
 
-1. **Plan** - `/para-plan` creates master + sub-plans (done before this)
+1. **Plan** - `/plan` creates master + sub-plans (done before this)
 2. **Review** - Human validates all phases (done before this)
-3. **Execute Phase N** - `/para-execute --phase=N` sets up phase tracking ← YOU ARE HERE
+3. **Execute Phase N** - `/execute --phase=N` sets up phase tracking ← YOU ARE HERE
 4. **Implement** - Work through phase to-dos, commit incrementally
-5. **Summarize Phase N** - `/para-summarize --phase=N` captures phase results
+5. **Summarize Phase N** - `/summarize --phase=N` captures phase results
 6. **PR & Merge** - Create PR, get review, merge to main
 7. **Repeat** - Move to next phase
-8. **Archive** - `/para-archive` cleans up after all phases complete
+8. **Archive** - `/archive` cleans up after all phases complete
 
 ## Implementation
 
@@ -86,7 +86,7 @@ For each phase:
    - Otherwise → simple plan
 4. For simple plans:
    - Verify exactly one active plan exists (if multiple, ask user which one)
-   - If no active plan, error with: "No active plan found. Run `/para-plan` first."
+   - If no active plan, error with: "No active plan found. Run `/plan` first."
 5. For phased plans:
    - If `--phase=N` option provided, validate phase N exists
    - If no `--phase` option, prompt user: "Which phase should we execute? (1-N)"
@@ -264,7 +264,7 @@ Output execution status:
 2. As you complete each item:
    - Mark it `[x]` in `context/context.md`
    - Commit with: `git commit -m "feat: {description of what was done}"`
-3. When all items are complete, run `/para-summarize`
+3. When all items are complete, run `/summarize`
 
 💡 **Tip:** Commit frequently! Each to-do item should be one or more commits.
 ```
@@ -351,4 +351,4 @@ Choice:
 - To-dos are extracted automatically but can be manually adjusted
 - Commit frequently - each to-do should result in one or more commits
 - The execution tracking in `context/context.md` provides resume capability
-- Run `/para-status` anytime to see current progress
+- Run `/status` anytime to see current progress

@@ -14,14 +14,14 @@ This command archives completed work and resets the context:
 ## Usage
 
 ```
-/para-archive
+/archive
 ```
 
 ### Options
 
 ```
-/para-archive --fresh          # Create completely empty context
-/para-archive --seed           # Carry forward relevant context
+/archive --fresh          # Create completely empty context
+/archive --seed           # Carry forward relevant context
 ```
 
 Default behavior: Create fresh context with reference to completed summaries.
