@@ -1,215 +1,76 @@
-# PARA-Programming Claude Code Skill
+# PARA-Programming Plugin for Claude Code
 
-**⭐ Recommended: The easiest way to use PARA-Programming**
+**Official Claude Code plugin for the PARA-Programming methodology**
 
-This skill provides slash commands and automation tools that make the PARA-Programming methodology easy to use within Claude Code sessions. It eliminates manual setup, enforces workflow consistency, and helps you build better software with AI.
-
-**Why this skill?**
-- ✅ Maximum automation with slash commands
-- ✅ Smart workflow guidance and decision helpers
-- ✅ Full MCP support for token efficiency
-- ✅ One-command setup: `make setup claude-skill`
-
-**Note:** While we recommend this skill for the best experience, the PARA methodology works with any AI assistant. The workflow is universal—only the automation level differs. See the [main README](../README.md) for other platforms.
+Structured context management, persistent memory, and intelligent execution for AI-assisted development.
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- Claude Code CLI installed
-- Git repository for your project
-- Global CLAUDE.md file at `~/.claude/CLAUDE.md` (see [Installation](#installation))
-
 ### Installation
 
-#### Method 1: Manual Installation (Current)
-
-1. **Install global methodology file:**
-
 ```bash
-# Clone the repository (if you haven't already)
-git clone https://github.com/para-programming/para-programming.git
-cd para-programming
+# Add the PARA-Programming marketplace
+claude plugin marketplace add brian-lai/para-programming-plugin
 
-# Create symlink (recommended - gets automatic updates)
-mkdir -p ~/.claude
-ln -s "$(pwd)/CLAUDE.md" ~/.claude/CLAUDE.md
+# Install the plugin
+claude plugin install para-programming@brian-lai --scope user
 
-# Verify symlink
-ls -la ~/.claude/CLAUDE.md
-# Should show: ~/.claude/CLAUDE.md -> /path/to/para-programming/CLAUDE.md
-```
-
-**Why symlink?** When you `git pull` to update the repo, your global methodology automatically gets the latest improvements!
-
-2. **Copy slash commands to your Claude Code commands directory:**
-
-```bash
-# Create commands directory if it doesn't exist
-mkdir -p ~/.claude/commands
-
-# Copy all PARA commands (still copied, not symlinked)
-cp claude-skill/commands/*.md ~/.claude/commands/
-```
-
-**Note:** Commands are copied (not symlinked) so you can customize them if needed.
-
-3. **Verify installation:**
-
-```bash
-# Start Claude Code and check available commands
+# Initialize in your project
+cd your-project
 claude
-
-# In Claude Code:
-/help
-# You should see para-init, para-plan, para-summarize, etc.
-```
-
-#### Method 2: Skill Package (Future)
-
-When the Claude Code plugin API is released:
-
-```bash
-claude install @para-programming/skill
-```
-
-### Initialize Your First Project
-
-```bash
-# Navigate to your project
-cd your-project/
-
-# Start Claude Code
-claude
-
-# Initialize PARA structure
 /para-init
+```
 
-# Start your first task
+### First Task
+
+```bash
+# Start your first PARA task
 /para-plan "implement user authentication"
+
+# Review the plan (human approval step)
+
+# Execute the plan
+/para-execute
+
+# Work through to-dos...
+
+# Summarize when complete
+/para-summarize
 ```
 
 ---
 
-## 📋 Available Commands
+## 📋 What This Plugin Provides
 
-### `/para-init`
+### Slash Commands
 
-Initialize PARA-Programming structure in your project.
+- `/para-init` - Initialize PARA structure in project
+- `/para-plan` - Create structured plan for task
+- `/para-execute` - Start execution with branch and to-dos
+- `/para-summarize` - Generate summary from completed work
+- `/para-archive` - Archive context and reset
+- `/para-status` - Show current workflow state
+- `/para-check` - Decision helper for workflow
 
-```
-/para-init                    # Basic setup
-/para-init --template=basic   # Minimal CLAUDE.md
-/para-init --template=full    # Comprehensive CLAUDE.md
-```
+### Templates
 
-**Creates:**
-- `context/` directory with subdirectories
-- `context/context.md` with JSON structure
-- `CLAUDE.md` (if it doesn't exist)
+- Plan template with Objective, Approach, Risks
+- Summary template for documenting results
+- Context template for session state
+- Project CLAUDE.md templates (basic and full)
 
-### `/para-plan`
+### Hooks
 
-Create a structured plan for your task.
+- Session start notifications
+- Workflow guidance
 
-```
-/para-plan add-user-auth
-/para-plan fix-memory-leak
-/para-plan "refactor API layer"
-```
+### Resources
 
-**Creates:**
-- `context/plans/YYYY-MM-DD-task-name.md`
-- Populates with template (Objective, Approach, Risks, etc.)
-- Updates `context/context.md`
-- Requests human review
-
-### `/para-execute`
-
-Execute the active plan by creating a branch and tracking to-dos.
-
-```
-/para-execute                        # Execute active plan
-/para-execute --branch=custom-name   # Use custom branch name
-/para-execute --no-branch            # Skip branch creation
-```
-
-**Actions:**
-- Creates git branch `para/{task-name}`
-- Extracts to-dos from plan's Implementation Steps
-- Updates `context/context.md` with trackable to-do list
-- Commits context update as first commit on branch
-
-**To-Do Tracking:**
-- Mark items `[x]` as you complete them
-- Commit after each to-do with descriptive message
-- Run `/para-summarize` when all items complete
-
-### `/para-summarize`
-
-Generate summary after completing work.
-
-```
-/para-summarize
-```
-
-**Analyzes:**
-- Git changes (files modified/added/deleted)
-- Active plan from context
-- Test results
-
-**Creates:**
-- `context/summaries/YYYY-MM-DD-task-name-summary.md`
-- Documents what changed, why, and learnings
-
-### `/para-archive`
-
-Archive completed work and reset context.
-
-```
-/para-archive                 # Archive current context
-/para-archive --fresh         # Create empty context
-/para-archive --seed          # Carry forward relevant context
-```
-
-**Actions:**
-- Moves `context/context.md` to `context/archives/YYYY-MM-DD-HHMM-context.md`
-- Creates fresh `context/context.md`
-- Preserves audit trail
-
-### `/para-status`
-
-Show current PARA workflow state.
-
-```
-/para-status                  # Basic status
-/para-status --verbose        # Include file previews
-/para-status --files          # List all context files
-```
-
-**Displays:**
-- Current work summary
-- Active plans
-- Completed summaries
-- Last updated timestamp
-- Suggested next action
-
-### `/para-check`
-
-Decision helper for workflow application.
-
-```
-/para-check "Add user authentication"
-/para-check "Where is the auth middleware?"
-/para-check "Explain JWT tokens"
-```
-
-**Determines:**
-- Should PARA workflow be used?
-- What type of request is this?
-- What action should be taken?
+- Global CLAUDE.md methodology file
+- Example workflows
+- Documentation
 
 ---
 
@@ -219,33 +80,24 @@ Decision helper for workflow application.
 (Plan) → (Review) → (Execute) → (Summarize) → (Archive)
    ↓         ↑          ↓              ↓            ↓
 /para-plan  Human   /para-execute  /para-summarize  /para-archive
-            Review   + commits
 ```
 
-### When to Use PARA Workflow
+### When to Use
 
 **✅ ALWAYS for:**
 - Code changes (features, bugs, refactoring)
 - Architecture decisions
 - Configuration changes
 - Database modifications
-- Testing implementation
-- Security work
-- Performance optimizations
 
 **❌ SKIP for:**
-- Informational queries ("Where is X?")
-- Code explanations ("How does Y work?")
-- General questions (unrelated to project)
-- Navigation ("Show me Z")
-
-**Rule of thumb:** If it results in git changes, use PARA workflow.
+- Informational queries
+- Code explanations
+- Navigation
 
 ---
 
-## 📁 Directory Structure
-
-After running `/para-init`:
+## 📁 Directory Structure After Installation
 
 ```
 your-project/
@@ -262,9 +114,7 @@ your-project/
 
 ---
 
-## 💡 Example Usage
-
-### Complete Workflow Example
+## 💡 Complete Workflow Example
 
 ```bash
 # 1. Start Claude Code in your project
@@ -276,178 +126,115 @@ claude
 # 3. Check current status
 /para-status
 
-# 4. Decide if task needs PARA workflow
-/para-check "Add user authentication to API"
-# Output: ✅ USE PARA WORKFLOW
+# 4. Create a plan
+/para-plan "add dark mode support"
 
-# 5. Create a plan
-/para-plan add-user-auth
-
-# [Claude creates context/plans/2025-11-24-add-user-auth.md]
+# [Claude creates context/plans/2025-12-22-add-dark-mode-support.md]
 # [Human reviews and approves]
 
-# 6. Start execution
+# 5. Start execution
 /para-execute
 
-# [Creates branch: para/add-user-auth]
+# [Creates branch: para/add-dark-mode-support]
 # [Updates context.md with to-do list]
 # [Commits: "chore: Initialize execution context"]
 
-# 7. Work through to-dos
+# 6. Work through to-dos
 # [Complete each item, commit as you go]
 # [Mark items [x] in context.md]
 
-# 8. Generate summary
+# 7. Generate summary
 /para-summarize
 
 # [Claude analyzes git diff and creates summary]
 
-# 9. Check status
-/para-status
-# Output: Ready to archive
-
-# 10. Archive and prepare for next task
+# 8. Archive and prepare for next task
 /para-archive
-```
-
-### Quick Informational Query (Skip PARA)
-
-```bash
-# Check if you need PARA workflow
-/para-check "Where is the authentication middleware defined?"
-# Output: ❌ SKIP PARA WORKFLOW
-
-# Claude answers directly:
-# "The authentication middleware is in src/middleware/auth.ts:45-89"
-```
-
----
-
-## 🎯 Best Practices
-
-### Do's ✅
-
-- **Always plan before executing** - Use `/para-plan` for all project work
-- **Keep plans concise** - 1-2 pages max, focus on approach
-- **Review before execution** - Human validation prevents mistakes
-- **Summarize after completion** - Capture learnings in `/para-summarize`
-- **Archive regularly** - Use `/para-archive` when switching tasks
-- **Check status frequently** - Use `/para-status` to stay oriented
-
-### Don'ts ❌
-
-- **Don't skip planning** - Complex work needs structured approach
-- **Don't skip PARA for code changes** - Methodology ensures quality
-- **Don't let context grow stale** - Archive when task is complete
-- **Don't use PARA for simple queries** - It's overhead for navigation
-- **Don't forget to commit** - Git changes before archiving
-
----
-
-## 🛠 Customization
-
-### Modify Templates
-
-Templates are in `claude-skill/templates/`:
-
-- `plan-template.md` - Customize plan structure
-- `summary-template.md` - Customize summary format
-- `context-template.md` - Customize context.md structure
-- `claude-basic-template.md` - Minimal project CLAUDE.md
-- `claude-full-template.md` - Comprehensive project CLAUDE.md
-
-Edit these to match your team's preferences.
-
-### Add Custom Commands
-
-Create new commands in `~/.claude/commands/`:
-
-```markdown
-# Command: my-custom-command
-
-[Description of what it does]
-
-## Usage
-/my-custom-command [args]
-
-## Implementation
-[Instructions for Claude to execute]
 ```
 
 ---
 
 ## 📚 Documentation
 
-- **[PARA-Programming Methodology](../README.md)** - Full methodology guide
-- **[Global CLAUDE.md](../CLAUDE.md)** - Workflow reference
-- **[Setup Guide](../SETUP-GUIDE.md)** - Detailed setup instructions
-- **[Claude Code Guide](../claude/README.md)** - Claude-specific guidance
+- **[Main Documentation](https://github.com/brian-lai/para-programming)** - Full PARA-Programming guide
+- **[INSTALL.md](INSTALL.md)** - Detailed installation instructions
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+- **[UPGRADING.md](UPGRADING.md)** - Migration and upgrade guides
 
 ---
 
-## 🔧 Troubleshooting
+## 🛠 Plugin Structure
 
-### Commands Not Found
-
-**Problem:** `/para-init` not recognized
-
-**Solution:**
-```bash
-# Verify commands are installed
-ls ~/.claude/commands/para-*.md
-
-# If not, copy them:
-cp claude-skill/commands/*.md ~/.claude/commands/
-
-# Restart Claude Code
+```
+para-programming-plugin/
+├── .claude-plugin/
+│   └── plugin.json          # Plugin manifest
+├── commands/                # Slash commands
+│   ├── para-init.md
+│   ├── para-plan.md
+│   ├── para-execute.md
+│   ├── para-summarize.md
+│   ├── para-archive.md
+│   ├── para-status.md
+│   └── para-check.md
+├── hooks/                   # Event handlers
+│   ├── hooks.json
+│   └── para-session-start.sh
+├── templates/               # File templates
+│   ├── plan-template.md
+│   ├── summary-template.md
+│   ├── context-template.md
+│   ├── claude-basic-template.md
+│   └── claude-full-template.md
+├── resources/               # Global methodology
+│   └── CLAUDE.md
+├── examples/                # Usage examples
+├── scripts/                 # Installation scripts
+└── docs/                    # Additional documentation
 ```
 
-### CLAUDE.md Not Loading
+---
 
-**Problem:** Claude doesn't follow PARA workflow
+## 🎯 Key Features
 
-**Solution:**
-```bash
-# Check global file exists
-ls ~/.claude/CLAUDE.md
+### Structured Planning
+Every task starts with a plan that includes:
+- Clear objective
+- Step-by-step approach
+- Risk analysis
+- Success criteria
 
-# If not, create it:
-mkdir -p ~/.claude
-cp CLAUDE.md ~/.claude/CLAUDE.md
-```
+### Persistent Context
+Context persists across sessions:
+- Active plans tracked in `context/context.md`
+- Summaries document what was done
+- Archives preserve historical state
 
-### Context Files Not Created
+### Git Integration
+PARA workflow integrates with git:
+- Creates feature branches automatically
+- Tracks to-dos as commits
+- Generates summaries from diffs
 
-**Problem:** Plans/summaries not being written
-
-**Solution:**
-```bash
-# Ensure context structure exists
-mkdir -p context/{data,plans,summaries,archives,servers}
-
-# Run /para-init again if needed
-```
+### Token Efficiency
+Minimizes token usage through:
+- Structured context files
+- MCP preprocessing (optional)
+- Selective loading of relevant context
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions to improve the PARA-Programming skill!
+We welcome contributions! Areas for improvement:
 
-### Areas for Contribution
+- Additional commands
+- MCP tools
+- Templates for different tech stacks
+- Documentation improvements
+- Bug fixes
 
-- **Additional commands** - New workflow helpers
-- **MCP tools** - Automation utilities
-- **Templates** - For different tech stacks
-- **Documentation** - Improvements and examples
-- **Bug fixes** - Report and fix issues
-
-### How to Contribute
-
-1. Fork the repository
-2. Create a feature branch
-3. Follow PARA methodology (create a plan!)
-4. Submit a pull request
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
@@ -459,7 +246,7 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-- **Tiago Forte** - For the PARA method that inspired this
+- **Tiago Forte** - For the PARA method
 - **Anthropic** - For Claude and Claude Code
 - **The community** - For feedback and contributions
 
@@ -467,12 +254,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/para-programming/claude-skill/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/para-programming/claude-skill/discussions)
-- **Documentation:** [PARA-Programming Guide](../README.md)
+- **Issues:** [GitHub Issues](https://github.com/brian-lai/para-programming-plugin/issues)
+- **Documentation:** [Main PARA Guide](https://github.com/brian-lai/para-programming)
 
 ---
 
-**Happy PARA-Programming with Claude Code! 🚀**
-
-Build better software, faster, with structured AI collaboration.
+**Build better software with structured AI collaboration! 🚀**
