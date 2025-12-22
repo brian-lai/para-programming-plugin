@@ -13,7 +13,7 @@ This command implements the **Execute** phase of the PARA workflow:
 5. Extracts implementation steps from the plan as to-dos
 6. Updates `context/context.md` with a trackable to-do list
 7. Commits the context update as the first commit on the branch
-8. Guides incremental commits as each to-do is completed
+8. **Commits after completing each to-do item** (critical for AI-assisted development)
 
 ## Usage
 
@@ -260,18 +260,64 @@ Output execution status:
 
 ### Next Steps
 
-1. Work through the to-do list above
-2. As you complete each item:
-   - Mark it `[x]` in `context/context.md`
-   - Commit with: `git commit -m "feat: {description of what was done}"`
-3. When all items are complete, run `/summarize`
+**IMPORTANT: Commit after completing each to-do item!**
 
-💡 **Tip:** Commit frequently! Each to-do item should be one or more commits.
+For each to-do:
+1. Implement the to-do item
+2. Mark it `[x]` in `context/context.md`
+3. Stage all changes: `git add -A`
+4. Commit immediately: `git commit -m "feat: {description}"`
+5. Move to the next to-do
+
+When all items are complete, run `/summarize`
+
+⚠️ **Why commit after each to-do?**
+- Creates clear checkpoints for rollback if needed
+- Documents progress for `/summarize` to analyze
+- Prevents losing work if session ends unexpectedly
+- Makes code review easier with atomic commits
+- AI can reference specific commits when explaining changes
 ```
 
-## Commit Message Guidelines
+## Commit-Per-To-Do Workflow
 
-When executing, follow these commit patterns:
+**Committing after each to-do is mandatory, not optional.** This is critical for successful AI-assisted development.
+
+### Why This Matters
+
+1. **Recoverability** - If something breaks, you can rollback to the last working to-do
+2. **Traceability** - `/summarize` can analyze each commit to generate accurate summaries
+3. **Context preservation** - If the session ends, progress is saved
+4. **Atomic changes** - Each commit represents one logical unit of work
+5. **Better code review** - Reviewers can understand changes step-by-step
+
+### The Workflow
+
+```
+┌─────────────────┐
+│ Pick next to-do │
+└────────┬────────┘
+         ↓
+┌─────────────────┐
+│ Implement it    │
+└────────┬────────┘
+         ↓
+┌─────────────────┐
+│ Mark [x] in     │
+│ context.md      │
+└────────┬────────┘
+         ↓
+┌─────────────────┐
+│ git add -A      │
+│ git commit      │
+└────────┬────────┘
+         ↓
+    More to-dos?
+    ├─ Yes → Loop back
+    └─ No  → /summarize
+```
+
+### Commit Message Guidelines
 
 | To-Do Type | Commit Prefix | Example |
 |------------|---------------|---------|
@@ -284,21 +330,42 @@ When executing, follow these commit patterns:
 
 ## To-Do Tracking
 
-As you work, update `context/context.md`:
+As you work, update `context/context.md` **and commit**:
 
-**Before:**
+### Example Flow
+
+**Starting state:**
 ```markdown
 - [ ] Set up authentication middleware
 - [ ] Implement JWT tokens
+- [ ] Add protected route decorator
 ```
 
 **After completing first item:**
-```markdown
-- [x] Set up authentication middleware ✓ (commit: abc1234)
+```bash
+# 1. Mark complete in context.md:
+- [x] Set up authentication middleware
 - [ ] Implement JWT tokens
+- [ ] Add protected route decorator
+
+# 2. Stage and commit:
+git add -A
+git commit -m "feat: Add authentication middleware with JWT validation"
 ```
 
-Optionally add commit hash reference for traceability.
+**After completing second item:**
+```bash
+# 1. Mark complete in context.md:
+- [x] Set up authentication middleware
+- [x] Implement JWT tokens
+- [ ] Add protected route decorator
+
+# 2. Stage and commit:
+git add -A
+git commit -m "feat: Implement JWT token generation and refresh"
+```
+
+**Continue until all items are `[x]`, then run `/summarize`.**
 
 ## Edge Cases
 
@@ -349,6 +416,7 @@ Choice:
 - Always creates a branch to isolate work (unless `--no-branch` specified)
 - Branch naming follows `para/{task-name}` convention for easy identification
 - To-dos are extracted automatically but can be manually adjusted
-- Commit frequently - each to-do should result in one or more commits
+- **ALWAYS commit after completing each to-do** - this is required, not optional
 - The execution tracking in `context/context.md` provides resume capability
 - Run `/status` anytime to see current progress
+- If a to-do is too large, break it into smaller sub-items before implementing
