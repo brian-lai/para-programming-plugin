@@ -1,0 +1,23 @@
+{
+  "name": "para-programming",
+  "version": "1.0.0",
+  "description": "PARA-Programming methodology for Claude Code - structured context, persistent memory, and intelligent execution",
+  "author": {
+    "name": "PARA-Programming Community",
+    "email": "hello@para-programming.dev"
+  },
+  "homepage": "https://github.com/brian-lai/para-programming-plugin",
+  "repository": "https://github.com/brian-lai/para-programming-plugin",
+  "license": "MIT",
+  "keywords": [
+    "para",
+    "methodology",
+    "workflow",
+    "context",
+    "planning",
+    "ai-assisted-development",
+    "pair-programming",
+    "persistent-memory"
+  ],
+  "hooks": "./hooks/hooks.json"
+}
