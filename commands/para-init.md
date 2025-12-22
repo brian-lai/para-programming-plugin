@@ -1,4 +1,4 @@
-# Command: para-init
+# Command: init
 
 Initialize PARA-Programming structure in the current project.
 

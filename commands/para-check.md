@@ -1,4 +1,4 @@
-# Command: para-check
+# Command: check
 
 Decision helper to determine if PARA workflow should be used for a given request.
 

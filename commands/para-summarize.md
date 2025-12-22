@@ -1,4 +1,4 @@
-# Command: para-summarize
+# Command: summarize
 
 Generate a summary document from the current work session. Supports both simple and phased plans.
 

@@ -1,4 +1,4 @@
-# Command: para-archive
+# Command: archive
 
 Archive the current context to create a clean slate for the next task.
 

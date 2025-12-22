@@ -1,4 +1,4 @@
-# Command: para-plan
+# Command: plan
 
 Create a new planning document for the current task, with support for multi-phase plans.
 

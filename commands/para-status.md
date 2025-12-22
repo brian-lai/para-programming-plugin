@@ -1,4 +1,4 @@
-# Command: para-status
+# Command: status
 
 Display the current state of PARA context and workflow progress.
 

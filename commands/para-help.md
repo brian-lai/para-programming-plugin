@@ -1,4 +1,4 @@
-# Command: para-help
+# Command: help
 
 Display comprehensive PARA-Programming guide and reference.
 

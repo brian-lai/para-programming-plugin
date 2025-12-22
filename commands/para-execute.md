@@ -1,4 +1,4 @@
-# Command: para-execute
+# Command: execute
 
 Execute the active plan by creating a branch and tracking to-dos. Supports both simple and phased plans.
 
