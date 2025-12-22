@@ -23,7 +23,7 @@ Before installing, ensure you have:
 /plugin marketplace add brian-lai/para-programming-plugin
 
 # Install the plugin
-/plugin install para-programming@brian-lai/para-programming-plugin
+/plugin install para-program@brian-lai/para-programming-plugin
 ```
 
 That's it! The plugin is now installed and all commands are available.
@@ -39,14 +39,14 @@ claude
 /help
 ```
 
-You should see commands prefixed with `/para-programming:`:
-- `/para-programming:para-init`
-- `/para-programming:para-plan`
-- `/para-programming:para-execute`
-- `/para-programming:para-summarize`
-- `/para-programming:para-archive`
-- `/para-programming:para-status`
-- `/para-programming:para-check`
+You should see commands prefixed with `/para-program:`:
+- `/para-program:init`
+- `/para-program:plan`
+- `/para-program:execute`
+- `/para-program:summarize`
+- `/para-program:archive`
+- `/para-program:status`
+- `/para-program:check`
 
 ### First Use
 
@@ -55,7 +55,7 @@ Initialize PARA in your project:
 ```bash
 cd your-project
 claude
-/para-programming:para-init
+/para-program:init
 ```
 
 ---
@@ -69,7 +69,7 @@ You can install the plugin at different scopes:
 Available across all your projects:
 
 ```bash
-/plugin install para-programming@brian-lai/para-programming-plugin --scope user
+/plugin install para-program@brian-lai/para-programming-plugin --scope user
 ```
 
 ### Project Scope
@@ -77,7 +77,7 @@ Available across all your projects:
 Only available in the current project (stored in `.claude/settings.json`):
 
 ```bash
-/plugin install para-programming@brian-lai/para-programming-plugin --scope project
+/plugin install para-program@brian-lai/para-programming-plugin --scope project
 ```
 
 ### Local Scope
@@ -85,7 +85,7 @@ Only available in the current project (stored in `.claude/settings.json`):
 Personal installation for current project only (stored in `.claude/settings.local.json`, gitignored):
 
 ```bash
-/plugin install para-programming@brian-lai/para-programming-plugin --scope local
+/plugin install para-program@brian-lai/para-programming-plugin --scope local
 ```
 
 ---
@@ -95,7 +95,7 @@ Personal installation for current project only (stored in `.claude/settings.loca
 To get the latest version:
 
 ```bash
-/plugin update para-programming@brian-lai/para-programming-plugin
+/plugin update para-program@brian-lai/para-programming-plugin
 ```
 
 ---
@@ -105,7 +105,7 @@ To get the latest version:
 To remove the plugin:
 
 ```bash
-/plugin uninstall para-programming@brian-lai/para-programming-plugin
+/plugin uninstall para-program@brian-lai/para-programming-plugin
 ```
 
 ---
@@ -181,7 +181,7 @@ claude
    ```
 2. Reinstall if needed:
    ```bash
-   /plugin install para-programming@brian-lai/para-programming-plugin --scope user
+   /plugin install para-program@brian-lai/para-programming-plugin --scope user
    ```
 3. Restart Claude Code
 
@@ -217,10 +217,10 @@ chmod -R u+rw ~/.claude
 
 After successful installation:
 
-1. **Initialize your project:** `/para-programming:para-init`
+1. **Initialize your project:** `/para-program:init`
 2. **Try the example workflow:** See [examples/example-workflow.md](examples/example-workflow.md)
 3. **Read the documentation:** [Main PARA Guide](https://github.com/brian-lai/para-programming)
-4. **Start your first task:** `/para-programming:para-plan "your task description"`
+4. **Start your first task:** `/para-program:plan "your task description"`
 
 ---
 
