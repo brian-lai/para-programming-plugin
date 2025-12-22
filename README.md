@@ -12,32 +12,32 @@ Structured context management, persistent memory, and intelligent execution for 
 
 ```bash
 # Add the PARA-Programming marketplace
-claude plugin marketplace add brian-lai/para-programming-plugin
+/plugin marketplace add brian-lai/para-programming-plugin
 
 # Install the plugin
-claude plugin install para-programming@brian-lai --scope user
+/plugin install para-programming@brian-lai/para-programming-plugin
 
 # Initialize in your project
 cd your-project
 claude
-/para-init
+/para-programming:para-init
 ```
 
 ### First Task
 
 ```bash
 # Start your first PARA task
-/para-plan "implement user authentication"
+/para-programming:para-plan "implement user authentication"
 
 # Review the plan (human approval step)
 
 # Execute the plan
-/para-execute
+/para-programming:para-execute
 
 # Work through to-dos...
 
 # Summarize when complete
-/para-summarize
+/para-programming:para-summarize
 ```
 
 ---
@@ -46,13 +46,13 @@ claude
 
 ### Slash Commands
 
-- `/para-init` - Initialize PARA structure in project
-- `/para-plan` - Create structured plan for task
-- `/para-execute` - Start execution with branch and to-dos
-- `/para-summarize` - Generate summary from completed work
-- `/para-archive` - Archive context and reset
-- `/para-status` - Show current workflow state
-- `/para-check` - Decision helper for workflow
+- `/para-programming:para-init` - Initialize PARA structure in project
+- `/para-programming:para-plan` - Create structured plan for task
+- `/para-programming:para-execute` - Start execution with branch and to-dos
+- `/para-programming:para-summarize` - Generate summary from completed work
+- `/para-programming:para-archive` - Archive context and reset
+- `/para-programming:para-status` - Show current workflow state
+- `/para-programming:para-check` - Decision helper for workflow
 
 ### Templates
 
@@ -79,7 +79,7 @@ claude
 ```
 (Plan) → (Review) → (Execute) → (Summarize) → (Archive)
    ↓         ↑          ↓              ↓            ↓
-/para-plan  Human   /para-execute  /para-summarize  /para-archive
+/para-programming:para-plan  Human   /para-programming:para-execute  /para-programming:para-summarize  /para-programming:para-archive
 ```
 
 ### When to Use
@@ -121,19 +121,19 @@ your-project/
 claude
 
 # 2. Initialize PARA (first time only)
-/para-init
+/para-programming:para-init
 
 # 3. Check current status
-/para-status
+/para-programming:para-status
 
 # 4. Create a plan
-/para-plan "add dark mode support"
+/para-programming:para-plan "add dark mode support"
 
 # [Claude creates context/plans/2025-12-22-add-dark-mode-support.md]
 # [Human reviews and approves]
 
 # 5. Start execution
-/para-execute
+/para-programming:para-execute
 
 # [Creates branch: para/add-dark-mode-support]
 # [Updates context.md with to-do list]
@@ -144,12 +144,12 @@ claude
 # [Mark items [x] in context.md]
 
 # 7. Generate summary
-/para-summarize
+/para-programming:para-summarize
 
 # [Claude analyzes git diff and creates summary]
 
 # 8. Archive and prepare for next task
-/para-archive
+/para-programming:para-archive
 ```
 
 ---

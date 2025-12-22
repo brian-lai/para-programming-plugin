@@ -1,0 +1,15 @@
+{
+  "name": "brian-lai",
+  "owner": {
+    "name": "Brian Lai",
+    "email": "hello@para-programming.dev"
+  },
+  "plugins": [
+    {
+      "name": "para-programming",
+      "source": "./",
+      "description": "PARA-Programming methodology for Claude Code - structured context, persistent memory, and intelligent execution",
+      "version": "1.0.0"
+    }
+  ]
+}
