@@ -48,7 +48,7 @@ if [ -L "$CLAUDE_DIR/CLAUDE.md" ]; then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         rm "$CLAUDE_DIR/CLAUDE.md"
-        ln -s "$SKILL_DIR/../CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+        ln -s "$SKILL_DIR/resources/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
         echo "   ✅ Symlink updated"
     else
         echo "   ⏭️  Skipped"
@@ -60,13 +60,13 @@ elif [ -f "$CLAUDE_DIR/CLAUDE.md" ]; then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         rm "$CLAUDE_DIR/CLAUDE.md"
-        ln -s "$SKILL_DIR/../CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+        ln -s "$SKILL_DIR/resources/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
         echo "   ✅ Symlink created"
     else
         echo "   ⏭️  Skipped"
     fi
 else
-    ln -s "$SKILL_DIR/../CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
+    ln -s "$SKILL_DIR/resources/CLAUDE.md" "$CLAUDE_DIR/CLAUDE.md"
     echo "   ✅ Symlink created"
 fi
 
@@ -74,13 +74,14 @@ fi
 echo ""
 echo "🔧 Installing slash commands..."
 COMMANDS=(
-    "para-init"
-    "para-plan"
-    "para-execute"
-    "para-summarize"
-    "para-archive"
-    "para-status"
-    "para-check"
+    "init"
+    "plan"
+    "execute"
+    "summarize"
+    "archive"
+    "status"
+    "check"
+    "help"
 )
 
 for cmd in "${COMMANDS[@]}"; do
@@ -100,10 +101,10 @@ echo "  ✨ Installation Complete!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "✅ Global CLAUDE.md is symlinked to:"
-echo "   $SKILL_DIR/../CLAUDE.md"
+echo "   $SKILL_DIR/resources/CLAUDE.md"
 echo ""
 echo "💡 To get methodology updates:"
-echo "   cd $(dirname "$SKILL_DIR")"
+echo "   cd $SKILL_DIR"
 echo "   git pull origin main"
 echo ""
 echo "📋 Next Steps:"
@@ -112,13 +113,13 @@ echo "1. Start Claude Code in your project:"
 echo "   $ cd your-project && claude"
 echo ""
 echo "2. Initialize PARA structure:"
-echo "   /para-init"
+echo "   /init"
 echo ""
 echo "3. Check available commands:"
 echo "   /help"
 echo ""
 echo "4. Start your first task:"
-echo "   /para-plan \"your task description\""
+echo "   /plan \"your task description\""
 echo ""
 echo "🎉 Happy PARA-Programming!"
 echo ""
