@@ -7,84 +7,101 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/black.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/highlight/monokai.css">
     <style>
-        /* Ensure slides fit within viewport */
-        .reveal .slides {
-            text-align: left;
+        .reveal h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 0.3em;
         }
-        .reveal .slides section {
-            text-align: left;
-            height: 100%;
-            display: flex !important;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 20px 40px !important;
-            box-sizing: border-box;
+        .reveal h2 {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 0.5em;
         }
-
-        /* Scrollable container for slide content */
-        .reveal .slides section > * {
-            flex-shrink: 0;
+        .reveal h3 {
+            font-size: 1.8em;
+            color: #42affa;
+            font-weight: 500;
         }
-
-        /* Enable scrolling if content overflows */
-        .reveal .slides section {
-            overflow-y: auto !important;
-            overflow-x: hidden !important;
+        .reveal p, .reveal li {
+            font-size: 1.3em;
+            line-height: 1.6;
         }
-
-        /* Smaller, tighter typography */
-        .reveal h1 { font-size: 2em; margin: 0 0 0.3em 0; line-height: 1.2; }
-        .reveal h2 { font-size: 1.4em; margin: 0 0 0.4em 0; line-height: 1.2; }
-        .reveal h3 { font-size: 1.1em; color: #42affa; margin: 0.5em 0 0.3em 0; line-height: 1.2; }
-        .reveal p { margin: 0.4em 0; font-size: 0.85em; line-height: 1.4; }
-        .reveal li { margin: 0.2em 0; font-size: 0.85em; line-height: 1.3; }
-        .reveal ul, .reveal ol { margin: 0.5em 0; }
-        .reveal pre { font-size: 0.45em; margin: 0.5em 0; }
-        .reveal code { color: #ff6b6b; font-size: 0.9em; }
-        .reveal table { font-size: 0.65em; margin: 0.5em 0; }
-        .reveal table th, .reveal table td { padding: 0.3em 0.5em; }
-        .reveal strong { color: #42affa; }
-        .reveal em { color: #ffd700; }
-        .reveal .slide-number { font-size: 0.5em; }
-
-        /* Compact spacing for special elements */
-        .checkmark { color: #4CAF50; }
-        .crossmark { color: #f44336; }
-        .warning { color: #ff9800; }
-        .metrics {
-            background: rgba(66, 175, 250, 0.1);
-            padding: 0.6em;
-            border-radius: 0.3em;
-            margin: 0.5em 0;
-            font-size: 0.85em;
-            line-height: 1.3;
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
         }
-        .diagram-placeholder {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1em;
+        .reveal li {
+            margin: 0.8em 0;
+            padding-left: 1.5em;
+            position: relative;
+        }
+        .reveal li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #42affa;
+            font-weight: bold;
+        }
+        .reveal strong {
+            color: #42affa;
+            font-weight: 600;
+        }
+        .reveal em {
+            color: #ffd700;
+            font-style: normal;
+        }
+        .reveal .highlight {
+            background: rgba(66, 175, 250, 0.2);
+            padding: 0.1em 0.3em;
+            border-radius: 0.2em;
+        }
+        .reveal .big-number {
+            font-size: 4em;
+            color: #4CAF50;
+            font-weight: 700;
+            display: block;
+            margin: 0.3em 0;
+        }
+        .reveal .workflow {
+            font-size: 1.8em;
+            font-family: monospace;
             text-align: center;
-            border: 2px dashed #42affa;
-            border-radius: 0.3em;
-            margin: 0.5em 0;
-            font-style: italic;
-            font-size: 0.75em;
+            margin: 1em 0;
+            padding: 1em;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5em;
         }
-
-        /* Hide scrollbar but keep functionality */
-        .reveal .slides section::-webkit-scrollbar {
-            width: 6px;
+        .reveal .arrow {
+            color: #42affa;
+            font-size: 1.5em;
         }
-        .reveal .slides section::-webkit-scrollbar-track {
+        .reveal code {
             background: rgba(255, 255, 255, 0.1);
+            padding: 0.2em 0.5em;
+            border-radius: 0.3em;
+            color: #ff6b6b;
         }
-        .reveal .slides section::-webkit-scrollbar-thumb {
-            background: rgba(66, 175, 250, 0.5);
-            border-radius: 3px;
+        .reveal .centered {
+            text-align: center;
         }
-        .reveal .slides section::-webkit-scrollbar-thumb:hover {
-            background: rgba(66, 175, 250, 0.8);
+        .reveal .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2em;
+            margin: 1em 0;
+        }
+        .reveal .problem {
+            color: #f44336;
+        }
+        .reveal .solution {
+            color: #4CAF50;
+        }
+        .reveal .subtitle {
+            font-size: 1.5em;
+            color: #888;
+            font-weight: 300;
+            margin-top: 0.5em;
         }
     </style>
 </head>
@@ -93,584 +110,212 @@
         <div class="slides">
 
             <!-- Slide 1: Title -->
-            <section>
+            <section class="centered">
                 <h1>PARA-Programming</h1>
-                <h3>Structured AI-Assisted Development</h3>
-                <p style="margin-top: 2em;">A methodology for professional software engineering with AI coding assistants</p>
+                <p class="subtitle">Structured AI-Assisted Development</p>
             </section>
 
-            <!-- Slide 2: What is PARA-Programming -->
+            <!-- Slide 2: The Problem -->
             <section>
-                <h2>What is PARA-Programming?</h2>
-                <p><strong>PARA-Programming</strong> combines three proven methodologies:</p>
-                <ul>
-                    <li><strong>PARA Method</strong> (Tiago Forte) - Organizational framework</li>
-                    <li><strong>Pair Programming</strong> - Collaborative development for human-AI teams</li>
-                    <li><strong>Persistent Context</strong> - Token-efficient memory across sessions</li>
+                <h2>The Problem</h2>
+                <p style="font-size: 1.5em; margin-bottom: 1em;">AI coding assistants are powerful, but...</p>
+                <ul style="font-size: 1.2em;">
+                    <li><span class="problem">No memory</span> across sessions</li>
+                    <li><span class="problem">No audit trail</span> of decisions</li>
+                    <li><span class="problem">Token costs</span> add up fast</li>
+                    <li><span class="problem">Work disappears</span> when you close the session</li>
                 </ul>
-                <p style="margin-top: 1em;"><strong>Goal:</strong> Make AI-assisted development <em>auditable, repeatable, structured, and efficient.</em></p>
-                <div class="diagram-placeholder">Diagram: Human + AI + Context Directory + Tools = Second Brain</div>
             </section>
 
-            <!-- Slide 3: The Problem -->
-            <section>
-                <h2>The Problem: Current State of AI-Assisted Development</h2>
-                <p>Working with agentic AI tools introduces challenges:</p>
-                <ol>
-                    <li><strong>Auditability</strong> - "What happened? When? Why?"</li>
-                    <li><strong>Replayability</strong> - "How do I continue where I left off?"</li>
-                    <li><strong>Structure</strong> - "Not all work is linear"</li>
-                    <li><strong>Context Window Limitations</strong> - "Token limits force trade-offs"</li>
-                </ol>
+            <!-- Slide 3: What if... -->
+            <section class="centered">
+                <h2>What if your AI assistant had...</h2>
+                <p style="font-size: 1.8em; margin: 1em 0;">
+                    <span class="solution">Persistent Memory</span><br>
+                    <span class="solution">Complete History</span><br>
+                    <span class="solution">Professional Workflow</span>
+                </p>
             </section>
 
-            <!-- Slide 4: Pain Point #1: Auditability -->
-            <section>
-                <h2>Pain Point #1: Auditability</h2>
-                <h3>The Problem: "What happened? When? Why?"</h3>
-                <ul>
-                    <li>No clear record of AI's reasoning</li>
-                    <li>Code commits lack decision context</li>
-                    <li>Difficult to review AI changes weeks later</li>
-                    <li>Compliance requirements can't be met</li>
-                </ul>
-                <div class="metrics">
-                    <strong>Real-World Scenario:</strong><br>
-                    <code>Developer: "Claude, why did we choose Redis over Memcached?"</code><br>
-                    <code>Claude: "I don't have context from previous sessions."</code><br><br>
-                    <strong>The session that made that decision is gone.</strong>
+            <!-- Slide 4: Introducing PARA -->
+            <section class="centered">
+                <h1>PARA-Programming</h1>
+                <p style="font-size: 1.6em; margin-top: 1em;">
+                    A <strong>structured methodology</strong> for<br>
+                    professional AI-assisted development
+                </p>
+            </section>
+
+            <!-- Slide 5: The Workflow -->
+            <section class="centered">
+                <h2>Five-Step Workflow</h2>
+                <div class="workflow">
+                    Plan <span class="arrow">→</span> Review <span class="arrow">→</span> Execute <span class="arrow">→</span> Summarize <span class="arrow">→</span> Archive
                 </div>
-                <div class="diagram-placeholder">Timeline: Session 1 → Session 2 → Session 3 (context lost)</div>
+                <p style="margin-top: 1.5em; font-size: 1.2em;">
+                    Every task follows the same process.<br>
+                    <span class="highlight">Consistent. Auditable. Repeatable.</span>
+                </p>
             </section>
 
-            <!-- Slide 5: Pain Point #2: Replayability -->
+            <!-- Slide 6: How It Works -->
             <section>
-                <h2>Pain Point #2: Replayability</h2>
-                <h3>The Problem: "How do I continue where I left off?"</h3>
-                <ul>
-                    <li>Sessions are isolated - closing loses all context</li>
-                    <li>New sessions start from zero</li>
-                    <li>Can't hand off work between team members</li>
-                    <li>Can't resume after interruptions</li>
-                </ul>
-                <div class="metrics">
-                    <strong>Real-World Scenario:</strong><br>
-                    <strong>Friday 5pm:</strong> Complete complex refactoring with Claude → Close laptop<br>
-                    <strong>Monday 9am:</strong> Open new session → "What were we working on?"<br>
-                    <code>"I don't have context from previous conversations."</code>
-                </div>
-                <div class="diagram-placeholder">Diagram: Sessions as isolated bubbles with no connections</div>
-            </section>
-
-            <!-- Slide 6: Pain Point #3: Structure -->
-            <section>
-                <h2>Pain Point #3: Structure</h2>
-                <h3>The Problem: "Not all work is linear"</h3>
-                <p>Software development often requires:</p>
-                <ul>
-                    <li><strong>Parallel work streams</strong> - Frontend & backend simultaneously</li>
-                    <li><strong>Dependency trees</strong> - DB schema → API → UI</li>
-                    <li><strong>Phased rollouts</strong> - Deploy incrementally</li>
-                    <li><strong>Independent reviews</strong> - Reviewable chunks</li>
-                </ul>
-                <div class="metrics">
-                    <strong>Linear AI:</strong> 15 files in one massive PR ❌<br>
-                    <strong>Phased approach:</strong> Phase 1 (2 files) → Phase 2 (4 files) → Phase 3 (3 files) ✅
-                </div>
-                <div class="diagram-placeholder">Comparison: Linear list vs. Tree structure with phases</div>
-            </section>
-
-            <!-- Slide 7: Pain Point #4: Context Window -->
-            <section>
-                <h2>Pain Point #4: Context Window</h2>
-                <h3>The Problem: "Token limits force trade-offs"</h3>
-                <p>Every AI model has a context window limit:</p>
-                <ul>
-                    <li>Claude 3.5 Sonnet: 200,000 tokens (~150,000 words)</li>
-                    <li>Larger context = Higher cost</li>
-                    <li>Larger context = Slower responses</li>
-                </ul>
-                <div class="metrics">
-                    <strong>Inefficient:</strong> 70,000 tokens (entire codebase + docs + history)<br>
-                    <strong>Efficient:</strong> 5,500 tokens (plan + relevant files + criteria)<br>
-                    <strong>Reduction:</strong> <span class="checkmark">91% fewer tokens</span>
-                </div>
-                <p><strong>Token efficiency = cost efficiency + faster responses</strong></p>
-                <div class="diagram-placeholder">Bar chart: Unstructured (70K) vs PARA (5.5K)</div>
-            </section>
-
-            <!-- Slide 8: The Solution -->
-            <section>
-                <h2>The Solution: PARA-Programming Methodology</h2>
-                <p><strong>Structured five-step workflow:</strong></p>
-                <pre><code>(Plan) → (Review) → (Execute) → (Summarize) → (Archive)
-   ↓         ↑          ↓            ↓            ↓
- Create   Human    Implement    Document      Store
-  Plan   Approve  + Commit      Results     History</code></pre>
-                <h3>The Five Steps</h3>
-                <ol>
-                    <li><strong>Plan</strong> - Create structured plan before coding</li>
-                    <li><strong>Review</strong> - Human validates approach</li>
-                    <li><strong>Execute</strong> - Implement with git branches and atomic commits</li>
-                    <li><strong>Summarize</strong> - Generate comprehensive summary from git history</li>
-                    <li><strong>Archive</strong> - Preserve context for future reference</li>
-                </ol>
-                <div class="diagram-placeholder">Circular workflow diagram: Plan → Review → Execute → Summarize → Archive</div>
-            </section>
-
-            <!-- Slide 9: Context Directory -->
-            <section>
-                <h2>The Context Directory: Persistent Memory</h2>
-                <pre><code>project/
-├── context/
-│   ├── context.md           # Active session state
-│   ├── plans/               # Pre-work planning docs
-│   │   └── 2026-01-05-add-auth.md
-│   ├── summaries/           # Post-work reports
-│   │   └── 2026-01-05-add-auth-summary.md
-│   ├── archives/            # Historical snapshots
-│   ├── data/                # Input files, datasets
-│   └── servers/             # MCP tool wrappers
-└── CLAUDE.md                # Project-specific context</code></pre>
-                <p><strong>Key insight:</strong> This directory is the persistent memory layer. Files survive session boundaries.</p>
-            </section>
-
-            <!-- Slide 10: Solves Auditability -->
-            <section>
-                <h2>How It Solves: Auditability ✓</h2>
-                <h3>Complete Decision Trail</h3>
-                <p>Every PARA session produces:</p>
-                <ol>
-                    <li><strong>Plan document</strong> - Objective, approach, risks</li>
-                    <li><strong>Git commits</strong> - One per completed todo, atomic changes</li>
-                    <li><strong>Summary document</strong> - What changed, why, key decisions</li>
-                </ol>
-                <div class="metrics">
-                    <strong>Example Audit Trail:</strong><br>
-                    <strong>Plan:</strong> "Add rate limiting using Redis"<br>
-                    <strong>Commits:</strong> "Add dependency" → "Create middleware" → "Apply to routes"<br>
-                    <strong>Summary:</strong> "Token bucket algorithm, 100 req/min limit"<br><br>
-                    <span class="checkmark">Six months later: Full context available</span>
-                </div>
-                <div class="diagram-placeholder">Flowchart: Plan → Commits → Summary</div>
-            </section>
-
-            <!-- Slide 11: Solves Replayability -->
-            <section>
-                <h2>How It Solves: Replayability ✓</h2>
-                <h3>Persistent Context Across Sessions</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
+                <h2>How It Works</h2>
+                <div class="grid" style="font-size: 1.1em;">
                     <div>
-                        <strong>Friday Session:</strong>
-                        <pre><code>Executing: Add Authentication
-
-To-Do List:
-- [x] Create user table
-- [x] Add User model
-- [ ] Create auth API
-- [ ] Add JWT tokens</code></pre>
+                        <h3>Before</h3>
+                        <p><strong>Plan:</strong> Document approach</p>
+                        <p><strong>Review:</strong> Human approval</p>
                     </div>
                     <div>
-                        <strong>Monday Session:</strong>
-                        <pre><code>cat context/context.md
-
-# Claude knows:
-- What you're working on
-- What's been completed
-- What's next
-- Which branch you're on</code></pre>
+                        <h3>After</h3>
+                        <p><strong>Summary:</strong> What changed & why</p>
+                        <p><strong>Archive:</strong> Preserve history</p>
                     </div>
                 </div>
-                <p><strong>Hand-off between developers:</strong> Developer A creates plan → Developer B executes → Developer C summarizes</p>
-                <div class="diagram-placeholder">Timeline: Friday → Weekend → Monday (context persists)</div>
+                <p style="margin-top: 1.5em; text-align: center; font-size: 1.3em;">
+                    <strong>Execute:</strong> Work in git branches, commit after every todo
+                </p>
             </section>
 
-            <!-- Slide 12: Solves Structure -->
-            <section>
-                <h2>How It Solves: Structure ✓</h2>
-                <h3>Phased Plans for Complex Work</h3>
-                <ul>
-                    <li><strong>Simple Plan:</strong> Single file, one branch, one PR (3-5 files)</li>
-                    <li><strong>Phased Plan:</strong> Master plan + phase sub-plans (>5-10 files)</li>
-                </ul>
-                <div class="metrics">
-                    <strong>Example: "Implement search with Elasticsearch"</strong><br>
-                    <strong>Phase 1:</strong> ES setup + config → PR #1 → Merge<br>
-                    <strong>Phase 2:</strong> Indexing + API → PR #2 → Merge<br>
-                    <strong>Phase 3:</strong> Frontend UI → PR #3 → Merge<br><br>
-                    Each phase: Independently testable, reviewable, deployable
-                </div>
-                <div class="diagram-placeholder">Tree: Master plan → 3 phases, each with branch & PR</div>
-            </section>
-
-            <!-- Slide 13: Solves Context Window -->
-            <section>
-                <h2>How It Solves: Context Window ✓</h2>
-                <h3>Token-Efficient Workflow</h3>
-                <ol>
-                    <li><strong>Plan-Scoped Context</strong> - Only load relevant files (2K-5K tokens)</li>
-                    <li><strong>Preprocessing with MCP</strong> - Filter/summarize large data outside LLM</li>
-                    <li><strong>Lazy Loading</strong> - Load files only when needed</li>
-                </ol>
-                <div class="metrics">
-                    <strong>Real Metrics: Authentication Feature</strong><br><br>
-                    <table>
-                        <tr><th>Approach</th><th>Tokens</th><th>Cost/Request</th></tr>
-                        <tr><td>Traditional</td><td>65,000</td><td>$0.35</td></tr>
-                        <tr><td>PARA</td><td>5,500</td><td>$0.03</td></tr>
-                        <tr><td><strong>Reduction</strong></td><td><strong>91%</strong></td><td><strong>$0.32 saved</strong></td></tr>
-                    </table>
-                    <br>
-                    <strong>Team of 10, annual impact:</strong> $1,500 vs $17,500 = <span class="checkmark">$16,000 saved/year</span>
+            <!-- Slide 7: Benefit - Auditability -->
+            <section class="centered">
+                <h2>Complete Audit Trail</h2>
+                <p style="font-size: 1.5em; margin: 1em 0;">
+                    Every decision documented.<br>
+                    Every change traceable.<br>
+                    <span class="highlight">Six months later, you know exactly why.</span>
+                </p>
+                <div style="margin-top: 2em; text-align: left; font-size: 1.1em;">
+                    <p><strong>Plan:</strong> "Why are we doing this?"</p>
+                    <p><strong>Commits:</strong> "What changed, step by step?"</p>
+                    <p><strong>Summary:</strong> "What did we learn?"</p>
                 </div>
             </section>
 
-            <!-- Slide 14: Theoretical Foundations -->
-            <section>
-                <h2>Theoretical Foundations: Why This Works</h2>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; font-size: 0.85em;">
-                    <div>
-                        <h3>1. PARA Method</h3>
-                        <p><em>(Tiago Forte)</em></p>
-                        <ul>
-                            <li><strong>P</strong>rojects (plans)</li>
-                            <li><strong>A</strong>reas (context)</li>
-                            <li><strong>R</strong>esources (data)</li>
-                            <li><strong>A</strong>rchives (history)</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>2. Pair Programming</h3>
-                        <p><em>(Kent Beck, XP)</em></p>
-                        <ul>
-                            <li>AI writes code (Driver)</li>
-                            <li>Human reviews (Navigator)</li>
-                            <li>+ Persistent memory</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>3. Second Brain</h3>
-                        <p><em>(Unified System)</em></p>
-                        <ul>
-                            <li>Human: Intent</li>
-                            <li>AI: Reasoning</li>
-                            <li>Context: Memory</li>
-                            <li>MCP: Execution</li>
-                        </ul>
-                    </div>
+            <!-- Slide 8: Benefit - Persistence -->
+            <section class="centered">
+                <h2>Persistent Context</h2>
+                <p style="font-size: 1.8em; margin: 1em 0;">
+                    <span class="solution">Resume work across sessions</span>
+                </p>
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    Friday 5pm: Close laptop<br>
+                    Monday 9am: Pick up <em>exactly</em> where you left off
+                </p>
+                <p style="font-size: 1.2em; margin-top: 2em;">
+                    Context lives in files, not just memory.
+                </p>
+            </section>
+
+            <!-- Slide 9: Benefit - Efficiency -->
+            <section class="centered">
+                <h2>Token Efficiency</h2>
+                <p class="big-number">91%</p>
+                <p style="font-size: 1.5em;">fewer tokens per request</p>
+                <div style="margin-top: 2em; font-size: 1.2em;">
+                    <p><span class="problem">Unstructured:</span> 65,000 tokens ($0.35)</p>
+                    <p><span class="solution">PARA:</span> 5,500 tokens ($0.03)</p>
+                    <p style="margin-top: 1em; font-size: 1.3em;">
+                        <strong>Team of 10:</strong> Save <span class="highlight">$16,000/year</span>
+                    </p>
                 </div>
-                <div class="diagram-placeholder">Venn diagram: PARA Method ∩ Pair Programming ∩ Second Brain</div>
             </section>
 
-            <!-- Slide 15: Supporting Evidence - Case Study -->
+            <!-- Slide 10: Simple Example -->
             <section>
-                <h2>Supporting Evidence: Real-World Results</h2>
-                <h3>Case Study: Global CLAUDE.md Setup</h3>
-                <table style="font-size: 0.75em;">
-                    <tr><th>Metric</th><th>Value</th></tr>
-                    <tr><td>Files changed</td><td>4 files</td></tr>
-                    <tr><td>Lines added</td><td>941 lines (methodology) + 93 lines (code)</td></tr>
-                    <tr><td>Commits</td><td>5 atomic commits</td></tr>
-                    <tr><td>Plan document</td><td>83 lines</td></tr>
-                    <tr><td>Summary document</td><td>122 lines</td></tr>
-                    <tr><td>Time to review</td><td>~10 minutes</td></tr>
-                    <tr><td>Token usage</td><td>~3,000 tokens/session</td></tr>
-                </table>
-                <p><strong>Key Outcomes:</strong></p>
-                <ul>
-                    <li class="checkmark">Every change traceable to specific commit</li>
-                    <li class="checkmark">Documented decisions (why copy vs symlink)</li>
-                    <li class="checkmark">Follow-up items identified</li>
-                </ul>
-                <div class="diagram-placeholder">Timeline: 5-commit history with summary</div>
-            </section>
+                <h2>Example: Add Authentication</h2>
+                <div style="font-size: 1.1em; line-height: 2;">
+                    <p><strong>1. Plan:</strong> <code>/para-program:plan "add authentication"</code></p>
+                    <p style="margin-left: 2em;">→ Creates structured plan document</p>
 
-            <!-- Slide 16: Supporting Evidence - Git Pattern -->
-            <section>
-                <h2>Supporting Evidence: Commit-Per-Todo Pattern</h2>
-                <h3>The Git Integration</h3>
-                <pre><code>## To-Do List
-- [x] Add rate-limit-redis dependency → git commit
-- [x] Create rate limiting middleware → git commit
-- [ ] Apply middleware to API routes</code></pre>
-                <h3>Benefits</h3>
-                <table style="font-size: 0.7em;">
-                    <tr><th>Benefit</th><th>Impact</th></tr>
-                    <tr><td>Atomic changes</td><td>Independently reviewable/revertible</td></tr>
-                    <tr><td>Clear history</td><td>git log shows exactly what was done</td></tr>
-                    <tr><td>Better reviews</td><td>Commit-by-commit approval</td></tr>
-                    <tr><td>Easier debugging</td><td>git bisect to find bug introduction</td></tr>
-                    <tr><td>AI summaries</td><td>Analyze commits to document work</td></tr>
-                </table>
-                <div class="diagram-placeholder">Screenshot: Clean git history</div>
-            </section>
+                    <p style="margin-top: 1em;"><strong>2. Review:</strong> Human validates approach</p>
 
-            <!-- Slide 17: Supporting Evidence - Token Usage -->
-            <section>
-                <h2>Supporting Evidence: Token Usage Comparison</h2>
-                <h3>Measured Data from Real Projects</h3>
-                <table style="font-size: 0.7em;">
-                    <tr><th>Approach</th><th>Context Loaded</th><th>Tokens</th><th>Cost</th></tr>
-                    <tr><td>Unstructured</td><td>Full codebase</td><td>65,000</td><td>$0.35/request</td></tr>
-                    <tr><td>PARA Plan-Scoped</td><td>Relevant files only</td><td>5,500</td><td>$0.03/request</td></tr>
-                    <tr style="color: #4CAF50;"><td><strong>Reduction</strong></td><td>91% less</td><td>-59,500</td><td>-$0.32/request</td></tr>
-                </table>
-                <div class="metrics">
-                    <strong>Annual Impact (Team of 10):</strong><br>
-                    10 devs × 20 requests/day × 250 days<br><br>
-                    Unstructured: <strong>$17,500/year</strong><br>
-                    PARA: <strong>$1,500/year</strong><br>
-                    <span class="checkmark"><strong>Savings: $16,000/year</strong></span>
+                    <p style="margin-top: 1em;"><strong>3. Execute:</strong> <code>/para-program:execute</code></p>
+                    <p style="margin-left: 2em;">→ Creates branch, tracks todos, commits incrementally</p>
+
+                    <p style="margin-top: 1em;"><strong>4. Summarize:</strong> <code>/para-program:summarize</code></p>
+                    <p style="margin-left: 2em;">→ Documents what changed and why</p>
                 </div>
-                <div class="diagram-placeholder">Bar chart: Cost comparison with savings highlighted</div>
             </section>
 
-            <!-- Slide 18: Implementation - Getting Started -->
+            <!-- Slide 11: The Context Directory -->
             <section>
-                <h2>Implementation: Getting Started</h2>
-                <h3>Installation (Claude Code)</h3>
-                <pre><code># Add the plugin marketplace
-/plugin marketplace add brian-lai/para-programming-plugin
+                <h2>Persistent Memory Layer</h2>
+                <pre style="font-size: 0.9em; text-align: left;"><code>context/
+  ├── plans/           # What you're planning to do
+  ├── summaries/       # What you did and why
+  ├── archives/        # Historical snapshots
+  └── context.md       # Active work state
+</code></pre>
+                <p style="font-size: 1.3em; margin-top: 1.5em;">
+                    Files survive session boundaries.<br>
+                    <span class="highlight">Your work persists.</span>
+                </p>
+            </section>
 
-# Install the plugin
+            <!-- Slide 12: Getting Started -->
+            <section>
+                <h2>Get Started in 5 Minutes</h2>
+                <pre style="font-size: 0.9em;"><code># Install the plugin
 /plugin install para-program@brian-lai/para-programming-plugin
 
 # Initialize in your project
-cd your-project
-claude
-/para-program:init</code></pre>
-                <h3>First Task</h3>
-                <pre><code>/para-program:plan "add user authentication"
-# Review the plan (human validation)
-/para-program:execute
-# Work through todos, commit after each
-/para-program:summarize
-/para-program:archive</code></pre>
-                <div class="diagram-placeholder">Step-by-step visual guide</div>
-            </section>
-
-            <!-- Slide 19: Implementation - Platform Support -->
-            <section>
-                <h2>Implementation: Platform Support</h2>
-                <h3>Supported AI Assistants</h3>
-                <table style="font-size: 0.75em;">
-                    <tr><th>Platform</th><th>Support Level</th><th>Implementation</th></tr>
-                    <tr><td>Claude Code</td><td class="checkmark">✅ Native</td><td>Official plugin with slash commands</td></tr>
-                    <tr><td>Cursor</td><td class="checkmark">✅ Supported</td><td>Rules file + templates</td></tr>
-                    <tr><td>GitHub Copilot</td><td class="checkmark">✅ Supported</td><td>Instructions file + templates</td></tr>
-                    <tr><td>Windsurf / Codex</td><td class="checkmark">✅ Supported</td><td>Agent instructions + preprocessing</td></tr>
-                    <tr><td>Other AI assistants</td><td class="warning">⚠️ Manual</td><td>Universal agent instructions</td></tr>
-                </table>
-                <p style="margin-top: 1em;"><strong>Universal Methodology:</strong> PARA-Programming is tool-agnostic. The methodology transfers across platforms.</p>
-                <div class="diagram-placeholder">Platform logos with checkmarks</div>
-            </section>
-
-            <!-- Slide 20: Key Benefits Summary -->
-            <section>
-                <h2>Key Benefits: Summary</h2>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; font-size: 0.75em;">
-                    <div>
-                        <h3>For Developers</h3>
-                        <ul>
-                            <li class="checkmark">Never lose context</li>
-                            <li class="checkmark">Clear audit trail</li>
-                            <li class="checkmark">Efficient tokens</li>
-                            <li class="checkmark">Better code reviews</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>For Teams</h3>
-                        <ul>
-                            <li class="checkmark">Standardized workflow</li>
-                            <li class="checkmark">Knowledge transfer</li>
-                            <li class="checkmark">Compliance-ready</li>
-                            <li class="checkmark">Scalable practices</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3>For Leaders</h3>
-                        <ul>
-                            <li class="checkmark">Cost control (91% ↓)</li>
-                            <li class="checkmark">Quality assurance</li>
-                            <li class="checkmark">Risk reduction</li>
-                            <li class="checkmark">Team productivity</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 21: Before and After -->
-            <section>
-                <h2>Comparison: Before and After</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em;">
-                    <div>
-                        <h3>Before PARA-Programming</h3>
-                        <ul style="font-size: 0.85em;">
-                            <li class="crossmark">Session isolated - no memory</li>
-                            <li class="crossmark">No audit trail</li>
-                            <li class="crossmark">Massive PRs</li>
-                            <li class="crossmark">High token costs</li>
-                            <li class="crossmark">Lost work</li>
-                            <li class="crossmark">Difficult handoffs</li>
-                        </ul>
-                        <p><strong>Ad-hoc AI usage</strong></p>
-                    </div>
-                    <div>
-                        <h3>After PARA-Programming</h3>
-                        <ul style="font-size: 0.85em;">
-                            <li class="checkmark">Persistent context</li>
-                            <li class="checkmark">Complete audit trail</li>
-                            <li class="checkmark">Phased PRs</li>
-                            <li class="checkmark">Low token costs</li>
-                            <li class="checkmark">Work preserved</li>
-                            <li class="checkmark">Easy handoffs</li>
-                        </ul>
-                        <p><strong>Professional development</strong></p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Slide 22: Decision Guide -->
-            <section>
-                <h2>Decision Guide: When to Use PARA</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2em; font-size: 0.85em;">
-                    <div>
-                        <h3 class="checkmark">✅ Always Use PARA For:</h3>
-                        <ul>
-                            <li>Code changes</li>
-                            <li>Architecture decisions</li>
-                            <li>File modifications</li>
-                            <li>Configuration changes</li>
-                            <li>Database changes</li>
-                            <li>Testing implementation</li>
-                        </ul>
-                        <p><strong>Rule:</strong> If git changes → PARA</p>
-                    </div>
-                    <div>
-                        <h3 class="crossmark">❌ Skip PARA For:</h3>
-                        <ul>
-                            <li>Informational queries</li>
-                            <li>Code navigation</li>
-                            <li>Explanation requests</li>
-                            <li>General questions</li>
-                            <li>Quick lookups</li>
-                        </ul>
-                        <p><strong>Rule:</strong> If read-only → skip</p>
-                    </div>
-                </div>
-                <div class="diagram-placeholder">Decision tree: Changes? → PARA : Direct Answer</div>
-            </section>
-
-            <!-- Slide 23: Next Steps -->
-            <section>
-                <h2>Next Steps: Adopting PARA-Programming</h2>
-                <h3>For Individual Developers (Week 1)</h3>
-                <ol style="font-size: 0.85em;">
-                    <li>Install PARA-Programming plugin</li>
-                    <li>Run <code>/para-program:init</code> in one project</li>
-                    <li>Try one simple task through full workflow</li>
-                    <li>Observe benefits (context persistence, git history)</li>
-                </ol>
-                <h3>For Engineering Teams</h3>
-                <table style="font-size: 0.7em;">
-                    <tr><th>Phase</th><th>Timeline</th><th>Actions</th></tr>
-                    <tr><td>Pilot</td><td>2-4 weeks</td><td>2-3 volunteers try PARA, weekly check-ins</td></tr>
-                    <tr><td>Expand</td><td>1-2 months</td><td>Roll out to team, track token savings</td></tr>
-                    <tr><td>Optimize</td><td>Ongoing</td><td>Refine patterns, build custom MCP tools</td></tr>
-                </table>
-                <div class="diagram-placeholder">Timeline: Adoption phases with milestones</div>
-            </section>
-
-            <!-- Slide 24: Conclusion -->
-            <section>
-                <h2>Conclusion: The Future of AI-Assisted Development</h2>
-                <h3>Where We Are</h3>
-                <p>AI coding assistants are powerful but <strong>unstructured</strong>: No memory, no audit trail, no systematic workflow.</p>
-                <h3>Where We're Going</h3>
-                <p><strong>Structured AI-assisted development:</strong> Persistent context, complete decision trail, professional methodology, token efficiency.</p>
-                <blockquote style="border-left: 4px solid #42affa; padding-left: 1em; font-style: italic; margin: 1em 0;">
-                    "Claude should think with the smallest possible context, not the largest."
-                </blockquote>
-                <p style="margin-top: 1em;"><strong>The question isn't whether to use AI for development.<br>The question is: How do we do it professionally?</strong></p>
-                <p style="margin-top: 1em; font-size: 1.5em; text-align: center;"><strong>PARA-Programming is the answer.</strong></p>
-            </section>
-
-            <!-- Slide 25: Thank You -->
-            <section>
-                <h1>Thank You</h1>
-                <h2>Questions?</h2>
-                <div style="margin-top: 2em; font-size: 0.85em;">
-                    <h3>Resources:</h3>
-                    <ul>
-                        <li>GitHub: <code>github.com/brian-lai/para-programming-plugin</code></li>
-                        <li>Installation Guide: 5-minute setup</li>
-                        <li>Documentation: Full methodology reference</li>
-                        <li>Examples: Real-world workflows</li>
-                    </ul>
-                    <h3 style="margin-top: 1em;">Get Started:</h3>
-                    <pre><code>/plugin install para-program@brian-lai/para-programming-plugin
 /para-program:init
-/para-program:help</code></pre>
-                    <p style="margin-top: 1em; text-align: center; font-size: 1.2em;"><strong>Build better software with structured AI collaboration!</strong></p>
-                </div>
+
+# Start your first task
+/para-program:plan "your task here"
+</code></pre>
+                <p style="font-size: 1.3em; margin-top: 1.5em;">
+                    Works with Claude Code, Cursor, Copilot, and more.
+                </p>
+            </section>
+
+            <!-- Slide 13: Why PARA Works -->
+            <section class="centered">
+                <h2>Why This Works</h2>
+                <p style="font-size: 1.8em; margin: 1em 0;">
+                    AI needs <strong>structure</strong>, not just prompts.
+                </p>
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    PARA combines proven methodologies:<br>
+                    <span class="highlight">PARA Method</span> + <span class="highlight">Pair Programming</span> + <span class="highlight">Second Brain</span>
+                </p>
+            </section>
+
+            <!-- Slide 14: Call to Action -->
+            <section class="centered">
+                <h1>Build Professional Software<br>with AI</h1>
+                <p style="font-size: 1.5em; margin: 1.5em 0;">
+                    <strong>github.com/brian-lai/para-programming-plugin</strong>
+                </p>
+                <p style="font-size: 1.2em; color: #888;">
+                    Questions?
+                </p>
             </section>
 
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/markdown/markdown.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/highlight/highlight.js"></script>
     <script>
         Reveal.initialize({
             hash: true,
             slideNumber: 'c/t',
             transition: 'slide',
             backgroundTransition: 'fade',
-            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
-
-            // Responsive sizing
             width: 1280,
             height: 720,
             margin: 0.1,
-
-            // Allow more aggressive scaling to fit content
-            minScale: 0.1,
+            minScale: 0.2,
             maxScale: 1.5,
-
-            // Center slides
-            center: false,
-
-            // Disable auto-slide
-            autoSlide: 0,
-
-            // Enable scroll on overflow
-            scrollActivationWidth: null,
-
-            // Responsive embed mode
-            embedded: false,
-
-            // Keyboard controls
+            center: true,
+            controlsLayout: 'bottom-right',
+            progress: true,
+            history: true,
             keyboard: true,
             overview: true,
-            touch: true,
-            loop: false,
-            rtl: false,
-            navigationMode: 'default',
-            shuffle: false,
-            fragments: true,
-            fragmentInURL: false,
-            help: true,
-            pause: true,
-            showNotes: false,
-            autoPlayMedia: null,
-            preloadIframes: null,
-            autoAnimate: true,
-            autoAnimateMatcher: null,
-            autoAnimateEasing: 'ease',
-            autoAnimateDuration: 1.0,
-            autoAnimateUnmatched: true
+            touch: true
         });
     </script>
 </body>
