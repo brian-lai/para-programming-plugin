@@ -109,7 +109,7 @@
         }
         .reveal .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr 1fr;
             gap: 2em;
             margin: 1em 0;
         }
@@ -237,7 +237,22 @@
                 </p>
             </section>
 
-            <!-- Slide 4: Introducing PARA -->
+            <!-- Slide 4: Second Brain Philosophy -->
+            <section>
+                <h2>Building a Second Brain</h2>
+                <p class="text-large my-1">
+                    "Your mind is for having ideas,<br>
+                    not holding them."
+                </p>
+                <p class="text-medium text-gray mb-2">— Tiago Forte</p>
+                <p class="text-large-medium lh-relaxed">
+                    A shared cognitive system between<br>
+                    human and AI—persistent, auditable,<br>
+                    and evolving with each project.
+                </p>
+            </section>
+
+            <!-- Slide 5: Introducing PARA -->
             <section>
                 <h1>PARA-Programming</h1>
                 <p class="text-xlarge mt-1">
@@ -246,7 +261,21 @@
                 </p>
             </section>
 
-            <!-- Slide 5: The Workflow -->
+            <!-- Slide 6: PARA Framework Mapping -->
+            <section>
+                <h2>The PARA Framework</h2>
+                <div class="text-medium lh-relaxed">
+                    <p><strong class="highlight">P</strong>rojects → <code>context/plans/</code></p>
+                    <p><strong class="highlight">A</strong>reas → <code>context/context.md</code></p>
+                    <p><strong class="highlight">R</strong>esources → <code>context/data/</code></p>
+                    <p><strong class="highlight">A</strong>rchives → <code>context/archives/</code></p>
+                </div>
+                <p class="text-large-medium mt-2">
+                    Each project gets a structured memory system
+                </p>
+            </section>
+
+            <!-- Slide 7: The Workflow -->
             <section>
                 <h2>Five-Step Workflow</h2>
                 <div class="workflow">
@@ -258,24 +287,42 @@
                 </p>
             </section>
 
-            <!-- Slide 6: How It Works -->
+            <!-- Slide 8: Pair-Programming Philosophy -->
+            <section>
+                <h2>Pair-Programming with AI</h2>
+                <p class="text-large my-1">
+                    Work with AI as a <strong>collaborative partner</strong>,<br>
+                    not just a code generator
+                </p>
+                <div class="text-medium lh-relaxed mt-2">
+                    <p>Plans ensure shared understanding</p>
+                    <p>Reviews maintain human oversight</p>
+                    <p>Summaries capture joint decisions</p>
+                </div>
+                <p class="text-large-medium mt-2">
+                    Roles may flip, but context stays synchronized
+                </p>
+            </section>
+
+            <!-- Slide 9: How It Works -->
             <section>
                 <h2>How It Works</h2>
                 <div class="grid text-medium">
+                    <div></div>
                     <div>
-                        <h3>Before</h3>
                         <p><strong>Plan:</strong> Document approach</p>
                         <p><strong>Review:</strong> Human approval</p>
-                    </div>
-                    <div>
-                        <h3>After</h3>
+
+                        <p >
+                            <strong>Execute:</strong> Work in git branches, commit after every todo
+                        </p>
+
                         <p><strong>Summary:</strong> What changed & why</p>
                         <p><strong>Archive:</strong> Preserve history</p>
                     </div>
+                    <div></div>
                 </div>
-                <p class="mt-2 text-large-medium">
-                    <strong>Execute:</strong> Work in git branches, commit after every todo
-                </p>
+
             </section>
 
             <!-- Slide 7: Benefit - Auditability -->
@@ -343,9 +390,11 @@
             <section>
                 <h2>Persistent Memory Layer</h2>
                 <pre class="text-left"><code>context/
+  ├── data/            # Datasets, inputs, API payloads
   ├── plans/           # What you're planning to do
   ├── summaries/       # What you did and why
   ├── archives/        # Historical snapshots
+  ├── servers/         # MCP tool wrappers
   └── context.md       # Active work state
 </code></pre>
                 <p class="text-large-medium mt-1-5">
@@ -354,7 +403,23 @@
                 </p>
             </section>
 
-            <!-- Slide 12: Getting Started -->
+            <!-- Slide 12: MCP Integration -->
+            <section>
+                <h2>MCP Integration Strategy</h2>
+                <p class="text-large mb-1">
+                    Model Context Protocol for efficient data access
+                </p>
+                <div class="text-medium lh-relaxed">
+                    <p><strong>Lazy Loading:</strong> Load only necessary tool definitions</p>
+                    <p><strong>Preprocessing:</strong> Filter large datasets in code before sending to model</p>
+                    <p><strong>Privacy:</strong> Keep sensitive data outside context when possible</p>
+                </div>
+                <p class="text-large-medium mt-2">
+                    <code>context/servers/</code> holds tool wrappers for on-demand access
+                </p>
+            </section>
+
+            <!-- Slide 13: Getting Started -->
             <section>
                 <h2>Get Started in 5 Minutes</h2>
                 <pre>
@@ -373,19 +438,39 @@
                 </p>
             </section>
 
-            <!-- Slide 13: Why PARA Works -->
+            <!-- Slide 14: Why This Works - Cognitive Parallel -->
             <section>
                 <h2>Why This Works</h2>
-                <p class="text-xlarge my-1">
-                    AI needs <strong>structure</strong>, not just prompts.
+                <p class="text-large my-1">
+                    Mirrors how humans and LLMs process information
                 </p>
-                <p class="text-large-medium lh-relaxed">
-                    PARA combines proven methodologies:<br>
-                    <span class="highlight">PARA Method</span> + <span class="highlight">Pair Programming</span> + <span class="highlight">Second Brain</span>
+                <div class="text-medium lh-relaxed">
+                    <p><strong>Prompt window</strong> = Working memory (short-term)</p>
+                    <p><strong>Context directory</strong> = Long-term memory</p>
+                    <p><strong>context.md</strong> = Prefrontal cortex (what to focus on)</p>
+                </div>
+                <p class="text-large-medium mt-2">
+                    Keep only relevant context active → more accurate reasoning
                 </p>
             </section>
 
-            <!-- Slide 14: Call to Action -->
+            <!-- Slide 15: Research Backing -->
+            <section>
+                <h2>Backed by Research</h2>
+                <p class="text-large mb-1">
+                    Anthropic's MCP research validates this approach
+                </p>
+                <div class="text-medium lh-relaxed">
+                    <p>LLMs perform best with <strong>minimal, purposeful context</strong></p>
+                    <p>Externalized computation lets models focus on reasoning</p>
+                    <p class="mt-1">
+                        <span class="highlight">Internal benchmarks: up to 98.7% token reduction</span><br>
+                        while improving accuracy and determinism
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 16: Call to Action -->
             <section>
                 <h1>Build Professional Software<br>with AI</h1>
                 <p class="text-large my-1-5">
