@@ -58,6 +58,13 @@ claude
 /para-program:init
 ```
 
+This command automatically:
+- **Creates `~/.claude/CLAUDE.md`** (if it doesn't exist) - the global workflow methodology file
+- Creates the `context/` directory structure in your project
+- Creates a project-level `CLAUDE.md` for project-specific context
+
+The global methodology file is only created once and shared across all your projects.
+
 ---
 
 ## Installation Scopes
@@ -87,6 +94,33 @@ Personal installation for current project only (stored in `.claude/settings.loca
 ```bash
 /plugin install para-program@brian-lai/para-programming-plugin --scope local
 ```
+
+---
+
+## Global Methodology File
+
+The plugin includes a **global workflow methodology file** that gets installed to `~/.claude/CLAUDE.md`:
+
+### What It Contains
+
+- **PARA Workflow**: The Plan → Review → Execute → Summarize → Archive loop
+- **When to Use PARA**: Guidelines for code changes vs. informational queries
+- **Git Integration**: Branch naming, commit practices, todo tracking
+- **Context Directory Structure**: How to organize `context/` directories
+- **MCP Integration Patterns**: Token efficiency strategies
+
+### How It's Installed
+
+| Method | When Global File Is Created |
+|--------|----------------------------|
+| Plugin + `/para-program:init` | Automatically on first init (if missing) |
+| Manual Installation | Via `cp resources/CLAUDE.md ~/.claude/CLAUDE.md` |
+
+### Important Notes
+
+- **Never overwrites**: If `~/.claude/CLAUDE.md` already exists, it is NOT modified
+- **Shared across projects**: One global file applies to all your projects
+- **Updates**: To get methodology updates, update the plugin and run `/para-program:init` in a project without an existing global file
 
 ---
 
@@ -145,7 +179,7 @@ cp commands/*.md ~/.claude/commands/
 
 ```bash
 # List installed commands
-ls ~/.claude/commands/para-*.md
+ls ~/.claude/commands/*.md
 
 # Start Claude Code and check
 claude
