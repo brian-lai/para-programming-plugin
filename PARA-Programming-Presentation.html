@@ -4,10 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PARA-Programming: Structured AI-Assisted Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reset.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/black.css">
     <style>
+        .reveal {
+            font-family: 'Roboto', sans-serif;
+        }
+        .reveal h1, .reveal h2, .reveal h3 {
+            font-family: 'Roboto', sans-serif;
+        }
         .reveal h1 {
             font-size: 3.5em;
             font-weight: 700;
@@ -15,17 +24,18 @@
         }
         .reveal h2 {
             font-size: 2.5em;
-            font-weight: 600;
+            font-weight: 500;
             margin-bottom: 0.5em;
         }
         .reveal h3 {
             font-size: 1.8em;
             color: #42affa;
-            font-weight: 500;
+            font-weight: 400;
         }
         .reveal p, .reveal li {
             font-size: 1.3em;
             line-height: 1.6;
+            font-weight: 300;
         }
         .reveal ul {
             list-style: none;
@@ -41,36 +51,37 @@
             position: absolute;
             left: 0;
             color: #42affa;
-            font-weight: bold;
+            font-weight: normal;
         }
         .reveal strong {
             color: #42affa;
-            font-weight: 600;
+            font-weight: 500;
         }
         .reveal em {
-            color: #ffd700;
+            color: #42affa;
             font-style: normal;
+            font-weight: 500;
         }
         .reveal .highlight {
-            background: rgba(66, 175, 250, 0.2);
-            padding: 0.1em 0.3em;
-            border-radius: 0.2em;
+            color: #42affa;
+            font-weight: 500;
         }
         .reveal .big-number {
             font-size: 4em;
-            color: #4CAF50;
+            color: #42affa;
             font-weight: 700;
             display: block;
             margin: 0.3em 0;
         }
         .reveal .workflow {
             font-size: 1.8em;
-            font-family: monospace;
+            font-family: 'Roboto', monospace;
             text-align: center;
             margin: 1em 0;
             padding: 1em;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 0.5em;
+            font-weight: 400;
         }
         .reveal .arrow {
             color: #42affa;
@@ -80,7 +91,11 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 0.2em 0.5em;
             border-radius: 0.3em;
-            color: #ff6b6b;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+        }
+        .reveal pre code {
+            font-family: 'Roboto Mono', monospace;
         }
         .reveal .centered {
             text-align: center;
@@ -90,12 +105,6 @@
             grid-template-columns: 1fr 1fr;
             gap: 2em;
             margin: 1em 0;
-        }
-        .reveal .problem {
-            color: #f44336;
-        }
-        .reveal .solution {
-            color: #4CAF50;
         }
         .reveal .subtitle {
             font-size: 1.5em;
@@ -120,10 +129,10 @@
                 <h2>The Problem</h2>
                 <p style="font-size: 1.5em; margin-bottom: 1em;">AI coding assistants are powerful, but...</p>
                 <ul style="font-size: 1.2em;">
-                    <li><span class="problem">No memory</span> across sessions</li>
-                    <li><span class="problem">No audit trail</span> of decisions</li>
-                    <li><span class="problem">Token costs</span> add up fast</li>
-                    <li><span class="problem">Work disappears</span> when you close the session</li>
+                    <li>No memory across sessions</li>
+                    <li>No audit trail of decisions</li>
+                    <li>Token costs add up fast</li>
+                    <li>Work disappears when you close the session</li>
                 </ul>
             </section>
 
@@ -131,9 +140,9 @@
             <section class="centered">
                 <h2>What if your AI assistant had...</h2>
                 <p style="font-size: 1.8em; margin: 1em 0;">
-                    <span class="solution">Persistent Memory</span><br>
-                    <span class="solution">Complete History</span><br>
-                    <span class="solution">Professional Workflow</span>
+                    <strong>Persistent Memory</strong><br>
+                    <strong>Complete History</strong><br>
+                    <strong>Professional Workflow</strong>
                 </p>
             </section>
 
@@ -179,14 +188,14 @@
             </section>
 
             <!-- Slide 7: Benefit - Auditability -->
-            <section class="centered">
+            <section>
                 <h2>Complete Audit Trail</h2>
                 <p style="font-size: 1.5em; margin: 1em 0;">
                     Every decision documented.<br>
                     Every change traceable.<br>
                     <span class="highlight">Six months later, you know exactly why.</span>
                 </p>
-                <div style="margin-top: 2em; text-align: left; font-size: 1.1em;">
+                <div style="margin-top: 2em; font-size: 1.1em;">
                     <p><strong>Plan:</strong> "Why are we doing this?"</p>
                     <p><strong>Commits:</strong> "What changed, step by step?"</p>
                     <p><strong>Summary:</strong> "What did we learn?"</p>
@@ -194,14 +203,14 @@
             </section>
 
             <!-- Slide 8: Benefit - Persistence -->
-            <section class="centered">
+            <section>
                 <h2>Persistent Context</h2>
                 <p style="font-size: 1.8em; margin: 1em 0;">
-                    <span class="solution">Resume work across sessions</span>
+                    <strong>Resume work across sessions</strong>
                 </p>
                 <p style="font-size: 1.3em; line-height: 1.8;">
                     Friday 5pm: Close laptop<br>
-                    Monday 9am: Pick up <em>exactly</em> where you left off
+                    Monday 9am: Pick up <strong>exactly</strong> where you left off
                 </p>
                 <p style="font-size: 1.2em; margin-top: 2em;">
                     Context lives in files, not just memory.
@@ -209,15 +218,15 @@
             </section>
 
             <!-- Slide 9: Benefit - Efficiency -->
-            <section class="centered">
+            <section>
                 <h2>Token Efficiency</h2>
-                <p class="big-number">91%</p>
+                <p class="big-number">10x</p>
                 <p style="font-size: 1.5em;">fewer tokens per request</p>
                 <div style="margin-top: 2em; font-size: 1.2em;">
-                    <p><span class="problem">Unstructured:</span> 65,000 tokens ($0.35)</p>
-                    <p><span class="solution">PARA:</span> 5,500 tokens ($0.03)</p>
+                    <p>Load only what you need</p>
+                    <p>Plan-scoped context vs. entire codebase</p>
                     <p style="margin-top: 1em; font-size: 1.3em;">
-                        <strong>Team of 10:</strong> Save <span class="highlight">$16,000/year</span>
+                        <strong>Result:</strong> Lower costs, faster responses
                     </p>
                 </div>
             </section>
@@ -225,16 +234,16 @@
             <!-- Slide 10: Simple Example -->
             <section>
                 <h2>Example: Add Authentication</h2>
-                <div style="font-size: 1.1em; line-height: 2;">
+                <div style="font-size: 0.95em; line-height: 1.6;">
                     <p><strong>1. Plan:</strong> <code>/para-program:plan "add authentication"</code></p>
                     <p style="margin-left: 2em;">→ Creates structured plan document</p>
 
-                    <p style="margin-top: 1em;"><strong>2. Review:</strong> Human validates approach</p>
+                    <p style="margin-top: 0.8em;"><strong>2. Review:</strong> Human validates approach</p>
 
-                    <p style="margin-top: 1em;"><strong>3. Execute:</strong> <code>/para-program:execute</code></p>
+                    <p style="margin-top: 0.8em;"><strong>3. Execute:</strong> <code>/para-program:execute</code></p>
                     <p style="margin-left: 2em;">→ Creates branch, tracks todos, commits incrementally</p>
 
-                    <p style="margin-top: 1em;"><strong>4. Summarize:</strong> <code>/para-program:summarize</code></p>
+                    <p style="margin-top: 0.8em;"><strong>4. Summarize:</strong> <code>/para-program:summarize</code></p>
                     <p style="margin-left: 2em;">→ Documents what changed and why</p>
                 </div>
             </section>
