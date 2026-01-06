@@ -17,26 +17,30 @@
         .reveal h1, .reveal h2, .reveal h3 {
             font-family: 'Roboto', sans-serif;
         }
+        .reveal .slides {
+            height: 50%;
+            width: 50%;
+        }
         .reveal .slides section {
             box-sizing: border-box;
         }
         .reveal h1 {
-            font-size: 3.5em;
+            font-size: 3vw;
             font-weight: 700;
             margin-bottom: 0.3em;
         }
         .reveal h2 {
-            font-size: 2.5em;
+            font-size: 2.2vw;
             font-weight: 500;
             margin-bottom: 0.5em;
         }
         .reveal h3 {
-            font-size: 1.8em;
+            font-size: 1.6vw;
             color: #42affa;
             font-weight: 400;
         }
         .reveal p, .reveal li {
-            font-size: 1.3em;
+            font-size: 1.2vw;
             line-height: 1.6;
             font-weight: 300;
         }
@@ -70,14 +74,14 @@
             font-weight: 500;
         }
         .reveal .big-number {
-            font-size: 4em;
+            font-size: 5vw;
             color: #42affa;
             font-weight: 700;
             display: block;
             margin: 0.3em 0;
         }
         .reveal .workflow {
-            font-size: 1.8em;
+            font-size: 1.8vw;
             font-family: 'Roboto', monospace;
             text-align: center;
             margin: 1em 0;
@@ -88,7 +92,7 @@
         }
         .reveal .arrow {
             color: #42affa;
-            font-size: 1.5em;
+            font-size: 2vw;
         }
         .reveal code {
             background: rgba(255, 255, 255, 0.1);
@@ -110,10 +114,16 @@
             margin: 1em 0;
         }
         .reveal .subtitle {
-            font-size: 1.5em;
+            font-size: 1.4vw;
             color: #888;
             font-weight: 300;
             margin-top: 0.5em;
+        }
+        .reveal code {
+            font-size: 1vw;
+        }
+        .reveal pre {
+            font-size: 0.9vw;
         }
     </style>
 </head>
@@ -316,18 +326,19 @@
             slideNumber: 'c/t',
             transition: 'slide',
             backgroundTransition: 'fade',
-            width: '60%',
-            height: '60%',
-            margin: 0.2,
-            minScale: 0.5,
-            maxScale: 1.0,
+            width: 960,
+            height: 700,
+            margin: 0.15,
+            minScale: 0.3,
+            maxScale: 2.0,
             center: true,
             controlsLayout: 'bottom-right',
             progress: true,
             history: true,
             keyboard: true,
             overview: true,
-            touch: true
+            touch: true,
+            respondToHashChanges: true
         });
     </script>
 </body>
