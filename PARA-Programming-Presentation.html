@@ -9,24 +9,83 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/black.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/highlight/monokai.css">
     <style>
-        .reveal h1 { font-size: 2.5em; }
-        .reveal h2 { font-size: 1.8em; margin-bottom: 0.5em; }
-        .reveal h3 { font-size: 1.4em; color: #42affa; }
-        .reveal li { margin: 0.3em 0; }
-        .reveal pre { font-size: 0.55em; }
-        .reveal code { color: #ff6b6b; }
-        .reveal table { font-size: 0.8em; }
-        .reveal .slides { text-align: left; }
-        .reveal .slides section { text-align: left; }
+        /* Ensure slides fit within viewport */
+        .reveal .slides {
+            text-align: left;
+        }
+        .reveal .slides section {
+            text-align: left;
+            height: 100%;
+            display: flex !important;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 20px 40px !important;
+            box-sizing: border-box;
+        }
+
+        /* Scrollable container for slide content */
+        .reveal .slides section > * {
+            flex-shrink: 0;
+        }
+
+        /* Enable scrolling if content overflows */
+        .reveal .slides section {
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        /* Smaller, tighter typography */
+        .reveal h1 { font-size: 2em; margin: 0 0 0.3em 0; line-height: 1.2; }
+        .reveal h2 { font-size: 1.4em; margin: 0 0 0.4em 0; line-height: 1.2; }
+        .reveal h3 { font-size: 1.1em; color: #42affa; margin: 0.5em 0 0.3em 0; line-height: 1.2; }
+        .reveal p { margin: 0.4em 0; font-size: 0.85em; line-height: 1.4; }
+        .reveal li { margin: 0.2em 0; font-size: 0.85em; line-height: 1.3; }
+        .reveal ul, .reveal ol { margin: 0.5em 0; }
+        .reveal pre { font-size: 0.45em; margin: 0.5em 0; }
+        .reveal code { color: #ff6b6b; font-size: 0.9em; }
+        .reveal table { font-size: 0.65em; margin: 0.5em 0; }
+        .reveal table th, .reveal table td { padding: 0.3em 0.5em; }
         .reveal strong { color: #42affa; }
         .reveal em { color: #ffd700; }
         .reveal .slide-number { font-size: 0.5em; }
+
+        /* Compact spacing for special elements */
         .checkmark { color: #4CAF50; }
         .crossmark { color: #f44336; }
         .warning { color: #ff9800; }
-        .metrics { background: rgba(66, 175, 250, 0.1); padding: 1em; border-radius: 0.5em; margin: 1em 0; }
-        .diagram-placeholder { background: rgba(255, 255, 255, 0.1); padding: 2em; text-align: center; border: 2px dashed #42affa; border-radius: 0.5em; margin: 1em 0; font-style: italic; }
-        .speaker-note { font-size: 0.7em; color: #888; font-style: italic; margin-top: 1em; padding: 0.5em; border-left: 3px solid #42affa; }
+        .metrics {
+            background: rgba(66, 175, 250, 0.1);
+            padding: 0.6em;
+            border-radius: 0.3em;
+            margin: 0.5em 0;
+            font-size: 0.85em;
+            line-height: 1.3;
+        }
+        .diagram-placeholder {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1em;
+            text-align: center;
+            border: 2px dashed #42affa;
+            border-radius: 0.3em;
+            margin: 0.5em 0;
+            font-style: italic;
+            font-size: 0.75em;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .reveal .slides section::-webkit-scrollbar {
+            width: 6px;
+        }
+        .reveal .slides section::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .reveal .slides section::-webkit-scrollbar-thumb {
+            background: rgba(66, 175, 250, 0.5);
+            border-radius: 3px;
+        }
+        .reveal .slides section::-webkit-scrollbar-thumb:hover {
+            background: rgba(66, 175, 250, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -570,11 +629,48 @@ claude
             transition: 'slide',
             backgroundTransition: 'fade',
             plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+
+            // Responsive sizing
             width: 1280,
             height: 720,
-            margin: 0.04,
-            minScale: 0.2,
-            maxScale: 2.0
+            margin: 0.1,
+
+            // Allow more aggressive scaling to fit content
+            minScale: 0.1,
+            maxScale: 1.5,
+
+            // Center slides
+            center: false,
+
+            // Disable auto-slide
+            autoSlide: 0,
+
+            // Enable scroll on overflow
+            scrollActivationWidth: null,
+
+            // Responsive embed mode
+            embedded: false,
+
+            // Keyboard controls
+            keyboard: true,
+            overview: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            fragmentInURL: false,
+            help: true,
+            pause: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoAnimate: true,
+            autoAnimateMatcher: null,
+            autoAnimateEasing: 'ease',
+            autoAnimateDuration: 1.0,
+            autoAnimateUnmatched: true
         });
     </script>
 </body>
