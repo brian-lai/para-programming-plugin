@@ -69,7 +69,10 @@ claude
 
 ### Resources
 
-- Global CLAUDE.md methodology file
+- **Global CLAUDE.md methodology file** - Installed to `~/.claude/CLAUDE.md` on first `/para-program:init`
+  - Defines the PARA workflow (Plan → Review → Execute → Summarize → Archive)
+  - Shared across all projects
+  - Only created if missing; existing files are never overwritten
 - Example workflows
 - Documentation
 
@@ -99,6 +102,15 @@ claude
 ---
 
 ## 📁 Directory Structure After Installation
+
+### Global (created once, shared across all projects)
+
+```
+~/.claude/
+└── CLAUDE.md                   # Global workflow methodology
+```
+
+### Per-Project (created by /para-program:init)
 
 ```
 your-project/
