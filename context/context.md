@@ -8,7 +8,7 @@ Executing: Add Global CLAUDE.md Setup to Plugin Installation
 ## To-Do List
 
 - [x] Create resources/ directory and copy CLAUDE.md from para-programming repo
-- [ ] Modify commands/init.md to include global CLAUDE.md setup step
+- [x] Modify commands/init.md to include global CLAUDE.md setup step
 - [ ] Fix scripts/install.sh path reference to resources/CLAUDE.md
 - [ ] Update README.md to document global file setup
 - [ ] Update INSTALL.md with global setup instructions

@@ -4,20 +4,24 @@ Initialize PARA-Programming structure in the current project.
 
 ## What This Does
 
-This command sets up the complete PARA-Programming directory structure and files:
+This command sets up the complete PARA-Programming environment:
 
-1. Creates `context/` directory with subdirectories:
+1. **Sets up global methodology file** at `~/.claude/CLAUDE.md` (if it doesn't exist)
+   - This file defines the PARA workflow methodology
+   - Only created if missing; existing files are never overwritten
+
+2. Creates `context/` directory with subdirectories:
    - `context/data/` - Input files, payloads, datasets
    - `context/plans/` - Pre-work planning documents
    - `context/summaries/` - Post-work reports
    - `context/archives/` - Historical context snapshots
    - `context/servers/` - MCP tool wrappers
 
-2. Creates `context/context.md` with initial structure
+3. Creates `context/context.md` with initial structure
 
-3. Creates project `CLAUDE.md` (if it doesn't exist) with reference to global methodology
+4. Creates project `CLAUDE.md` (if it doesn't exist) with reference to global methodology
 
-4. Displays next steps for getting started
+5. Displays next steps for getting started
 
 ## Usage
 
@@ -41,6 +45,27 @@ You'll have a complete PARA-Programming setup ready for your first task. Start b
 3. Following the PARA workflow: Plan → Review → Execute → Summarize → Archive
 
 ## Implementation
+
+### Step 0: Set Up Global Methodology File
+
+First, ensure the global PARA methodology file exists at `~/.claude/CLAUDE.md`:
+
+```bash
+# Create ~/.claude directory if it doesn't exist
+mkdir -p ~/.claude
+
+# Copy global CLAUDE.md if it doesn't exist (never overwrite)
+if [ ! -f ~/.claude/CLAUDE.md ]; then
+    cp resources/CLAUDE.md ~/.claude/CLAUDE.md
+    echo "Created global methodology file at ~/.claude/CLAUDE.md"
+else
+    echo "Global methodology file already exists (skipped)"
+fi
+```
+
+**Important:** The global file is copied from the plugin's `resources/CLAUDE.md`. This file defines the PARA workflow methodology and is shared across all projects.
+
+### Step 1: Create Project Directory Structure
 
 Create the following directory structure:
 
@@ -92,8 +117,9 @@ context/
 
 ### Files Created/Updated
 
+- **`~/.claude/CLAUDE.md`** - Global workflow methodology (if it didn't exist)
 - **`context/context.md`** - Fresh context file ready for first task
-- **`CLAUDE.md`** - Project-specific methodology (if it didn't exist)
+- **`CLAUDE.md`** - Project-specific context (if it didn't exist)
 
 ---
 
