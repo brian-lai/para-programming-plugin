@@ -9,7 +9,7 @@ Executing: Smart Context Loading with Relevant File Tracking
 
 ### Phase 1: Extend Context Structure
 - [x] Update resources/CLAUDE.md to document new active_context format with repos/files/plans/data
-- [ ] Add "Relevant Files" section to templates/plan-template.md
+- [x] Add "Relevant Files" section to templates/plan-template.md
 - [ ] Update commands/plan.md to explain how to populate relevant files
 
 ### Phase 2: Smart Detection Logic

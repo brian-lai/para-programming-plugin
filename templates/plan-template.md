@@ -1,5 +1,6 @@
 # Plan: {TASK_NAME}
 
+**Plan Key:** {PLAN_KEY}
 **Date:** {DATE}
 **Status:** In Review
 
@@ -36,6 +37,23 @@
 [Preprocessing tools to be used]
 
 - `context/servers/{tool}.ts` - [Purpose]
+
+## Relevant Files
+
+This section tracks all relevant source files for smart context loading. These files will be automatically injected into Claude's context when working on this plan.
+
+### Repositories
+- `{repo-name}` - [Brief description of the repo]
+
+### Files to Track
+- `{repo-name}/path/to/file1` - [Why this file is relevant]
+- `{repo-name}/path/to/file2` - [Why this file is relevant]
+- `{repo-name}/path/to/file3` - [Why this file is relevant]
+
+### Rationale
+[Explain why these specific files are needed for this work. This helps maintain focus and avoid context bloat.]
+
+**Note:** Files tracked here will be added to `active_context.{PLAN_KEY}.files` in `context/context.md` for automatic context injection.
 
 ## Success Criteria
 
