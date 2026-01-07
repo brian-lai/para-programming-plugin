@@ -129,36 +129,95 @@ project-root/
 
 This file tracks active work. It contains:
 
-1. **Human-readable summary** of current focus.
-2. **JSON block** tracking active plans, data files, and tool wrappers.
+1. **Human-readable summaries** organized by plan key.
+2. **JSON block** tracking active plans, data files, tool wrappers, and relevant source files, all grouped by plan key.
 
-Example:
+### Plan Keys
+
+Each piece of work must have a **plan key** - a unique identifier that:
+- Must NOT contain spaces (use hyphens `-` or underscores `_`)
+- Groups related files and context together
+- Supports concurrent work streams in the same repository
+- Examples: `PLAN-123`, `add_user_auth`, `fix-memory-leak`
+
+### Enhanced Context Structure
+
+Each plan key in `active_context` contains:
+
+| Field | Description |
+|-------|-------------|
+| `repos` | Array of repository names (for multi-repo work) |
+| `files` | Array of relevant source files with `repo-name/path` format |
+| `plans` | Array of plan files for this work |
+| `data` | Array of data files, payloads, or artifacts |
+
+### Example with Multiple Concurrent Work Streams:
 
 ````markdown
 # Current Work Summary
+
+## PLAN-123
 Enhancing payroll API with token-efficient MCP integration.
+
+## add_user_authentication
+Adding JWT-based authentication to all API endpoints.
 
 ---
 ```json
 {
-  "active_context": [
-    "context/plans/2025-11-08-payroll-api-mcp.md",
-    "context/data/2025-11-08-payload-example.json",
-    "context/servers/github/fetchRepo.ts"
-  ],
+  "active_context": {
+    "PLAN-123": {
+      "repos": ["payroll-service"],
+      "files": [
+        "payroll-service/src/api/payroll.ts",
+        "payroll-service/src/services/calculator.ts",
+        "payroll-service/tests/payroll.test.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-08-PLAN-123-payroll-api-mcp.md"
+      ],
+      "data": [
+        "context/data/2025-11-08-PLAN-123-payload-example.json"
+      ]
+    },
+    "add_user_authentication": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts",
+        "api-gateway/tests/auth.test.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-08-add_user_authentication-jwt-auth.md"
+      ],
+      "data": [
+        "context/data/2025-11-08-add_user_authentication-jwt-config.json"
+      ]
+    }
+  },
   "completed_summaries": [
-    "context/summaries/2025-11-08-payroll-mcp-summary.md"
+    "context/summaries/2025-11-08-PLAN-123-payroll-mcp-summary.md"
   ],
   "last_updated": "2025-11-08T15:20:00Z"
 }
+```
 ````
 
-````
+### Workflow:
 
-After completion:
+**Starting new work:**
+1. Create plan with unique plan key: `/para-plan PLAN-123 task-description`
+2. Files created use format: `YYYY-MM-DD-{plan-key}-{description}.md`
+3. Context grouped under plan key in `active_context`
+4. Relevant source files tracked in `files` array for smart context injection
+
+**After completing a plan key:**
 ```bash
+# Archive only the completed plan key's context
+# Keep other active plan keys in context/context.md
+# Only archive when ALL plan keys are complete
 mv context/context.md context/archives/$(date +%F)-context.md
-````
+```
 
 ---
 
