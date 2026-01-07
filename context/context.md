@@ -14,8 +14,8 @@ Executing: Smart Context Loading with Relevant File Tracking
 
 ### Phase 2: Smart Detection Logic
 - [x] Create commands/focus.md documenting /para-focus command
-- [ ] Document detection priority in resources/CLAUDE.md
-- [ ] Document context injection points
+- [x] Document detection priority in resources/CLAUDE.md
+- [x] Document context injection points
 
 ### Phase 3: Plugin Context Management
 - [ ] Design MCP tool interface for para_get_active_context()
@@ -23,13 +23,13 @@ Executing: Smart Context Loading with Relevant File Tracking
 - [ ] Design MCP tool interface for para_inject_context()
 - [ ] Design MCP tool interface for para_update_context()
 - [ ] Document auto-expansion feature for imports
-- [ ] Document token budgeting strategy
-- [ ] Document prioritization rules
+- [x] Document token budgeting strategy
+- [x] Document prioritization rules
 - [ ] Document incremental loading approach
 
 ### Phase 4: Multi-Repo Resolution
-- [ ] Document repo detection strategy in resources/CLAUDE.md
-- [ ] Document path resolution rules with examples
+- [x] Document repo detection strategy in resources/CLAUDE.md
+- [x] Document path resolution rules with examples
 - [ ] Document error handling for missing repos/files
 - [ ] Add multi-repo examples to quickstart guide
 

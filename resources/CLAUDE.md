@@ -221,6 +221,138 @@ mv context/context.md context/archives/$(date +%F)-context.md
 
 ---
 
+## 🎯 Smart Context Loading
+
+The PARA plugin automatically detects which plan key is active and loads only the relevant files into Claude's context, dramatically reducing token usage and improving response quality.
+
+### Plan Key Detection Priority
+
+The plugin detects the active plan key in this order:
+
+1. **Explicit `/para-focus <plan-key>` command** (highest priority)
+   - User manually specifies which plan to focus on
+   - Immediately loads that plan's context
+   - Persists until changed
+
+2. **Git branch name parsing**
+   - Branch names like `para/AUTH-123-add-auth` → detects `AUTH-123`
+   - Branch names like `feature/fix_memory_leak-impl` → detects `fix_memory_leak`
+   - Automatic when `/para-execute` creates branch
+
+3. **Recent conversation mentions**
+   - Scans last N messages for plan key references
+   - Detects when user says "working on PLAN-456"
+   - Updates focus based on conversation context
+
+4. **Last updated plan key in `context/context.md`**
+   - Uses `last_updated` timestamp for each plan key
+   - Falls back to most recently modified plan
+
+5. **Prompt user to select**
+   - If multiple active plans and no clear signal
+   - Shows list of available plan keys
+   - User selects which one to focus on
+
+### Context Injection Points
+
+The plugin injects relevant context at these points:
+
+| Trigger | What Happens |
+|---------|--------------|
+| **Before every command** | Plugin checks current plan key focus and ensures relevant files are loaded |
+| **On `/para-focus <plan-key>`** | Immediately loads all files from `active_context.{plan-key}.files` |
+| **On `/para-execute`** | Loads context for the plan being executed (from branch name or active plan) |
+| **On plan key change** | Unloads previous context, loads new context |
+| **On `/para-sync <plan-key>`** | Reloads files after updating the tracked file list |
+| **On `/para-load`** | Explicitly loads additional files beyond tracked ones |
+
+### What Gets Loaded
+
+For plan key `PLAN-123`, the plugin loads:
+
+```json
+{
+  "repos": ["api-gateway", "user-service"],
+  "files": [
+    "api-gateway/src/middleware/auth.ts",
+    "api-gateway/src/middleware/jwt.ts",
+    "user-service/src/models/user.ts",
+    "api-gateway/tests/auth.test.ts"
+  ],
+  "plans": [
+    "context/plans/2026-01-07-PLAN-123-add-auth.md"
+  ],
+  "data": [
+    "context/data/2026-01-07-PLAN-123-test-users.json"
+  ]
+}
+```
+
+**Result:** Claude receives ~5-15 focused files instead of entire codebases, reducing token usage by 50-80%.
+
+### Token Budget Management
+
+**Default limits:**
+- Maximum context files: 50,000 tokens
+- Configurable per-plan or globally
+
+**When budget is exceeded:**
+1. **Calculate total tokens** for all tracked files
+2. **Prioritize files:**
+   - Plan files (highest priority)
+   - Recently modified source files
+   - Data files
+   - Older/larger files (deprioritized)
+3. **Load files in priority order** until budget reached
+4. **Skip remaining files** with warning
+5. **User can manually adjust** with `/para-sync` or `/para-focus --reload`
+
+**Example prioritization:**
+```
+Total tracked: 65,234 tokens (exceeds 50,000 limit)
+
+✅ Loaded (49,876 tokens):
+- Plan file (2,145 tokens)
+- Recently modified: auth.ts (3,890 tokens)
+- Recently modified: user.ts (1,234 tokens)
+- Test files (8,456 tokens)
+- ... (8 more files)
+
+⏭️ Skipped (15,358 tokens):
+- Rarely referenced: old-helper.ts (3,456 tokens)
+- Large file: legacy-code.ts (11,902 tokens)
+```
+
+### Multi-Repo Path Resolution
+
+When Claude Code runs from a parent directory containing multiple repositories:
+
+**Detection:**
+```bash
+/Users/user/dev/my-project/
+├── api-gateway/         # Git repo
+├── user-service/        # Git repo
+├── shared-lib/          # Git repo
+└── context/             # PARA context directory
+```
+
+**Resolution:**
+```
+Plan specifies:  api-gateway/src/middleware/auth.ts
+Plugin resolves: /Users/user/dev/my-project/api-gateway/src/middleware/auth.ts
+
+Plan specifies:  user-service/src/models/user.ts
+Plugin resolves: /Users/user/dev/my-project/user-service/src/models/user.ts
+```
+
+**Benefits:**
+- Work across multiple repos seamlessly
+- Clear file references with `repo-name/` prefix
+- Automatic path resolution
+- Supports microservices and mono-repo structures
+
+---
+
 ## 🔁 Workflow Loop
 
 ```
