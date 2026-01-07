@@ -18,18 +18,33 @@ This command helps you create a structured plan before executing work:
 ## Usage
 
 ```
-/plan [task-description]
+/plan [plan-key] [task-description]
 ```
+
+### Plan Key Format
+
+The **plan key** is a unique identifier for grouping related work. It:
+- Must NOT contain spaces (use hyphens `-` or underscores `_`)
+- Should be concise and descriptive
+- Can use formats like:
+  - `PLAN-123` (ticket-style)
+  - `add_user_auth` (snake_case)
+  - `fix-memory-leak` (kebab-case)
+
+The plan key is used to:
+- Group related files in `active_context`
+- Support concurrent work streams in the same repository
+- Organize work summaries by plan
 
 ### Examples
 
 ```
-/plan add-user-authentication
-/plan fix-memory-leak
-/plan refactor-api-layer
+/plan PLAN-123 add-user-authentication
+/plan fix_memory_leak investigate and fix memory leak in websocket handler
+/plan api-refactor refactor-api-layer
 ```
 
-If no task description is provided, Claude will ask for it.
+If no plan key or task description is provided, Claude will ask for them.
 
 ## When to Use Phased Plans
 
@@ -151,58 +166,74 @@ When `/plan` is invoked, Claude should:
 
 ### Simple Plan Creation
 
-1. Get current date in `YYYY-MM-DD` format
-2. Sanitize task description for filename (lowercase, hyphens)
-3. Create plan file: `context/plans/YYYY-MM-DD-{task-name}.md`
-4. Populate with template from `templates/plan-template.md`
-5. Update `context/context.md`:
-   - Add plan to `active_context` array
+1. Prompt for **plan key** if not provided (validate no spaces)
+2. Get current date in `YYYY-MM-DD` format
+3. Sanitize task description for filename (lowercase, hyphens)
+4. Create plan file: `context/plans/YYYY-MM-DD-{plan-key}-{task-name}.md`
+5. Populate with template from `templates/plan-template.md`
+   - Include plan key in metadata section
+6. Update `context/context.md`:
+   - Add plan to `active_context` object under the plan key
+   - Add human-readable summary under the plan key section
    - Update `last_updated` timestamp
-6. Display plan location and request review
+7. Display plan location and request review
 
 ### Phased Plan Creation
 
-1. Get current date in `YYYY-MM-DD` format
-2. Sanitize task description for filename (lowercase, hyphens)
-3. Create master plan: `context/plans/YYYY-MM-DD-{task-name}.md`
+1. Prompt for **plan key** if not provided (validate no spaces)
+2. Get current date in `YYYY-MM-DD` format
+3. Sanitize task description for filename (lowercase, hyphens)
+4. Create master plan: `context/plans/YYYY-MM-DD-{plan-key}-{task-name}.md`
    - Populate with template from `templates/phased-plan-master-template.md`
-4. Create sub-plans for each phase:
-   - `context/plans/YYYY-MM-DD-{task-name}-phase-1.md`
-   - `context/plans/YYYY-MM-DD-{task-name}-phase-2.md`
+   - Include plan key in metadata section
+5. Create sub-plans for each phase:
+   - `context/plans/YYYY-MM-DD-{plan-key}-{task-name}-phase-1.md`
+   - `context/plans/YYYY-MM-DD-{plan-key}-{task-name}-phase-2.md`
    - etc.
    - Populate with template from `templates/phased-plan-sub-template.md`
-5. Update `context/context.md`:
-   - Add master plan to `active_context` array
-   - Add all sub-plans to `active_context` array
-   - Add `phased_execution` metadata:
+   - Include plan key in metadata section
+6. Update `context/context.md`:
+   - Add master plan to `active_context` object under the plan key
+   - Add all sub-plans to `active_context` object under the plan key
+   - Add human-readable summary under the plan key section
+   - Add `phased_execution` metadata under the plan key:
      ```json
      {
+       "active_context": {
+         "PLAN-123": [
+           "context/plans/YYYY-MM-DD-PLAN-123-{task-name}.md",
+           "context/plans/YYYY-MM-DD-PLAN-123-{task-name}-phase-1.md",
+           "context/plans/YYYY-MM-DD-PLAN-123-{task-name}-phase-2.md"
+         ]
+       },
        "phased_execution": {
-         "master_plan": "context/plans/YYYY-MM-DD-{task-name}.md",
-         "phases": [
-           {
-             "phase": 1,
-             "plan": "context/plans/YYYY-MM-DD-{task-name}-phase-1.md",
-             "status": "pending"
-           },
-           {
-             "phase": 2,
-             "plan": "context/plans/YYYY-MM-DD-{task-name}-phase-2.md",
-             "status": "pending"
-           }
-         ],
-         "current_phase": null
+         "PLAN-123": {
+           "master_plan": "context/plans/YYYY-MM-DD-PLAN-123-{task-name}.md",
+           "phases": [
+             {
+               "phase": 1,
+               "plan": "context/plans/YYYY-MM-DD-PLAN-123-{task-name}-phase-1.md",
+               "status": "pending"
+             },
+             {
+               "phase": 2,
+               "plan": "context/plans/YYYY-MM-DD-PLAN-123-{task-name}-phase-2.md",
+               "status": "pending"
+             }
+           ],
+           "current_phase": null
+         }
        }
      }
      ```
-6. Display all plan locations and request review
+7. Display all plan locations and request review
 
 ## Examples
 
 ### Example: Simple Plan
 
 ```
-User: /plan add-logging-middleware
+User: /plan FEAT-456 add-logging-middleware
 
 Claude analyzes:
 - Will touch 2-3 files
@@ -210,13 +241,22 @@ Claude analyzes:
 - No dependencies
 - Straightforward implementation
 
-Creates: context/plans/2025-12-18-add-logging-middleware.md
+Creates: context/plans/2025-12-18-FEAT-456-add-logging-middleware.md
+
+Updates context/context.md with:
+{
+  "active_context": {
+    "FEAT-456": [
+      "context/plans/2025-12-18-FEAT-456-add-logging-middleware.md"
+    ]
+  }
+}
 ```
 
 ### Example: Phased Plan
 
 ```
-User: /plan implement-user-authentication
+User: /plan AUTH-123 implement-user-authentication
 
 Claude analyzes:
 - Will touch 10+ files across multiple layers
@@ -230,10 +270,22 @@ with 3 phases for easier review and incremental merging?"
 User: Yes
 
 Creates:
-- context/plans/2025-12-18-implement-user-authentication.md (master)
-- context/plans/2025-12-18-implement-user-authentication-phase-1.md (DB migration)
-- context/plans/2025-12-18-implement-user-authentication-phase-2.md (API layer)
-- context/plans/2025-12-18-implement-user-authentication-phase-3.md (Frontend)
+- context/plans/2025-12-18-AUTH-123-implement-user-authentication.md (master)
+- context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-1.md (DB migration)
+- context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-2.md (API layer)
+- context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-3.md (Frontend)
+
+Updates context/context.md with:
+{
+  "active_context": {
+    "AUTH-123": [
+      "context/plans/2025-12-18-AUTH-123-implement-user-authentication.md",
+      "context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-1.md",
+      "context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-2.md",
+      "context/plans/2025-12-18-AUTH-123-implement-user-authentication-phase-3.md"
+    ]
+  }
+}
 ```
 
 ## Phasing Strategy Examples

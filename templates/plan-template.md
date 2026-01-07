@@ -1,5 +1,6 @@
 # Plan: {TASK_NAME}
 
+**Plan Key:** {PLAN_KEY}
 **Date:** {DATE}
 **Status:** In Review
 
