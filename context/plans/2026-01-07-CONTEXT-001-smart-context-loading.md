@@ -1,260 +1,236 @@
-# Plan: Smart Context Loading with Relevant File Tracking
+# Plan: Pragmatic Context Management with Helper Scripts
 
 **Plan Key:** CONTEXT-001
 **Date:** 2026-01-07
-**Status:** In Review
+**Status:** In Review - REVISED
+
+---
+
+## 🔄 Plan Revision Note
+
+**Original approach:** Document speculative "smart detection" and "auto-injection" features for a plugin that doesn't exist yet.
+
+**Revised approach:** Build simple, testable bash scripts that help users manage relevant files for each plan key, working within Claude Code's existing capabilities.
+
+**Why the pivot:**
+- Claude Code already has access to all files - the issue is knowing *which* files to read
+- We can't "inject" files into Claude's context from outside
+- Documentation became 1,132 lines with speculative features
+- Need deterministic, testable tools, not aspirational documentation
 
 ---
 
 ## Objective
 
-Enhance the PARA workflow to track and auto-load only relevant files for each plan key, reducing token usage and improving Claude's effectiveness through focused context. Support multi-repo work scenarios where a Claude Code session spans multiple repositories.
+Create practical helper scripts that:
+1. Parse `context.md` to find files for a given plan key
+2. Validate those files exist
+3. Help Claude load the right files efficiently
+4. Support multi-repo scenarios with clear path conventions
 
 ## Approach
 
-### 1. Hybrid Storage Model
-Store relevant file paths in **both** locations:
-- **Plan files** declare what files they need (source of truth at creation)
-- **context.md** aggregates and maintains the current state (runtime source of truth)
-
-This provides:
-- **Traceability**: Plan files document original intent
-- **Flexibility**: context.md can be updated as work evolves
-- **Low entropy**: Minimal redundancy, clear ownership
-
-### 2. Multi-Repo Support
-Add repository mapping to support work across multiple repos when Claude Code is opened from a parent directory:
-
+### 1. Keep What Works (Already Built)
+✅ **Enhanced `active_context` structure:**
 ```json
 {
   "active_context": {
-    "CONTEXT-001": {
-      "repos": ["para-programming-plugin"],
-      "files": [
-        "para-programming-plugin/resources/CLAUDE.md",
-        "para-programming-plugin/commands/plan.md"
-      ],
-      "plans": [
-        "context/plans/2026-01-07-CONTEXT-001-smart-context-loading.md"
-      ]
+    "PLAN-123": {
+      "repos": ["repo-name"],
+      "files": ["repo-name/path/to/file.ts"],
+      "plans": ["context/plans/..."],
+      "data": ["context/data/..."]
     }
   }
 }
 ```
 
-### 3. Smart Detection Mechanism
-Plugin automatically detects active plan key from:
-1. Most recent message mentioning a plan key
-2. Current git branch name (if contains plan key)
-3. Last active plan key from context.md
-4. Explicit user specification with `/para-focus <plan-key>`
+✅ **"Relevant Files" section in plan template** - Documents which files matter
 
-Once detected, plugin:
-1. Reads `active_context` for that plan key
-2. Resolves all file paths (handling multi-repo)
-3. Injects minimal, relevant context into Claude's window
-4. Updates context automatically as conversation evolves
+✅ **File path convention:** `repo-name/path/to/file` for multi-repo clarity
+
+### 2. Build Simple Scripts (New)
+
+Create **deterministic, testable bash scripts** in `context/servers/`:
+
+#### Script 1: `para-list-files.sh`
+```bash
+#!/bin/bash
+# Usage: para-list-files.sh <plan-key>
+# Output: List of file paths for the plan key
+
+PLAN_KEY=$1
+# Parse context/context.md JSON
+# Extract active_context.$PLAN_KEY.files[]
+# Output each file path
+```
+
+#### Script 2: `para-validate-files.sh`
+```bash
+#!/bin/bash
+# Usage: para-validate-files.sh <plan-key>
+# Output: Validation results (✅ found, ❌ missing)
+
+PLAN_KEY=$1
+# Get files for plan key
+# Check if each file exists
+# Report missing files
+```
+
+#### Script 3: `para-resolve-paths.sh`
+```bash
+#!/bin/bash
+# Usage: para-resolve-paths.sh <plan-key>
+# Output: Absolute paths resolved from repo-name/path format
+
+PLAN_KEY=$1
+# Scan for git repos in current directory
+# Build repo map
+# Resolve repo-name/path to absolute paths
+# Output absolute paths
+```
+
+#### Script 4: `para-generate-prompt.sh`
+```bash
+#!/bin/bash
+# Usage: para-generate-prompt.sh <plan-key>
+# Output: A prompt Claude can use to load files
+
+PLAN_KEY=$1
+# Get validated, resolved file paths
+# Generate: "Please read the following files: X, Y, Z"
+# Or: Generate multiple Read tool calls
+```
+
+### 3. Simplify Documentation
+
+**Remove from CLAUDE.md (~130 lines):**
+- ❌ "Smart detection" 5-level priority system
+- ❌ "Auto-injection" mechanics
+- ❌ Token budgeting and prioritization details
+- ❌ Speculative MCP tool interfaces
+
+**Keep in CLAUDE.md:**
+- ✅ Enhanced context structure with repos/files
+- ✅ File path convention
+- ✅ Basic multi-repo support explanation
+- ✅ How to use the helper scripts
+
+**Target:** Reduce CLAUDE.md from 1,132 lines to ~800-900 lines
+
+### 4. Update Command Documentation
+
+**Simplify `/para-focus` (commands/focus.md):**
+- Drop: Smart detection, auto-injection, token budgeting
+- Keep: Setting active plan key, showing which files to read
+- Add: How to use helper scripts
+
+**Create minimal `/para-files` command:**
+- Shows files for a plan key
+- Runs `para-list-files.sh` internally
+- Optionally validates them
 
 ## Implementation Steps
 
-### Phase 1: Extend Context Structure
+### Phase 1: Build Helper Scripts ⚡ NEW
+- [ ] Create `context/servers/para-list-files.sh`
+- [ ] Create `context/servers/para-validate-files.sh`
+- [ ] Create `context/servers/para-resolve-paths.sh`
+- [ ] Create `context/servers/para-generate-prompt.sh`
+- [ ] Test scripts with current context.md
+- [ ] Make scripts executable and document usage
 
-**Files to modify:**
-- `resources/CLAUDE.md` - Document new active_context format
-- `templates/plan-template.md` - Add "Relevant Files" section
-- `commands/plan.md` - Update to populate relevant files
+### Phase 2: Simplify Documentation 🧹 NEW
+- [ ] Remove speculative "Smart Context Loading" section from CLAUDE.md
+- [ ] Add concise "Helper Scripts" section (20-30 lines)
+- [ ] Simplify commands/focus.md (remove auto-injection details)
+- [ ] Update context structure docs to focus on manual workflow
 
-**New active_context structure:**
-```json
-{
-  "active_context": {
-    "<plan-key>": {
-      "repos": ["<repo-name>", ...],
-      "files": [
-        "<repo-name>/path/to/file1",
-        "<repo-name>/path/to/file2"
-      ],
-      "plans": [
-        "context/plans/YYYY-MM-DD-<plan-key>-description.md"
-      ],
-      "data": [
-        "context/data/YYYY-MM-DD-<plan-key>-data.json"
-      ]
-    }
-  }
-}
-```
+### Phase 3: Integration & Testing 🔗 NEW
+- [ ] Test workflow: Create plan → populate files → use scripts → load files
+- [ ] Validate multi-repo path resolution
+- [ ] Document actual usage patterns
+- [ ] Create examples in quickstart guide
 
-**Plan file additions:**
-```markdown
+### Phase 4: Optional Enhancements 🎁 FUTURE
+- [ ] Script to sync plan "Relevant Files" → context.md
+- [ ] Script to add/remove files from a plan key
+- [ ] Basic file change detection (git diff)
+- [ ] Integration with `/para-execute` to show files at start
+
 ## Relevant Files
 
 ### Repositories
-- `para-programming-plugin` - Main plugin codebase
+- `para-programming-plugin` - PARA methodology plugin
 
 ### Files to Track
-- `para-programming-plugin/resources/CLAUDE.md` - Global workflow guide
-- `para-programming-plugin/commands/plan.md` - Plan command documentation
-- `para-programming-plugin/templates/plan-template.md` - Plan template
+- `para-programming-plugin/resources/CLAUDE.md` - Global workflow (needs simplification)
+- `para-programming-plugin/commands/focus.md` - Focus command (needs simplification)
+- `para-programming-plugin/context/context.md` - Active context tracker
+- `para-programming-plugin/templates/plan-template.md` - Plan template (already good)
 
 ### Rationale
-[Why these files are relevant to this plan]
-```
-
-### Phase 2: Smart Detection Logic
-
-**New command: `/para-focus <plan-key>`**
-- Explicitly sets the active plan key for the session
-- Loads relevant context immediately
-- Updates context.md with focus timestamp
-
-**Detection priority:**
-1. Explicit `/para-focus <plan-key>` command
-2. Plan key mentioned in last N messages (scan conversation)
-3. Git branch name parsing (e.g., `feature/CONTEXT-001-...`)
-4. Last updated plan key in context.md
-5. Prompt user to select from active plans
-
-**Context injection points:**
-- Before every Claude Code command execution
-- When plan key focus changes
-- When user explicitly requests with `/para-load`
-
-### Phase 3: Plugin Context Management
-
-**New MCP tools needed:**
-1. `para_get_active_context(plan_key)` - Returns relevant files for a plan key
-2. `para_detect_plan_key()` - Detects current plan key from context
-3. `para_inject_context(plan_key)` - Injects relevant files into Claude's context
-4. `para_update_context(plan_key, files)` - Updates tracked files for a plan key
-
-**Smart features:**
-1. **Auto-expansion**: If a file references another file (e.g., import), optionally include it
-2. **Token budgeting**: Limit total context to configurable threshold (e.g., 50k tokens)
-3. **Prioritization**: If over budget, prioritize files by relevance (plan > recently modified > others)
-4. **Incremental loading**: Load full files initially, then only diffs on subsequent loads
-
-### Phase 4: Multi-Repo Resolution
-
-**Repo detection:**
-- Scan current working directory for git repositories
-- Build repo map: `{repo_name: absolute_path}`
-- Resolve relative paths like `repo-name/path/to/file` to absolute paths
-
-**Path resolution rules:**
-```
-para-programming-plugin/src/index.ts
-  → /Users/user/dev/parent-dir/para-programming-plugin/src/index.ts
-
-another-repo/README.md
-  → /Users/user/dev/parent-dir/another-repo/README.md
-```
-
-**Error handling:**
-- If repo not found, warn user and skip that file
-- If file not found, warn user and skip that file
-- Log all resolution issues to debug context loading
-
-## Risks & Edge Cases
-
-### Risk 1: Stale file lists
-**Mitigation:**
-- Add `/para-sync <plan-key>` command to rescan and update file list
-- Plugin periodically validates that tracked files still exist
-- Auto-remove deleted files from active_context
-
-### Risk 2: Token budget exceeded
-**Mitigation:**
-- Implement token counting before injection
-- Prioritize files: plans > data > source files
-- Allow user to configure max tokens per plan key
-- Provide `/para-context-stats` to show token usage
-
-### Risk 3: Multi-repo path confusion
-**Mitigation:**
-- Always use `repo-name/` prefix in file paths
-- Validate repo exists before adding to active_context
-- Provide clear error messages when repo not found
-
-### Risk 4: Detection ambiguity
-**Mitigation:**
-- Always prefer explicit `/para-focus` over auto-detection
-- Show detected plan key to user for confirmation
-- Allow user to override with `/para-focus <different-key>`
-
-### Risk 5: Plan file vs context.md sync
-**Mitigation:**
-- context.md is always source of truth at runtime
-- Plan files are documentation of original intent
-- Provide `/para-reconcile` to sync plan file → context.md
-
-## Data Sources
-
-### Existing Files
-- `resources/CLAUDE.md` - Current context.md structure
-- `commands/plan.md` - Current plan command behavior
-- `templates/plan-template.md` - Current plan template
-- PR #3 - Recent plan key changes
-
-### New Files to Create
-- `commands/focus.md` - Documentation for `/para-focus` command
-- `commands/sync.md` - Documentation for `/para-sync` command
-- `commands/load.md` - Documentation for explicit context loading
-- `context/servers/context-manager.ts` - MCP tool for context management
-
-## MCP Tools
-
-### To Implement
-- `context/servers/context-manager.ts` - Core context loading/detection logic
-  - Detect active plan key from conversation
-  - Load relevant files from active_context
-  - Inject into Claude's context window
-  - Handle multi-repo path resolution
-
-- `context/servers/repo-scanner.ts` - Multi-repo detection
-  - Scan parent directory for git repos
-  - Build repo map
-  - Validate repo references
+These are the key documentation and template files that need updating to reflect the pragmatic approach.
 
 ## Success Criteria
 
-- [ ] active_context structure supports files, repos, plans, and data arrays
-- [ ] Plan template includes "Relevant Files" section with repo and file tracking
-- [ ] Smart detection successfully identifies plan key from conversation context
-- [ ] Context injection works before Claude Code commands
-- [ ] Multi-repo path resolution correctly maps `repo-name/path` to absolute paths
-- [ ] Token counting prevents context overflow
-- [ ] `/para-focus <plan-key>` command explicitly sets active context
-- [ ] `/para-sync <plan-key>` validates and updates file lists
-- [ ] Documentation updated in resources/CLAUDE.md with new structure
-- [ ] Examples demonstrate multi-repo scenarios
+**Scripts work:**
+- [x] context.md structure supports repos/files/plans/data (already done)
+- [x] Plan template has "Relevant Files" section (already done)
+- [ ] `para-list-files.sh` extracts files from context.md correctly
+- [ ] `para-validate-files.sh` reports which files exist/missing
+- [ ] `para-resolve-paths.sh` handles multi-repo scenarios
+- [ ] `para-generate-prompt.sh` creates usable prompts
 
-## Token Efficiency Goals
+**Documentation is concise:**
+- [ ] CLAUDE.md reduced to ~800-900 lines
+- [ ] Clear examples of using helper scripts
+- [ ] No speculative/unimplemented features documented
 
-**Current state:** Claude receives entire conversation history + any manually loaded files
+**Workflow is practical:**
+- [ ] User can create plan with relevant files
+- [ ] User can run script to see which files to read
+- [ ] Claude can easily load the right files
+- [ ] Multi-repo scenarios work
 
-**Target state:** Claude receives:
-- Current conversation (unavoidable)
-- Only files relevant to active plan key (10-50 files typical)
-- Token budget: ~20-50k tokens for context files
-- 50-80% reduction in irrelevant context
+## Benefits of This Approach
 
-**Benefits:**
-- More focused responses
-- Faster response times
-- Lower cost per session
-- Better reasoning with smaller, relevant context
+### ✅ Immediate Value
+- Scripts work today, no waiting for MCP implementation
+- Testable and debuggable
+- Users can modify/extend scripts easily
+
+### ✅ Fits Claude Code
+- Works with existing `Read` tool
+- No assumptions about auto-injection
+- Claude decides when to load files
+
+### ✅ Maintainable
+- Simple bash scripts (~50 lines each)
+- Easy to understand and modify
+- Documentation matches reality
+
+### ✅ Future-Proof
+- Can wrap scripts in MCP later if desired
+- Foundation for more automation
+- Doesn't lock us into wrong abstractions
+
+## What We're Explicitly NOT Building
+
+❌ **Smart detection system** - Too complex, too many edge cases
+❌ **Auto-injection into Claude's context** - Not how Claude Code works
+❌ **Token budgeting/prioritization** - Premature optimization
+❌ **MCP tools** - Can add later if scripts prove useful
+❌ **Complex plugin infrastructure** - Keep it simple
 
 ## Review Checklist
 
-- [ ] Does the hybrid storage model (plan files + context.md) make sense?
-- [ ] Is the smart detection approach clear and achievable?
-- [ ] Are the multi-repo path resolution rules reasonable?
-- [ ] Is the token budgeting approach sound?
-- [ ] Are the new commands (`/para-focus`, `/para-sync`) intuitive?
-- [ ] Does this align with the overall PARA methodology?
-- [ ] Are there any security concerns with auto-loading files?
+- [ ] Does this approach make more sense than the original?
+- [ ] Are the scripts simple and buildable?
+- [ ] Will this actually help users manage context better?
+- [ ] Is the scope reasonable for immediate implementation?
+- [ ] Does simplifying CLAUDE.md improve clarity?
 
 ---
 
-**Next Step:** Please review this plan. Does it align with your vision for smart context loading and multi-repo support? Any adjustments needed before execution?
+**Next Step:** Please review this revised plan. Does this pragmatic approach make more sense? Should we proceed with building scripts?

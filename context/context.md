@@ -1,47 +1,54 @@
 # Current Work Summary
 
-Executing: Smart Context Loading with Relevant File Tracking
+## 🔄 PLAN REVISED - Pivot to Pragmatic Approach
+
+**Original Plan:** Document speculative "smart detection" and "auto-injection" features
+**Revised Plan:** Build simple, testable bash scripts for context management
+
+**Why:** After building 10 tasks of documentation, we realized:
+- Claude Code can't "auto-inject" files into my context
+- 1,132-line CLAUDE.md is too long and filled with speculative features
+- Need deterministic scripts, not aspirational documentation
+
+**New Direction:** Build helper scripts that work with Claude Code's existing capabilities.
+
+---
+
+Executing: Pragmatic Context Management with Helper Scripts
 
 **Branch:** `para/CONTEXT-001-smart-context-loading`
-**Plan:** context/plans/2026-01-07-CONTEXT-001-smart-context-loading.md
+**Plan:** context/plans/2026-01-07-CONTEXT-001-smart-context-loading.md (REVISED)
 
 ## To-Do List
 
-### Phase 1: Extend Context Structure
-- [x] Update resources/CLAUDE.md to document new active_context format with repos/files/plans/data
-- [x] Add "Relevant Files" section to templates/plan-template.md
-- [x] Update commands/plan.md to explain how to populate relevant files
+### ✅ Phase 1: Foundation (COMPLETE)
+- [x] Enhanced context.md structure with repos/files/plans/data
+- [x] "Relevant Files" section in plan template
+- [x] Documentation on populating relevant files
 
-### Phase 2: Smart Detection Logic
-- [x] Create commands/focus.md documenting /para-focus command
-- [x] Document detection priority in resources/CLAUDE.md
-- [x] Document context injection points
+### 🆕 Phase 2: Build Helper Scripts (NEW)
+- [ ] Create `para-list-files.sh` - Extract files from context.md for a plan key
+- [ ] Create `para-validate-files.sh` - Check which files exist/missing
+- [ ] Create `para-resolve-paths.sh` - Resolve repo-name/path to absolute paths
+- [ ] Create `para-generate-prompt.sh` - Generate prompts for Claude to load files
+- [ ] Test all scripts with current context.md
+- [ ] Make scripts executable and document usage
 
-### Phase 3: Plugin Context Management
-- [ ] Design MCP tool interface for para_get_active_context()
-- [ ] Design MCP tool interface for para_detect_plan_key()
-- [ ] Design MCP tool interface for para_inject_context()
-- [ ] Design MCP tool interface for para_update_context()
-- [ ] Document auto-expansion feature for imports
-- [x] Document token budgeting strategy
-- [x] Document prioritization rules
-- [ ] Document incremental loading approach
+### 🧹 Phase 3: Simplify Documentation (NEW)
+- [ ] Remove speculative "Smart Context Loading" section from CLAUDE.md (~130 lines)
+- [ ] Add concise "Helper Scripts" section (20-30 lines)
+- [ ] Simplify commands/focus.md (remove auto-injection details)
+- [ ] Update examples to show script usage
 
-### Phase 4: Multi-Repo Resolution
-- [x] Document repo detection strategy in resources/CLAUDE.md
-- [x] Document path resolution rules with examples
-- [ ] Document error handling for missing repos/files
-- [ ] Add multi-repo examples to quickstart guide
-
-### Additional Documentation
-- [ ] Create commands/sync.md for /para-sync command
-- [ ] Create commands/load.md for explicit context loading
-- [ ] Update all examples in CLAUDE.md to show repos/files arrays
-- [ ] Add token efficiency goals section to CLAUDE.md
+### 🔗 Phase 4: Integration & Testing (NEW)
+- [ ] Test end-to-end workflow with scripts
+- [ ] Validate multi-repo path resolution
+- [ ] Document actual usage patterns
+- [ ] Create practical examples in quickstart
 
 ## Progress Notes
 
-Starting Phase 1: Extending the context structure to support repos, files, plans, and data arrays.
+**Mid-execution pivot:** After completing documentation phase, we paused to evaluate. Decided to pivot from speculative MCP tools to practical bash scripts. This aligns better with Claude Code's actual capabilities and delivers immediate value.
 
 ---
 
