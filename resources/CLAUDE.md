@@ -441,94 +441,153 @@ git commit -m "Apply middleware to API routes"
 
 ---
 
-## 🚀 Quickstart: MCP‑Aware Project Setup
+## 🚀 Quickstart: PARA Project Setup with Plan Keys
 
-### 1) Scaffold the context + servers directories
+### 1) Scaffold the context directories
 
 ```bash
 mkdir -p context/{data,plans,summaries,archives,servers}
-: > context/context.md
 ```
 
-### 2) Seed `context/context.md`
+### 2) Create your first plan with a plan key
+
+````markdown
+# Plan: Implement User Authentication
+
+**Plan Key:** AUTH-001
+**Date:** 2025-11-24
+**Status:** In Review
+
+## Objective
+Add JWT-based authentication to the API
+
+## Approach
+1. Install JWT dependencies
+2. Create authentication middleware
+3. Implement login and refresh endpoints
+4. Add tests
+
+## Relevant Files
+- src/models/User.ts
+- src/middleware/auth.ts
+- src/routes/auth.ts
+
+## Success Criteria
+- [ ] Login returns valid JWT
+- [ ] Protected routes reject invalid tokens
+- [ ] All tests passing
+````
+
+Save to: `context/plans/2025-11-24-AUTH-001-implement-user-auth.md`
+
+### 3) Update `context/context.md`
+
+Track your active work with plan keys:
 
 ````markdown
 # Current Work Summary
-Bootstrapping MCP-aware project.
+
+Implementing user authentication for the API
 
 ---
 ```json
 {
-  "active_context": [
-    "context/plans/2025-11-11-hello-mcp.md"
-  ],
+  "active_context": {
+    "AUTH-001": {
+      "repos": ["my-api-project"],
+      "files": [
+        "my-api-project/src/models/User.ts",
+        "my-api-project/src/middleware/auth.ts",
+        "my-api-project/src/routes/auth.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-24-AUTH-001-implement-user-auth.md"
+      ],
+      "data": []
+    }
+  },
   "completed_summaries": [],
-  "last_updated": "YYYY-MM-DDTHH:MM:SSZ"
-}
-````
-
-````
-
-### 3) Create your first plan (referencing MCP)
-`context/plans/2025-11-11-hello-mcp.md`
-```markdown
-# Plan: Hello MCP Tooling
-
-## Objective
-Test an MCP wrapper that lists repo files and returns a short summary.
-
-## Approach
-1. Implement a small MCP wrapper in `context/servers/`
-2. Call it to list files, then summarize the top 3 relevant paths
-3. Feed only the summary back to Claude
-
-## Data Sources (Proposed)
-- MCP: repo-indexer (list-files)
-- Wrapper: context/servers/repo/listFiles.ts
-
-## Review Checklist
-- [ ] Wrapper created
-- [ ] Output <= 1–2k tokens
-- [ ] Summary captured in `context/summaries/2025-11-11-hello-mcp-summary.md`
-````
-
-### 4) Add a minimal MCP wrapper
-
-`context/servers/repo/listFiles.ts`
-
-```ts
-// Example pseudo-wrapper for MCP list-files
-import { mcpClient } from "./sdk";
-
-export async function listFiles(prefix: string) {
-  const files = await mcpClient.listFiles({ prefix });
-  // Preprocess: filter & compress
-  const shortlist = files
-    .filter(p => !p.includes("node_modules") && !p.startsWith("."))
-    .slice(0, 200);
-  return {
-    count: shortlist.length,
-    preview: shortlist.slice(0, 20),
-  };
+  "execution_branch": "para/AUTH-001-implement-user-auth",
+  "execution_started": "2025-11-24T10:00:00Z",
+  "last_updated": "2025-11-24T10:00:00Z"
 }
 ```
+````
 
-> **Why code here?** This keeps heavy work **outside** the LLM and returns a compact result for Claude.
+### 4) Load context in Claude Code (New Session)
 
-### 5) Run the workflow
+When starting a fresh Claude Code session, use helper scripts to load all relevant files:
 
-1. **Plan**: Open `2025-11-11-hello-mcp.md`, approve steps.
-2. **Execute**: Call `listFiles()` from your MCP client / agent runtime.
-3. **Summarize**: Save a short write‑up → `context/summaries/2025-11-11-hello-mcp-summary.md`.
-4. **Archive**: Move `context/context.md` to `context/archives/2025-11-11-context.md` when done.
+```bash
+# Generate a prompt with all tracked files
+./context/servers/para-generate-prompt.sh AUTH-001
+```
 
-### 6) Keep it lean
+**Output:**
+```
+Please read the following files for AUTH-001:
 
-* Aim for ≤ 1–2k tokens of **active** context per step.
-* Preprocess/aggregate in `context/servers/` first.
-* Store larger artifacts in `context/data/` and pass only excerpts/summaries to Claude.
+- /Users/you/dev/my-api-project/src/models/User.ts
+- /Users/you/dev/my-api-project/src/middleware/auth.ts
+- /Users/you/dev/my-api-project/src/routes/auth.ts
+- /Users/you/dev/my-api-project/context/plans/2025-11-24-AUTH-001-implement-user-auth.md
 
-> Next: replicate this pattern for additional tools (APIs, search, vector lookups), always returning **the smallest useful slice** of data back to Claude.
+These files contain the relevant context for the current work.
+```
+
+**Copy and paste** this output to Claude Code.
+
+### 5) Work through your plan
+
+Execute your plan step by step:
+1. **Review**: Get human approval
+2. **Execute**: Implement the changes
+3. **Summarize**: Document what was done
+4. **Archive**: Clean up for next task
+
+### 6) Helper Scripts Reference
+
+Available in `context/servers/`:
+
+- **para-list-files.sh** - List tracked files for a plan key
+- **para-validate-files.sh** - Check which files exist
+- **para-resolve-paths.sh** - Resolve repo paths to absolute paths
+- **para-generate-prompt.sh** - Generate prompt for Claude
+
+**Example usage:**
+```bash
+# Validate files
+./context/servers/para-validate-files.sh AUTH-001
+
+# Resolve paths
+./context/servers/para-resolve-paths.sh AUTH-001
+
+# Generate loading prompt
+./context/servers/para-generate-prompt.sh AUTH-001
+```
+
+### 7) Multi-Repo Support
+
+For projects spanning multiple repositories:
+
+````json
+{
+  "active_context": {
+    "FEAT-123": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts"
+      ]
+    }
+  }
+}
+````
+
+Helper scripts automatically find repositories by scanning:
+- Current directory (if it's a git repo)
+- Subdirectories with `.git` folders
+- Parent directory's subdirectories with `.git` folders
 
 ---
 

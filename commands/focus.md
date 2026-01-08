@@ -1,251 +1,262 @@
 # Command: focus
 
-Explicitly set the active plan key for smart context loading.
+Load relevant files for a specific plan key into your Claude Code session.
 
 ## What This Does
 
-The `/para-focus` command allows you to explicitly specify which plan key should be active for context loading:
+The focus workflow helps you manually load all relevant files for a plan key into Claude's context:
 
-1. Sets the specified plan key as the active focus
-2. Immediately loads all relevant files from `active_context.{plan-key}.files`
-3. Injects those files into Claude's context window
-4. Updates `context/context.md` with a focus timestamp
-5. Subsequent commands will use this plan key's context
+1. Use helper scripts to extract file paths from `context/context.md`
+2. Resolve multi-repo paths to absolute paths
+3. Generate a prompt to load those files
+4. Copy and paste the prompt to Claude Code
+
+**Note:** This is a manual workflow. Claude Code does not support automatic context injection or MCP plugins for this purpose.
 
 ## Usage
 
-```
-/para-focus <plan-key>
+```bash
+# Generate a prompt to load files for a plan key
+./context/servers/para-generate-prompt.sh <plan-key>
 ```
 
-### Examples
+### Example Workflow
 
 ```bash
-# Focus on a specific plan
-/para-focus AUTH-123
+# 1. List tracked files for a plan key
+./context/servers/para-list-files.sh CONTEXT-001
 
-# Switch between concurrent work streams
-/para-focus PLAN-456
-/para-focus fix_memory_leak
+# Output:
+# para-programming-plugin/resources/CLAUDE.md
+# para-programming-plugin/commands/plan.md
+# para-programming-plugin/templates/plan-template.md
 
-# Clear focus (use auto-detection)
-/para-focus --clear
+# 2. Validate which files exist
+./context/servers/para-validate-files.sh CONTEXT-001
+
+# Output shows files with repo prefixes as "missing" (expected)
+
+# 3. Resolve to absolute paths
+./context/servers/para-resolve-paths.sh CONTEXT-001
+
+# Output:
+# /Users/you/dev/para-programming-plugin/resources/CLAUDE.md
+# /Users/you/dev/para-programming-plugin/commands/plan.md
+# /Users/you/dev/para-programming-plugin/templates/plan-template.md
+
+# 4. Generate prompt for Claude
+./context/servers/para-generate-prompt.sh CONTEXT-001
+
+# Output:
+# Please read the following files for CONTEXT-001:
+#
+# - /Users/you/dev/para-programming-plugin/resources/CLAUDE.md
+# - /Users/you/dev/para-programming-plugin/commands/plan.md
+# - /Users/you/dev/para-programming-plugin/templates/plan-template.md
+#
+# These files contain the relevant context for the current work.
+
+# 5. Copy the output and paste it as a message to Claude Code
 ```
 
 ## When to Use This
 
-### Explicit Focus Needed
+Use the focus workflow when:
+- **Starting a work session** - Load relevant context at the beginning
+- **Switching between plans** - Change which files are in context
+- **After updating context.md** - Reload context when files change
+- **Working across multiple repos** - Load files from different repositories
 
-Use `/para-focus` when:
-- **Working on multiple concurrent plans** - Switch between different work streams
-- **Auto-detection fails** - Plugin can't determine the right plan key
-- **Starting a session** - Explicitly set context for the work you're about to do
-- **After merging/completing work** - Switch to a different active plan
+## Helper Scripts
 
-### Auto-Detection is Fine
+All scripts are located in `context/servers/`:
 
-You usually don't need `/para-focus` because the plugin auto-detects from:
-1. Git branch name (e.g., `para/AUTH-123-...`)
-2. Recent conversation mentions of plan keys
-3. Last updated plan key in `context/context.md`
+### para-list-files.sh
 
-## How It Works
+Extracts raw file paths from `context/context.md` for a plan key.
 
-### Detection Priority
+```bash
+./context/servers/para-list-files.sh <plan-key>
+```
 
-When you run `/para-focus PLAN-123`, the plugin:
+**Output:** List of files with repo prefixes (e.g., `repo-name/path/to/file`)
 
-1. **Validates plan key exists** in `active_context`
-2. **Loads file paths** from `active_context.PLAN-123.files`
-3. **Resolves repo paths** (handles multi-repo scenarios)
-4. **Injects files** into Claude's context window
-5. **Updates metadata** in `context/context.md`:
-   ```json
-   {
-     "focus": {
-       "plan_key": "PLAN-123",
-       "focused_at": "2026-01-07T10:30:00Z"
-     }
-   }
-   ```
+### para-validate-files.sh
 
-### Multi-Repo Path Resolution
+Checks which files exist or are missing. Files with repo prefixes will show as missing (expected behavior - use resolve script next).
 
-For multi-repo setups, the plugin:
-- Scans parent directory for git repositories
-- Builds a repo map: `{repo_name: absolute_path}`
-- Resolves `repo-name/path/file.ts` to absolute paths
-- Loads files from their resolved locations
+```bash
+./context/servers/para-validate-files.sh <plan-key>
+```
+
+**Output:** Validation report with ✅/❌ for each file
+
+### para-resolve-paths.sh
+
+Resolves `repo-name/path` format to absolute paths by scanning for git repositories.
+
+```bash
+./context/servers/para-resolve-paths.sh <plan-key>
+```
+
+**Scans:**
+- Current directory (if it's a git repo)
+- Subdirectories (for git repos)
+- Parent directory's subdirectories (for git repos)
+
+**Output:** List of absolute file paths
+
+### para-generate-prompt.sh
+
+Generates a natural language prompt you can copy and paste to Claude Code.
+
+```bash
+./context/servers/para-generate-prompt.sh <plan-key>
+```
+
+**Output:** Formatted prompt ready to send to Claude
+
+## Multi-Repo Support
+
+The scripts support multi-repo work by:
+1. Tracking files with repo prefix format: `repo-name/path/to/file`
+2. Scanning for git repositories in current, subdirs, and parent's subdirs
+3. Resolving repo prefixes to absolute paths
 
 **Example:**
-```
-Working directory: /Users/user/dev/my-project/
-Repositories found:
-- api-gateway: /Users/user/dev/my-project/api-gateway
-- user-service: /Users/user/dev/my-project/user-service
 
-Plan specifies:
-- api-gateway/src/middleware/auth.ts
-- user-service/src/models/user.ts
-
-Plugin loads:
-- /Users/user/dev/my-project/api-gateway/src/middleware/auth.ts
-- /Users/user/dev/my-project/user-service/src/models/user.ts
-```
-
-## Output
-
-After running `/para-focus PLAN-123`, you'll see:
-
-```
-## ✅ Context Focused
-
-**Plan Key:** PLAN-123
-**Files Loaded:** 12 files (23,450 tokens)
-
-### Files in Context:
-- api-gateway/src/middleware/auth.ts
-- api-gateway/src/middleware/jwt.ts
-- user-service/src/models/user.ts
-- api-gateway/tests/auth.test.ts
-... (8 more)
-
-Claude now has focused context for PLAN-123.
+```json
+{
+  "active_context": {
+    "AUTH-123": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts"
+      ]
+    }
+  }
+}
 ```
 
-## Token Budgeting
+When you run `para-resolve-paths.sh AUTH-123` from `/Users/you/dev/`, it finds:
+- `api-gateway`: `/Users/you/dev/api-gateway`
+- `user-service`: `/Users/you/dev/user-service`
 
-The plugin enforces token limits:
-- **Default limit:** 50,000 tokens for context files
-- **Configurable** via settings
-- **Prioritization** if over budget:
-  1. Plan files (highest priority)
-  2. Recently modified files
-  3. Other tracked files
-  4. Least recently modified (dropped if needed)
+And outputs:
+- `/Users/you/dev/api-gateway/src/middleware/auth.ts`
+- `/Users/you/dev/user-service/src/models/user.ts`
 
-## Options
+## Limitations
 
-```
-/para-focus <plan-key>           # Focus on specific plan
-/para-focus --clear              # Clear explicit focus, use auto-detection
-/para-focus --status             # Show current focus and loaded files
-/para-focus --list               # List all available plan keys
-/para-focus <plan-key> --reload  # Reload context files (useful if files changed)
-```
+- **Manual process** - You must copy and paste the generated prompt to Claude
+- **No auto-detection** - Scripts don't automatically detect which plan key to use
+- **Requires jq** - Scripts use `jq` to parse JSON from context.md
+- **Bash 3.2+** - Scripts are compatible with macOS default bash
 
-## Integration with Workflow
+## Best Practices
+
+1. **Use generate script** - `para-generate-prompt.sh` gives you a ready-to-use prompt
+2. **Update context.md regularly** - Keep file lists current as you work
+3. **Check validation** - Run `para-validate-files.sh` to catch missing files
+4. **Multi-repo from parent** - Run scripts from parent directory for multi-repo work
+5. **Track essential files only** - Don't overload context with unnecessary files
+
+## Integration with PARA Workflow
 
 ### During Planning
 
-```bash
-# Create plan
-/para-plan AUTH-123 add-user-authentication
+When you create a plan with `/para-plan`, add relevant files to the plan:
 
-# Files are tracked in plan under "Relevant Files" section
-# context.md updated with plan key and file paths
+```markdown
+## Relevant Files
+
+- api-gateway/src/middleware/auth.ts
+- user-service/src/models/user.ts
+```
+
+Then update `context/context.md`:
+
+```json
+{
+  "active_context": {
+    "AUTH-123": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts"
+      ],
+      "plans": ["context/plans/2026-01-07-AUTH-123-auth.md"]
+    }
+  }
+}
 ```
 
 ### During Execution
 
-```bash
-# Execute plan (auto-creates branch para/AUTH-123-...)
-/para-execute
-
-# Focus is automatically set based on branch name
-# No need to run /para-focus manually
-
-# But if auto-detection fails:
-/para-focus AUTH-123
-```
-
-### Switching Between Plans
+At the start of your work session:
 
 ```bash
-# Working on AUTH-123
-/para-focus AUTH-123
+# Generate prompt
+./context/servers/para-generate-prompt.sh AUTH-123
 
-# Need to check something in PLAN-456
-/para-focus PLAN-456
-
-# Back to AUTH-123
-/para-focus AUTH-123
+# Copy output and paste to Claude Code
 ```
 
-## Error Handling
+Claude will read all the files and have the full context for your work.
 
-### Plan Key Not Found
+## Troubleshooting
 
-```
-❌ Error: Plan key 'INVALID-KEY' not found in active_context.
+### Plan key not found
+
+```bash
+Error: Plan key 'INVALID-KEY' not found in active_context
 
 Available plan keys:
-- AUTH-123
-- PLAN-456
-- fix_memory_leak
-
-Run /para-focus <plan-key> with a valid key.
+  - AUTH-123
+  - CONTEXT-001
 ```
 
-### Repository Not Found
+**Fix:** Use a valid plan key from the list.
 
-```
-⚠️ Warning: Repository 'missing-repo' not found in working directory.
+### Repository not found
 
-Files from 'missing-repo' will be skipped:
-- missing-repo/src/file.ts
-
-Found repositories:
-- api-gateway: /Users/user/dev/api-gateway
-- user-service: /Users/user/dev/user-service
+```bash
+Warning: Repository 'missing-repo' not found for: missing-repo/src/file.ts
 ```
 
-### File Not Found
+**Fix:**
+- Ensure the repository exists in current, subdirs, or parent's subdirs
+- Check that the directory has a `.git` folder
+- Verify repo name matches directory name exactly
 
-```
-⚠️ Warning: 2 files not found and will be skipped:
-- api-gateway/src/deleted-file.ts
-- user-service/src/moved-file.ts
+### File not found
 
-Run /para-sync AUTH-123 to update the file list.
-```
-
-### Token Budget Exceeded
-
-```
-⚠️ Warning: Context files exceed token budget (65,234 / 50,000 tokens).
-
-Prioritizing files:
-✅ Loaded: context/plans/2026-01-07-AUTH-123-auth.md (2,145 tokens)
-✅ Loaded: api-gateway/src/middleware/auth.ts (3,890 tokens)
-✅ Loaded: user-service/src/models/user.ts (1,234 tokens)
-... (8 more files loaded)
-⏭️ Skipped: api-gateway/tests/old-test.ts (least recently modified)
-⏭️ Skipped: user-service/src/util/helper.ts (least recently modified)
-
-Total loaded: 49,876 tokens (within budget)
+```bash
+❌ para-programming-plugin/resources/CLAUDE.md
 ```
 
-## Best Practices
+**Fix:** This is expected for files with repo prefixes. Use `para-resolve-paths.sh` to convert to absolute paths.
 
-1. **Let auto-detection work first** - Only use `/para-focus` when needed
-2. **Focus at session start** - Explicitly set context when beginning work
-3. **Switch focus deliberately** - Use `/para-focus --status` to check current state
-4. **Update files with `/para-sync`** - Keep tracked files current
-5. **Check token usage** - Use `/para-focus --status` to see token counts
+### jq not installed
+
+```bash
+Error: jq is required but not installed
+```
+
+**Fix:** Install jq:
+- macOS: `brew install jq`
+- Linux: `apt-get install jq` or `yum install jq`
 
 ## Related Commands
 
 - `/para-plan` - Create new plan with file tracking
-- `/para-sync` - Update tracked files for a plan key
-- `/para-execute` - Execute plan (auto-focuses based on branch)
-- `/para-status` - Show overall PARA workflow status
-- `/para-load` - Explicitly load additional files (beyond tracked ones)
+- `/para-check` - Verify context.md structure and data integrity
+- `/para-status` - Show current PARA workflow status
 
 ## Notes
 
-- Focus persists across commands until changed
-- Git branch names with plan keys trigger auto-focus
-- Multi-repo support requires Claude Code running from parent directory
-- Token budget prevents context overflow
-- Files are reloaded on `/para-focus --reload`
+- Scripts are deterministic and testable
+- All scripts support piping and shell composition
+- Scripts use `set -e` to fail fast on errors
+- Scripts output to stdout, errors/warnings to stderr
