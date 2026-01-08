@@ -120,7 +120,7 @@ your-project/
 │   ├── plans/                  # Pre-work planning docs
 │   ├── summaries/              # Post-work reports
 │   ├── archives/               # Historical snapshots
-│   └── servers/                # MCP tool wrappers
+│   └── servers/                # Helper scripts for context management
 ├── CLAUDE.md                   # Project-specific context
 └── [your project files...]
 ```
@@ -140,9 +140,9 @@ claude
 /para-program:status
 
 # 4. Create a plan
-/para-program:plan "add dark mode support"
+/para-program:plan DARK-001 "add dark mode support"
 
-# [Claude creates context/plans/2025-12-22-add-dark-mode-support.md]
+# [Claude creates context/plans/2025-12-22-DARK-001-add-dark-mode-support.md]
 # [Human reviews and approves]
 
 # 5. Start execution
@@ -233,8 +233,8 @@ PARA workflow integrates with git:
 ### Token Efficiency
 Minimizes token usage through:
 - Structured context files
-- MCP preprocessing (optional)
-- Selective loading of relevant context
+- Helper scripts for context management
+- Selective loading of relevant files per plan key
 
 ---
 

@@ -75,7 +75,59 @@ Standard sections:
 - **Risks** - Potential issues and edge cases
 - **Data Sources** - Required files, APIs, or external data
 - **MCP Tools** - Preprocessing tools to be used
+- **Relevant Files** - Source files to track for smart context loading
 - **Success Criteria** - Measurable outcomes
+
+#### Populating Relevant Files
+
+The "Relevant Files" section is critical for smart context loading. When creating a plan, identify:
+
+1. **Repositories involved:**
+   - List each repository by name (e.g., `api-gateway`, `user-service`)
+   - For single-repo projects, list the current repo
+
+2. **Files to track:**
+   - Use format: `{repo-name}/path/to/file`
+   - Examples:
+     - `api-gateway/src/middleware/auth.ts`
+     - `user-service/src/models/user.ts`
+     - `shared-lib/src/utils/validation.ts`
+   - Include:
+     - Files you'll modify directly
+     - Files you'll reference frequently
+     - Key dependencies or interfaces
+     - Test files for the areas you're changing
+
+3. **Rationale:**
+   - Explain why these specific files are needed
+   - This helps maintain focus and avoid context bloat
+   - Keeps token usage efficient
+
+**Best practices:**
+- Start with 5-15 files (focus on essentials)
+- Add more files as needed during execution with `/para-sync`
+- Avoid tracking entire directories or too many files
+- Prioritize files you'll actually reference
+
+**Example:**
+```markdown
+## Relevant Files
+
+### Repositories
+- `api-gateway` - Main API entry point
+- `user-service` - User management microservice
+
+### Files to Track
+- `api-gateway/src/middleware/auth.ts` - Authentication middleware to modify
+- `api-gateway/src/middleware/jwt.ts` - JWT utilities needed for auth
+- `user-service/src/models/user.ts` - User model interface
+- `api-gateway/tests/auth.test.ts` - Tests to update
+
+### Rationale
+These files cover the authentication flow from request validation to
+user lookup. Limiting to these 4 files keeps context focused on the
+auth layer without loading unnecessary code.
+```
 
 ### Phased Plan (Master + Sub-plans)
 

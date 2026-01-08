@@ -129,36 +129,123 @@ project-root/
 
 This file tracks active work. It contains:
 
-1. **Human-readable summary** of current focus.
-2. **JSON block** tracking active plans, data files, and tool wrappers.
+1. **Human-readable summaries** organized by plan key.
+2. **JSON block** tracking active plans, data files, tool wrappers, and relevant source files, all grouped by plan key.
 
-Example:
+### Plan Keys
+
+Each piece of work must have a **plan key** - a unique identifier that:
+- Must NOT contain spaces (use hyphens `-` or underscores `_`)
+- Groups related files and context together
+- Supports concurrent work streams in the same repository
+- Examples: `PLAN-123`, `add_user_auth`, `fix-memory-leak`
+
+### Enhanced Context Structure
+
+Each plan key in `active_context` contains:
+
+| Field | Description |
+|-------|-------------|
+| `repos` | Array of repository names (for multi-repo work) |
+| `files` | Array of relevant source files with `repo-name/path` format |
+| `plans` | Array of plan files for this work |
+| `data` | Array of data files, payloads, or artifacts |
+
+### Example with Multiple Concurrent Work Streams:
 
 ````markdown
 # Current Work Summary
+
+## PLAN-123
 Enhancing payroll API with token-efficient MCP integration.
+
+## add_user_authentication
+Adding JWT-based authentication to all API endpoints.
 
 ---
 ```json
 {
-  "active_context": [
-    "context/plans/2025-11-08-payroll-api-mcp.md",
-    "context/data/2025-11-08-payload-example.json",
-    "context/servers/github/fetchRepo.ts"
-  ],
+  "active_context": {
+    "PLAN-123": {
+      "repos": ["payroll-service"],
+      "files": [
+        "payroll-service/src/api/payroll.ts",
+        "payroll-service/src/services/calculator.ts",
+        "payroll-service/tests/payroll.test.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-08-PLAN-123-payroll-api-mcp.md"
+      ],
+      "data": [
+        "context/data/2025-11-08-PLAN-123-payload-example.json"
+      ]
+    },
+    "add_user_authentication": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts",
+        "api-gateway/tests/auth.test.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-08-add_user_authentication-jwt-auth.md"
+      ],
+      "data": [
+        "context/data/2025-11-08-add_user_authentication-jwt-config.json"
+      ]
+    }
+  },
   "completed_summaries": [
-    "context/summaries/2025-11-08-payroll-mcp-summary.md"
+    "context/summaries/2025-11-08-PLAN-123-payroll-mcp-summary.md"
   ],
   "last_updated": "2025-11-08T15:20:00Z"
 }
+```
 ````
 
-````
+### Workflow:
 
-After completion:
+**Starting new work:**
+1. Create plan with unique plan key: `/para-plan PLAN-123 task-description`
+2. Files created use format: `YYYY-MM-DD-{plan-key}-{description}.md`
+3. Context grouped under plan key in `active_context`
+4. Relevant source files tracked in `files` array for smart context injection
+
+**After completing a plan key:**
 ```bash
+# Archive only the completed plan key's context
+# Keep other active plan keys in context/context.md
+# Only archive when ALL plan keys are complete
 mv context/context.md context/archives/$(date +%F)-context.md
-````
+```
+
+---
+
+## 🔧 Helper Scripts for Context Management
+
+PARA includes simple bash scripts in `context/servers/` to help identify relevant files for each plan:
+
+**Available scripts:**
+- `para-list-files.sh <plan-key>` - List files tracked for a plan key
+- `para-validate-files.sh <plan-key>` - Check which files exist/missing
+- `para-resolve-paths.sh <plan-key>` - Resolve `repo-name/path` to absolute paths
+- `para-generate-prompt.sh <plan-key>` - Generate prompt to load files
+
+**Usage example:**
+```bash
+# List files for PLAN-123
+./context/servers/para-list-files.sh PLAN-123
+
+# Validate files exist
+./context/servers/para-validate-files.sh PLAN-123
+
+# Get absolute paths for multi-repo setup
+./context/servers/para-resolve-paths.sh PLAN-123
+```
+
+These scripts parse `context/context.md` to extract the `active_context.<plan-key>.files[]` array and help you load only relevant files into Claude's context.
+
+**Multi-repo support:** File paths use `repo-name/path/to/file` format. The resolve script scans for git repositories in the parent directory and maps these to absolute paths.
 
 ---
 
@@ -347,58 +434,6 @@ git commit -m "Apply middleware to API routes"
 
 ---
 
-## ⚙️ MCP & Token Efficiency
-
-| Principle                  | Implementation                                                             |
-| -------------------------- | -------------------------------------------------------------------------- |
-| **Persistent Execution**   | Use code in `context/servers/` to handle large operations offline.         |
-| **Selective Context**      | Only load necessary outputs into model memory.                             |
-| **Preprocessing**          | Transform or summarize large data before feeding it to Claude.             |
-| **Lazy Loading**           | Claude dynamically loads only relevant MCP tools at runtime.               |
-| **State Awareness**        | MCP maintains execution state, so Claude can stay stateless and efficient. |
-| **Reduced Token Overhead** | MCP offloads heavy data processing from LLM context.                       |
-
----
-
-## 🧩 Example MCP Workflow
-
-1. **Preprocessing (Code Layer)**
-
-    * Tool: `context/servers/github/fetchRepo.ts`
-    * Function: Pull and summarize repo structure, returning 2–3 key files.
-
-2. **Reasoning (Claude Layer)**
-
-    * Input: Short summary (1–2k tokens max) of relevant code sections.
-    * Output: Plan or patch proposal.
-
-3. **Postprocessing (Code Layer)**
-
-    * Tool applies changes or updates repositories directly.
-
-This hybrid setup makes Claude act as an *executive layer* on top of efficient, persistent MCP tools.
-
----
-
-## 🧹 Session Hygiene
-
-1. Archive old contexts regularly.
-2. Keep `context/servers/` modular and documented.
-3. Record provenance in every summary (tools used, files touched, timestamps).
-4. Use small, composable MCP tools instead of monolithic ones.
-
----
-
-## ✅ Summary Checklist
-
-* [ ] MCP tool wrappers stored in `context/servers/`
-* [ ] Plans include MCP tool references
-* [ ] Data preprocessed before prompting
-* [ ] Token usage monitored
-* [ ] Context archived per task
-
----
-
 ## 🧭 Closing Thought
 
 > *“Claude should think with the smallest possible context, not the largest.”*
@@ -406,94 +441,153 @@ This hybrid setup makes Claude act as an *executive layer* on top of efficient, 
 
 ---
 
-## 🚀 Quickstart: MCP‑Aware Project Setup
+## 🚀 Quickstart: PARA Project Setup with Plan Keys
 
-### 1) Scaffold the context + servers directories
+### 1) Scaffold the context directories
 
 ```bash
 mkdir -p context/{data,plans,summaries,archives,servers}
-: > context/context.md
 ```
 
-### 2) Seed `context/context.md`
+### 2) Create your first plan with a plan key
+
+````markdown
+# Plan: Implement User Authentication
+
+**Plan Key:** AUTH-001
+**Date:** 2025-11-24
+**Status:** In Review
+
+## Objective
+Add JWT-based authentication to the API
+
+## Approach
+1. Install JWT dependencies
+2. Create authentication middleware
+3. Implement login and refresh endpoints
+4. Add tests
+
+## Relevant Files
+- src/models/User.ts
+- src/middleware/auth.ts
+- src/routes/auth.ts
+
+## Success Criteria
+- [ ] Login returns valid JWT
+- [ ] Protected routes reject invalid tokens
+- [ ] All tests passing
+````
+
+Save to: `context/plans/2025-11-24-AUTH-001-implement-user-auth.md`
+
+### 3) Update `context/context.md`
+
+Track your active work with plan keys:
 
 ````markdown
 # Current Work Summary
-Bootstrapping MCP-aware project.
+
+Implementing user authentication for the API
 
 ---
 ```json
 {
-  "active_context": [
-    "context/plans/2025-11-11-hello-mcp.md"
-  ],
+  "active_context": {
+    "AUTH-001": {
+      "repos": ["my-api-project"],
+      "files": [
+        "my-api-project/src/models/User.ts",
+        "my-api-project/src/middleware/auth.ts",
+        "my-api-project/src/routes/auth.ts"
+      ],
+      "plans": [
+        "context/plans/2025-11-24-AUTH-001-implement-user-auth.md"
+      ],
+      "data": []
+    }
+  },
   "completed_summaries": [],
-  "last_updated": "YYYY-MM-DDTHH:MM:SSZ"
-}
-````
-
-````
-
-### 3) Create your first plan (referencing MCP)
-`context/plans/2025-11-11-hello-mcp.md`
-```markdown
-# Plan: Hello MCP Tooling
-
-## Objective
-Test an MCP wrapper that lists repo files and returns a short summary.
-
-## Approach
-1. Implement a small MCP wrapper in `context/servers/`
-2. Call it to list files, then summarize the top 3 relevant paths
-3. Feed only the summary back to Claude
-
-## Data Sources (Proposed)
-- MCP: repo-indexer (list-files)
-- Wrapper: context/servers/repo/listFiles.ts
-
-## Review Checklist
-- [ ] Wrapper created
-- [ ] Output <= 1–2k tokens
-- [ ] Summary captured in `context/summaries/2025-11-11-hello-mcp-summary.md`
-````
-
-### 4) Add a minimal MCP wrapper
-
-`context/servers/repo/listFiles.ts`
-
-```ts
-// Example pseudo-wrapper for MCP list-files
-import { mcpClient } from "./sdk";
-
-export async function listFiles(prefix: string) {
-  const files = await mcpClient.listFiles({ prefix });
-  // Preprocess: filter & compress
-  const shortlist = files
-    .filter(p => !p.includes("node_modules") && !p.startsWith("."))
-    .slice(0, 200);
-  return {
-    count: shortlist.length,
-    preview: shortlist.slice(0, 20),
-  };
+  "execution_branch": "para/AUTH-001-implement-user-auth",
+  "execution_started": "2025-11-24T10:00:00Z",
+  "last_updated": "2025-11-24T10:00:00Z"
 }
 ```
+````
 
-> **Why code here?** This keeps heavy work **outside** the LLM and returns a compact result for Claude.
+### 4) Load context in Claude Code (New Session)
 
-### 5) Run the workflow
+When starting a fresh Claude Code session, use helper scripts to load all relevant files:
 
-1. **Plan**: Open `2025-11-11-hello-mcp.md`, approve steps.
-2. **Execute**: Call `listFiles()` from your MCP client / agent runtime.
-3. **Summarize**: Save a short write‑up → `context/summaries/2025-11-11-hello-mcp-summary.md`.
-4. **Archive**: Move `context/context.md` to `context/archives/2025-11-11-context.md` when done.
+```bash
+# Generate a prompt with all tracked files
+./context/servers/para-generate-prompt.sh AUTH-001
+```
 
-### 6) Keep it lean
+**Output:**
+```
+Please read the following files for AUTH-001:
 
-* Aim for ≤ 1–2k tokens of **active** context per step.
-* Preprocess/aggregate in `context/servers/` first.
-* Store larger artifacts in `context/data/` and pass only excerpts/summaries to Claude.
+- /Users/you/dev/my-api-project/src/models/User.ts
+- /Users/you/dev/my-api-project/src/middleware/auth.ts
+- /Users/you/dev/my-api-project/src/routes/auth.ts
+- /Users/you/dev/my-api-project/context/plans/2025-11-24-AUTH-001-implement-user-auth.md
 
-> Next: replicate this pattern for additional tools (APIs, search, vector lookups), always returning **the smallest useful slice** of data back to Claude.
+These files contain the relevant context for the current work.
+```
+
+**Copy and paste** this output to Claude Code.
+
+### 5) Work through your plan
+
+Execute your plan step by step:
+1. **Review**: Get human approval
+2. **Execute**: Implement the changes
+3. **Summarize**: Document what was done
+4. **Archive**: Clean up for next task
+
+### 6) Helper Scripts Reference
+
+Available in `context/servers/`:
+
+- **para-list-files.sh** - List tracked files for a plan key
+- **para-validate-files.sh** - Check which files exist
+- **para-resolve-paths.sh** - Resolve repo paths to absolute paths
+- **para-generate-prompt.sh** - Generate prompt for Claude
+
+**Example usage:**
+```bash
+# Validate files
+./context/servers/para-validate-files.sh AUTH-001
+
+# Resolve paths
+./context/servers/para-resolve-paths.sh AUTH-001
+
+# Generate loading prompt
+./context/servers/para-generate-prompt.sh AUTH-001
+```
+
+### 7) Multi-Repo Support
+
+For projects spanning multiple repositories:
+
+````json
+{
+  "active_context": {
+    "FEAT-123": {
+      "repos": ["api-gateway", "user-service"],
+      "files": [
+        "api-gateway/src/middleware/auth.ts",
+        "user-service/src/models/user.ts"
+      ]
+    }
+  }
+}
+````
+
+Helper scripts automatically find repositories by scanning:
+- Current directory (if it's a git repo)
+- Subdirectories with `.git` folders
+- Parent directory's subdirectories with `.git` folders
 
 ---
 

@@ -64,10 +64,12 @@ Recommended Actions:
 ## Step 3: Create a Plan
 
 ```
-/plan add-jwt-authentication
+/plan AUTH-001 add-jwt-authentication
 ```
 
-**Claude creates:** `context/plans/2025-11-24-add-jwt-authentication.md`
+**Claude creates:** `context/plans/2025-11-24-AUTH-001-add-jwt-authentication.md`
+
+**Claude also updates** `context/context.md` with the plan key and tracked files.
 
 **Plan contents:**
 ```markdown
@@ -100,10 +102,6 @@ Implement JWT-based authentication for the API with login, token refresh, and pr
 - Existing user model: src/models/User.ts
 - Express app configuration: src/app.ts
 
-## MCP Tools
-
-- context/servers/crypto/generateSecret.ts (for JWT secret)
-
 ## Success Criteria
 
 - [ ] Login endpoint returns valid JWT
@@ -120,7 +118,33 @@ Implement JWT-based authentication for the API with login, token refresh, and pr
 ```
 
 **Claude says:**
-> "I've created a plan at `context/plans/2025-11-24-add-jwt-authentication.md`. Please review it and let me know if it looks good before I proceed with implementation."
+> "I've created a plan at `context/plans/2025-11-24-AUTH-001-add-jwt-authentication.md`. Please review it and let me know if it looks good before I proceed with implementation."
+
+---
+
+## Step 3b: Load Context (Optional - For New Session)
+
+If you're starting a new Claude Code session and want to load all relevant files for this plan:
+
+```bash
+# Generate a prompt with all tracked files
+./context/servers/para-generate-prompt.sh AUTH-001
+```
+
+**Output:**
+```
+Please read the following files for AUTH-001:
+
+- /Users/you/project/src/models/User.ts
+- /Users/you/project/src/app.ts
+- /Users/you/project/context/plans/2025-11-24-AUTH-001-add-jwt-authentication.md
+
+These files contain the relevant context for the current work.
+```
+
+**Copy and paste** this output to Claude Code to load all relevant files into context.
+
+**Note:** This step is only needed when starting a fresh session. If you're continuing in the same session, Claude already has the context.
 
 ---
 
@@ -166,7 +190,7 @@ After implementation is complete:
 /summarize
 ```
 
-**Claude analyzes git changes and creates:** `context/summaries/2025-11-24-add-jwt-authentication-summary.md`
+**Claude analyzes git changes and creates:** `context/summaries/2025-11-24-AUTH-001-add-jwt-authentication-summary.md`
 
 **Summary contents:**
 ```markdown
@@ -195,10 +219,6 @@ After implementation is complete:
 ## Rationale
 
 Implemented JWT authentication with httpOnly cookies (instead of header-based tokens) for improved security against XSS attacks. Used short-lived access tokens (15min) with refresh tokens (7 days) to balance security and UX.
-
-## MCP Tools Used
-
-- `context/servers/crypto/generateSecret.ts` – Generated secure JWT secret
 
 ## Key Learnings
 
@@ -246,7 +266,7 @@ Implemented JWT authentication with httpOnly cookies (instead of header-based to
    (none)
 
 ✅ Completed Summaries:
-   → context/summaries/2025-11-24-add-jwt-authentication-summary.md
+   → context/summaries/2025-11-24-AUTH-001-add-jwt-authentication-summary.md
 
 ⏰ Last Updated: 2025-11-24T15:45:00Z
 
