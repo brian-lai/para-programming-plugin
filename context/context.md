@@ -28,7 +28,7 @@ Executing: Pragmatic Context Management with Helper Scripts
 
 ### 🆕 Phase 2: Build Helper Scripts (NEW)
 - [x] Create `para-list-files.sh` - Extract files from context.md for a plan key
-- [ ] Create `para-validate-files.sh` - Check which files exist/missing
+- [x] Create `para-validate-files.sh` - Check which files exist/missing
 - [ ] Create `para-resolve-paths.sh` - Resolve repo-name/path to absolute paths
 - [ ] Create `para-generate-prompt.sh` - Generate prompts for Claude to load files
 - [ ] Test all scripts with current context.md
