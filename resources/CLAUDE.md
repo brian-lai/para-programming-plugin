@@ -221,135 +221,31 @@ mv context/context.md context/archives/$(date +%F)-context.md
 
 ---
 
-## 🎯 Smart Context Loading
+## 🔧 Helper Scripts for Context Management
 
-The PARA plugin automatically detects which plan key is active and loads only the relevant files into Claude's context, dramatically reducing token usage and improving response quality.
+PARA includes simple bash scripts in `context/servers/` to help identify relevant files for each plan:
 
-### Plan Key Detection Priority
+**Available scripts:**
+- `para-list-files.sh <plan-key>` - List files tracked for a plan key
+- `para-validate-files.sh <plan-key>` - Check which files exist/missing
+- `para-resolve-paths.sh <plan-key>` - Resolve `repo-name/path` to absolute paths
+- `para-generate-prompt.sh <plan-key>` - Generate prompt to load files
 
-The plugin detects the active plan key in this order:
-
-1. **Explicit `/para-focus <plan-key>` command** (highest priority)
-   - User manually specifies which plan to focus on
-   - Immediately loads that plan's context
-   - Persists until changed
-
-2. **Git branch name parsing**
-   - Branch names like `para/AUTH-123-add-auth` → detects `AUTH-123`
-   - Branch names like `feature/fix_memory_leak-impl` → detects `fix_memory_leak`
-   - Automatic when `/para-execute` creates branch
-
-3. **Recent conversation mentions**
-   - Scans last N messages for plan key references
-   - Detects when user says "working on PLAN-456"
-   - Updates focus based on conversation context
-
-4. **Last updated plan key in `context/context.md`**
-   - Uses `last_updated` timestamp for each plan key
-   - Falls back to most recently modified plan
-
-5. **Prompt user to select**
-   - If multiple active plans and no clear signal
-   - Shows list of available plan keys
-   - User selects which one to focus on
-
-### Context Injection Points
-
-The plugin injects relevant context at these points:
-
-| Trigger | What Happens |
-|---------|--------------|
-| **Before every command** | Plugin checks current plan key focus and ensures relevant files are loaded |
-| **On `/para-focus <plan-key>`** | Immediately loads all files from `active_context.{plan-key}.files` |
-| **On `/para-execute`** | Loads context for the plan being executed (from branch name or active plan) |
-| **On plan key change** | Unloads previous context, loads new context |
-| **On `/para-sync <plan-key>`** | Reloads files after updating the tracked file list |
-| **On `/para-load`** | Explicitly loads additional files beyond tracked ones |
-
-### What Gets Loaded
-
-For plan key `PLAN-123`, the plugin loads:
-
-```json
-{
-  "repos": ["api-gateway", "user-service"],
-  "files": [
-    "api-gateway/src/middleware/auth.ts",
-    "api-gateway/src/middleware/jwt.ts",
-    "user-service/src/models/user.ts",
-    "api-gateway/tests/auth.test.ts"
-  ],
-  "plans": [
-    "context/plans/2026-01-07-PLAN-123-add-auth.md"
-  ],
-  "data": [
-    "context/data/2026-01-07-PLAN-123-test-users.json"
-  ]
-}
-```
-
-**Result:** Claude receives ~5-15 focused files instead of entire codebases, reducing token usage by 50-80%.
-
-### Token Budget Management
-
-**Default limits:**
-- Maximum context files: 50,000 tokens
-- Configurable per-plan or globally
-
-**When budget is exceeded:**
-1. **Calculate total tokens** for all tracked files
-2. **Prioritize files:**
-   - Plan files (highest priority)
-   - Recently modified source files
-   - Data files
-   - Older/larger files (deprioritized)
-3. **Load files in priority order** until budget reached
-4. **Skip remaining files** with warning
-5. **User can manually adjust** with `/para-sync` or `/para-focus --reload`
-
-**Example prioritization:**
-```
-Total tracked: 65,234 tokens (exceeds 50,000 limit)
-
-✅ Loaded (49,876 tokens):
-- Plan file (2,145 tokens)
-- Recently modified: auth.ts (3,890 tokens)
-- Recently modified: user.ts (1,234 tokens)
-- Test files (8,456 tokens)
-- ... (8 more files)
-
-⏭️ Skipped (15,358 tokens):
-- Rarely referenced: old-helper.ts (3,456 tokens)
-- Large file: legacy-code.ts (11,902 tokens)
-```
-
-### Multi-Repo Path Resolution
-
-When Claude Code runs from a parent directory containing multiple repositories:
-
-**Detection:**
+**Usage example:**
 ```bash
-/Users/user/dev/my-project/
-├── api-gateway/         # Git repo
-├── user-service/        # Git repo
-├── shared-lib/          # Git repo
-└── context/             # PARA context directory
+# List files for PLAN-123
+./context/servers/para-list-files.sh PLAN-123
+
+# Validate files exist
+./context/servers/para-validate-files.sh PLAN-123
+
+# Get absolute paths for multi-repo setup
+./context/servers/para-resolve-paths.sh PLAN-123
 ```
 
-**Resolution:**
-```
-Plan specifies:  api-gateway/src/middleware/auth.ts
-Plugin resolves: /Users/user/dev/my-project/api-gateway/src/middleware/auth.ts
+These scripts parse `context/context.md` to extract the `active_context.<plan-key>.files[]` array and help you load only relevant files into Claude's context.
 
-Plan specifies:  user-service/src/models/user.ts
-Plugin resolves: /Users/user/dev/my-project/user-service/src/models/user.ts
-```
-
-**Benefits:**
-- Work across multiple repos seamlessly
-- Clear file references with `repo-name/` prefix
-- Automatic path resolution
-- Supports microservices and mono-repo structures
+**Multi-repo support:** File paths use `repo-name/path/to/file` format. The resolve script scans for git repositories in the parent directory and maps these to absolute paths.
 
 ---
 
@@ -535,58 +431,6 @@ git commit -m "Apply middleware to API routes"
 * Move `context/context.md` → `context/archives/YYYY-MM-DD-context.md`
 * Start a new `context/context.md` seeded with ongoing data if needed.
 * Use the current date in YYYY-MM-DD format for the archived filename.
-
----
-
-## ⚙️ MCP & Token Efficiency
-
-| Principle                  | Implementation                                                             |
-| -------------------------- | -------------------------------------------------------------------------- |
-| **Persistent Execution**   | Use code in `context/servers/` to handle large operations offline.         |
-| **Selective Context**      | Only load necessary outputs into model memory.                             |
-| **Preprocessing**          | Transform or summarize large data before feeding it to Claude.             |
-| **Lazy Loading**           | Claude dynamically loads only relevant MCP tools at runtime.               |
-| **State Awareness**        | MCP maintains execution state, so Claude can stay stateless and efficient. |
-| **Reduced Token Overhead** | MCP offloads heavy data processing from LLM context.                       |
-
----
-
-## 🧩 Example MCP Workflow
-
-1. **Preprocessing (Code Layer)**
-
-    * Tool: `context/servers/github/fetchRepo.ts`
-    * Function: Pull and summarize repo structure, returning 2–3 key files.
-
-2. **Reasoning (Claude Layer)**
-
-    * Input: Short summary (1–2k tokens max) of relevant code sections.
-    * Output: Plan or patch proposal.
-
-3. **Postprocessing (Code Layer)**
-
-    * Tool applies changes or updates repositories directly.
-
-This hybrid setup makes Claude act as an *executive layer* on top of efficient, persistent MCP tools.
-
----
-
-## 🧹 Session Hygiene
-
-1. Archive old contexts regularly.
-2. Keep `context/servers/` modular and documented.
-3. Record provenance in every summary (tools used, files touched, timestamps).
-4. Use small, composable MCP tools instead of monolithic ones.
-
----
-
-## ✅ Summary Checklist
-
-* [ ] MCP tool wrappers stored in `context/servers/`
-* [ ] Plans include MCP tool references
-* [ ] Data preprocessed before prompting
-* [ ] Token usage monitored
-* [ ] Context archived per task
 
 ---
 

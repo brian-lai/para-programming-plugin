@@ -35,8 +35,8 @@ Executing: Pragmatic Context Management with Helper Scripts
 - [ ] Make scripts executable and document usage
 
 ### 🧹 Phase 3: Simplify Documentation (NEW)
-- [ ] Remove speculative "Smart Context Loading" section from CLAUDE.md (~130 lines)
-- [ ] Add concise "Helper Scripts" section (20-30 lines)
+- [x] Remove speculative "Smart Context Loading" section from CLAUDE.md (saved 156 lines!)
+- [x] Add concise "Helper Scripts" section (28 lines)
 - [ ] Simplify commands/focus.md (remove auto-injection details)
 - [ ] Update examples to show script usage
 
