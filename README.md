@@ -15,29 +15,29 @@ Structured context management, persistent memory, and intelligent execution for 
 /plugin marketplace add brian-lai/para-programming-plugin
 
 # Install the plugin
-/plugin install para-program@brian-lai/para-programming-plugin
+/plugin install para@brian-lai/para-programming-plugin
 
 # Initialize in your project
 cd your-project
 claude
-/para-program:init
+/para:init
 ```
 
 ### First Task
 
 ```bash
 # Start your first PARA task
-/para-program:plan "implement user authentication"
+/para:plan "implement user authentication"
 
 # Review the plan (human approval step)
 
 # Execute the plan
-/para-program:execute
+/para:execute
 
 # Work through to-dos...
 
 # Summarize when complete
-/para-program:summarize
+/para:summarize
 ```
 
 ---
@@ -46,14 +46,14 @@ claude
 
 ### Slash Commands
 
-- `/para-program:init` - Initialize PARA structure in project
-- `/para-program:plan` - Create structured plan for task
-- `/para-program:execute` - Start execution with branch and to-dos
-- `/para-program:summarize` - Generate summary from completed work
-- `/para-program:archive` - Archive context and reset
-- `/para-program:status` - Show current workflow state
-- `/para-program:check` - Decision helper for workflow
-- `/para-program:help` - Comprehensive PARA guide
+- `/para:init` - Initialize PARA structure in project
+- `/para:plan` - Create structured plan for task
+- `/para:execute` - Start execution with branch and to-dos
+- `/para:summarize` - Generate summary from completed work
+- `/para:archive` - Archive context and reset
+- `/para:status` - Show current workflow state
+- `/para:check` - Decision helper for workflow
+- `/para:help` - Comprehensive PARA guide
 
 ### Templates
 
@@ -69,7 +69,7 @@ claude
 
 ### Resources
 
-- **Global CLAUDE.md methodology file** - Installed to `~/.claude/CLAUDE.md` on first `/para-program:init`
+- **Global CLAUDE.md methodology file** - Installed to `~/.claude/CLAUDE.md` on first `/para:init`
   - Defines the PARA workflow (Plan → Review → Execute → Summarize → Archive)
   - Shared across all projects
   - Only created if missing; existing files are never overwritten
@@ -83,7 +83,7 @@ claude
 ```
    (Plan)    →   (Review)   →   (Execute)    →    (Summarize)     →    (Archive)
       ↓             ↑              ↓                   ↓                   ↓
-/para-program:plan Human /para-program:execute /para-program:summarize /para-program:archive
+/para:plan Human /para:execute /para:summarize /para:archive
 ```
 
 ### When to Use
@@ -110,7 +110,7 @@ claude
 └── CLAUDE.md                   # Global workflow methodology
 ```
 
-### Per-Project (created by /para-program:init)
+### Per-Project (created by /para:init)
 
 ```
 your-project/
@@ -134,19 +134,19 @@ your-project/
 claude
 
 # 2. Initialize PARA (first time only)
-/para-program:init
+/para:init
 
 # 3. Check current status
-/para-program:status
+/para:status
 
 # 4. Create a plan
-/para-program:plan "add dark mode support"
+/para:plan "add dark mode support"
 
 # [Claude creates context/plans/2025-12-22-add-dark-mode-support.md]
 # [Human reviews and approves]
 
 # 5. Start execution
-/para-program:execute
+/para:execute
 
 # [Creates branch: para/add-dark-mode-support]
 # [Updates context.md with to-do list]
@@ -157,12 +157,12 @@ claude
 # [Mark items [x] in context.md]
 
 # 7. Generate summary
-/para-program:summarize
+/para:summarize
 
 # [Claude analyzes git diff and creates summary]
 
 # 8. Archive and prepare for next task
-/para-program:archive
+/para:archive
 ```
 
 ---

@@ -15,14 +15,14 @@ This command shows you where you are in the PARA workflow:
 ## Usage
 
 ```
-/para-program:status
+/para:status
 ```
 
 ### Options
 
 ```
-/para-program:status --verbose         # Include file contents preview
-/para-program:status --files           # List all context files
+/para:status --verbose         # Include file contents preview
+/para:status --files           # List all context files
 ```
 
 ## Output Format
@@ -43,7 +43,7 @@ This command shows you where you are in the PARA workflow:
 ⏰ Last Updated: 2025-11-24T14:30:00Z
 
 🎯 Next Action:
-   Continue executing the plan, or run /para-program:summarize when complete
+   Continue executing the plan, or run /para:summarize when complete
 ```
 
 ## Workflow State Detection
@@ -73,11 +73,11 @@ The command detects your current workflow state:
 
 Based on state, suggest:
 
-- **No context** → Run `/para-program:init` to set up PARA structure
-- **Idle** → Run `/para-program:plan` to start new task
+- **No context** → Run `/para:init` to set up PARA structure
+- **Idle** → Run `/para:plan` to start new task
 - **Planning** → Review plan and begin execution
-- **Executing** → Continue work or run `/para-program:summarize` if done
-- **Summarized** → Run `/para-program:archive` to clean up
+- **Executing** → Continue work or run `/para:summarize` if done
+- **Summarized** → Run `/para:archive` to clean up
 - **Changes uncommitted** → Commit changes before archiving
 
 ## Notes

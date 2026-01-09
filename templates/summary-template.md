@@ -71,4 +71,4 @@
 
 ---
 
-**Work Complete:** This summary has been added to `context/summaries/`. Run `/para-program:archive` when ready to start the next task.
+**Work Complete:** This summary has been added to `context/summaries/`. Run `/para:archive` when ready to start the next task.

@@ -6,10 +6,10 @@
   },
   "plugins": [
     {
-      "name": "para-program",
+      "name": "para",
       "source": "./",
       "description": "PARA-Programming methodology for Claude Code - structured context, persistent memory, and intelligent execution",
-      "version": "1.1.0"
+      "version": "1.2.0"
     }
   ]
 }
