@@ -14,9 +14,9 @@ This command helps you (and Claude) decide whether to use the full PARA workflow
 ## Usage
 
 ```
-/para-program:check "Add user authentication to the API"
-/para-program:check "Where is the auth middleware defined?"
-/para-program:check "Explain how JWT tokens work"
+/para:check "Add user authentication to the API"
+/para:check "Where is the auth middleware defined?"
+/para:check "Explain how JWT tokens work"
 ```
 
 ## Decision Tree
@@ -54,11 +54,11 @@ Reason:
 Category: Code Implementation
 
 Recommended Actions:
-  1. Run /para-program:plan to create implementation plan
+  1. Run /para:plan to create implementation plan
   2. Get human review of the plan
   3. Execute the implementation
-  4. Run /para-program:summarize when complete
-  5. Run /para-program:archive to clean up
+  4. Run /para:summarize when complete
+  5. Run /para:archive to clean up
 ```
 
 ### Example 2: Should Skip PARA

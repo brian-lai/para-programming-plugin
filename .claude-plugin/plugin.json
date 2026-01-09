@@ -1,6 +1,6 @@
 {
-  "name": "para-program",
-  "version": "1.1.0",
+  "name": "para",
+  "version": "1.2.0",
   "description": "PARA-Programming methodology for Claude Code - structured context, persistent memory, and intelligent execution",
   "author": {
     "name": "PARA-Programming Community",

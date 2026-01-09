@@ -14,7 +14,7 @@ Provides on-demand help for PARA-Programming methodology including:
 ## Usage
 
 ```
-/para-program:help
+/para:help
 ```
 
 ## Implementation
@@ -55,7 +55,7 @@ PARA-Programming is a structured methodology for working with AI coding assistan
 ### Phase 1: PLAN
 **What:** Create a detailed plan for your task
 **Why:** Clarify scope, approach, and risks before writing code
-**How:** `/para-program:plan <task-description>`
+**How:** `/para:plan <task-description>`
 **Output:** `context/plans/YYYY-MM-DD-task-name.md`
 
 ### Phase 2: REVIEW
@@ -73,13 +73,13 @@ PARA-Programming is a structured methodology for working with AI coding assistan
 ### Phase 4: SUMMARIZE
 **What:** Document what was done and why
 **Why:** Capture learnings and create project history
-**How:** `/para-program:summarize`
+**How:** `/para:summarize`
 **Output:** `context/summaries/YYYY-MM-DD-task-name-summary.md`
 
 ### Phase 5: ARCHIVE
 **What:** Archive current context and start fresh
 **Why:** Keep context lean for next task
-**How:** `/para-program:archive`
+**How:** `/para:archive`
 **Output:** `context/archives/YYYY-MM-DD-context.md`
 
 ---
@@ -135,48 +135,48 @@ Is this request asking for code/file changes?
 
 ### Core Workflow Commands
 
-#### `/para-program:init`
+#### `/para:init`
 **Purpose:** Initialize PARA structure in a project
 **When to use:** First time setting up PARA in a new project
 **Example:**
 ```
-/para-program:init
-/para-program:init --template=full
+/para:init
+/para:init --template=full
 ```
 
-#### `/para-program:plan`
+#### `/para:plan`
 **Purpose:** Create a new planning document
 **When to use:** Starting any new task that changes code
 **Example:**
 ```
-/para-program:plan Add user authentication
-/para-program:plan Fix memory leak in WebSocket handler
+/para:plan Add user authentication
+/para:plan Fix memory leak in WebSocket handler
 ```
 
-#### `/para-program:summarize`
+#### `/para:summarize`
 **Purpose:** Generate post-work summary
 **When to use:** After completing implementation
 **Example:**
 ```
-/para-program:summarize
+/para:summarize
 ```
 
-#### `/para-program:archive`
+#### `/para:archive`
 **Purpose:** Archive current context and start fresh
 **When to use:** After summarizing, before starting new task
 **Example:**
 ```
-/para-program:archive
+/para:archive
 ```
 
 ### Helper Commands
 
-#### `/para-program:status`
+#### `/para:status`
 **Purpose:** Check current workflow state
 **When to use:** Anytime you want to see what's active
 **Example:**
 ```
-/para-program:status
+/para:status
 ```
 **Shows:**
 - Active plans
@@ -184,20 +184,20 @@ Is this request asking for code/file changes?
 - Current context state
 - Last updated timestamp
 
-#### `/para-program:check`
+#### `/para:check`
 **Purpose:** Decision helper for PARA workflow
 **When to use:** Unsure if your task needs PARA
 **Example:**
 ```
-/para-program:check Should I use PARA for "explain how auth works"?
+/para:check Should I use PARA for "explain how auth works"?
 ```
 
-#### `/para-program:help`
+#### `/para:help`
 **Purpose:** Show this comprehensive guide
 **When to use:** Anytime you need reference or refresh
 **Example:**
 ```
-/para-program:help
+/para:help
 ```
 
 ---
@@ -206,32 +206,32 @@ Is this request asking for code/file changes?
 
 ### Pattern 1: New Feature Development
 ```
-1. /para-program:plan Add user profile page with avatar upload
+1. /para:plan Add user profile page with avatar upload
 2. Review plan (approve or request changes)
 3. AI implements the feature
 4. Test and verify
-5. /para-program:summarize
-6. /para-program:archive
+5. /para:summarize
+6. /para:archive
 ```
 
 ### Pattern 2: Bug Investigation and Fix
 ```
-1. /para-program:plan Debug and fix checkout payment failure
+1. /para:plan Debug and fix checkout payment failure
 2. Review plan (AI will investigate first)
 3. AI debugs and implements fix
 4. Verify fix works
-5. /para-program:summarize
-6. /para-program:archive
+5. /para:summarize
+6. /para:archive
 ```
 
 ### Pattern 3: Refactoring
 ```
-1. /para-program:plan Refactor API layer to use async/await
+1. /para:plan Refactor API layer to use async/await
 2. Review plan (ensure no breaking changes)
 3. AI refactors code
 4. Run tests to verify
-5. /para-program:summarize
-6. /para-program:archive
+5. /para:summarize
+6. /para:archive
 ```
 
 ### Pattern 4: Quick Question (NO PARA)
@@ -247,41 +247,41 @@ AI: The authentication middleware is in src/middleware/auth.ts:45-89
 ### ❌ Anti-Pattern 1: Skipping Planning
 **Problem:** Jumping straight to code without a plan
 **Why it's bad:** Leads to scope creep, missed edge cases
-**Solution:** Always `/para-program:plan` for code changes
+**Solution:** Always `/para:plan` for code changes
 
 ### ❌ Anti-Pattern 2: Using PARA for Simple Questions
 **Problem:** Creating plans for "Where is X defined?"
 **Why it's bad:** Overhead without benefit, slows workflow
-**Solution:** Use `/para-program:check` to verify if PARA is needed
+**Solution:** Use `/para:check` to verify if PARA is needed
 
 ### ❌ Anti-Pattern 3: Not Archiving
 **Problem:** Letting context.md accumulate multiple tasks
 **Why it's bad:** Context bloat, token waste, lost history
-**Solution:** `/para-program:archive` after each task completion
+**Solution:** `/para:archive` after each task completion
 
 ### ❌ Anti-Pattern 4: Vague Plan Descriptions
-**Problem:** `/para-program:plan Fix the bug`
+**Problem:** `/para:plan Fix the bug`
 **Why it's bad:** AI can't create useful plan without details
-**Solution:** Be specific: `/para-program:plan Fix null pointer exception in checkout flow when user has no saved payment method`
+**Solution:** Be specific: `/para:plan Fix null pointer exception in checkout flow when user has no saved payment method`
 
 ---
 
 ## 🔧 Troubleshooting
 
 ### Issue: "I don't know if I should use PARA"
-**Solution:** Run `/para-program:check` with your question, or use the decision tree above.
+**Solution:** Run `/para:check` with your question, or use the decision tree above.
 
 ### Issue: "The plan doesn't match what I want"
 **Solution:** Provide feedback on the plan during Review phase. AI will adjust.
 
 ### Issue: "Context is getting too large"
-**Solution:** Archive more frequently. Run `/para-program:archive` after each task.
+**Solution:** Archive more frequently. Run `/para:archive` after each task.
 
 ### Issue: "I forgot to create a plan"
-**Solution:** Stop, create a plan now with `/para-program:plan`, then continue. It's never too late.
+**Solution:** Stop, create a plan now with `/para:plan`, then continue. It's never too late.
 
 ### Issue: "AI isn't following PARA workflow"
-**Solution:** Check that methodology files are properly configured. Run `/para-program:init` if needed.
+**Solution:** Check that methodology files are properly configured. Run `/para:init` if needed.
 
 ---
 
@@ -311,7 +311,7 @@ project-root/
 ## 🎓 Learning Resources
 
 ### Quick Start
-- **Tutorial:** Follow the example in `/para-program:init` output
+- **Tutorial:** Follow the example in `/para:init` output
 - **First Task:** Start with something small to learn the flow
 - **Practice:** The more you use it, the more natural it becomes
 
@@ -321,9 +321,9 @@ project-root/
 - **Templates:** `context/plans/` and `context/summaries/` - See examples
 
 ### Getting Help
-- **This guide:** `/para-program:help` anytime
-- **Status check:** `/para-program:status` to see current state
-- **Decision help:** `/para-program:check` when unsure
+- **This guide:** `/para:help` anytime
+- **Status check:** `/para:status` to see current state
+- **Decision help:** `/para:check` when unsure
 
 ### Community
 - **GitHub:** [PARA-Programming Repository](https://github.com/your-org/PARA-Programming)
@@ -336,10 +336,10 @@ project-root/
 
 Ready to start? Here's what to do:
 
-1. **If you haven't initialized:** Run `/para-program:init`
-2. **For your first task:** Run `/para-program:plan <describe your task>`
-3. **When stuck:** Run `/para-program:help` (you're here!) or `/para-program:check`
-4. **After completing work:** Run `/para-program:summarize` then `/para-program:archive`
+1. **If you haven't initialized:** Run `/para:init`
+2. **For your first task:** Run `/para:plan <describe your task>`
+3. **When stuck:** Run `/para:help` (you're here!) or `/para:check`
+4. **After completing work:** Run `/para:summarize` then `/para:archive`
 
 ---
 
@@ -359,4 +359,4 @@ This ensures reasoning persists over time, token use remains low, and your proje
 
 **Happy coding with PARA-Programming! 🎉**
 
-Need more help? Run `/para-program:help` anytime, or check `/para-program:status` to see where you are in the workflow.
+Need more help? Run `/para:help` anytime, or check `/para:status` to see where you are in the workflow.

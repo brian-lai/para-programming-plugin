@@ -5,6 +5,57 @@ All notable changes to the PARA-Programming Claude Code skill will be documented
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Planned
+
+- MCP tool implementations for automation
+- GitHub Actions workflow for CI/CD
+- Example projects demonstrating PARA methodology
+- Video tutorials and screencasts
+- Plugin API integration when available
+- Additional language-specific templates
+- Team collaboration features
+- VS Code extension for non-Claude-Code users
+
+## [1.2.0] - 2026-01-09
+
+### Changed
+
+- **BREAKING: Shortened Command Prefix:**
+  - Changed plugin name from `para-program` to `para`
+  - All commands now use shorter prefix: `/para:<command>` instead of `/para-program:<command>`
+  - Example: `/para:plan`, `/para:execute`, `/para:status`
+  - Update your muscle memory and scripts accordingly!
+
+## [1.1.0] - 2026-01-09
+
+### Added
+
+- **Global CLAUDE.md Setup:**
+  - `/para:init` now includes global CLAUDE.md setup step
+  - Added `resources/` directory with CLAUDE.md template
+  - Updated install script to handle global file setup
+
+### Changed
+
+- **Command Pattern Simplification:**
+  - Simplified command pattern to `/para-program:<command>` format
+  - Removed redundant `para-` prefix from individual command names
+  - Updated init command output to show correct command prefixes
+
+### Fixed
+
+- Fixed command prefix display in `/para:init` output
+- Fixed summarize and archive workflow issues
+- Corrected plugin installation syntax in documentation
+
+### Documentation
+
+- Updated README with plugin-focused content
+- Updated INSTALL.md with global setup instructions
+- Emphasized commit-per-todo workflow in `/para:execute` command
+
 ## [1.0.0] - 2025-11-24
 
 ### Added
@@ -64,50 +115,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Timestamped plans and summaries
   - Git-integrated change tracking
 
-## [Unreleased]
-
-### Planned
-
-- MCP tool implementations for automation
-
-## [1.1.0] - 2026-01-09
-
-### Added
-
-- **Global CLAUDE.md Setup:**
-  - `/para-program:init` now includes global CLAUDE.md setup step
-  - Added `resources/` directory with CLAUDE.md template
-  - Updated install script to handle global file setup
-
-### Changed
-
-- **Command Pattern Simplification:**
-  - Simplified command pattern to `/para-program:<command>` format
-  - Removed redundant `para-` prefix from individual command names
-  - Updated init command output to show correct command prefixes
-
-### Fixed
-
-- Fixed command prefix display in `/para-program:init` output
-- Fixed summarize and archive workflow issues
-- Corrected plugin installation syntax in documentation
-
-### Documentation
-
-- Updated README with plugin-focused content
-- Updated INSTALL.md with global setup instructions
-- Emphasized commit-per-todo workflow in `/para-program:execute` command
-- GitHub Actions workflow for CI/CD
-- Example projects demonstrating PARA methodology
-- Video tutorials and screencasts
-- Plugin API integration when available
-- Additional language-specific templates
-- Team collaboration features
-- VS Code extension for non-Claude-Code users
-
 ---
 
 ## Version History
 
+- **1.2.0** - Shortened command prefix from `para-program` to `para`
 - **1.1.0** - Global CLAUDE.md setup, command pattern simplification, bug fixes
 - **1.0.0** - Initial release with core commands and documentation

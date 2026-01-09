@@ -9,7 +9,7 @@ if [ ! -d "context" ]; then
     # PARA not initialized in this project
     cat <<'EOF'
 {
-  "systemMessage": "💡 PARA-Programming available\n   Run /para-program:init to set up | /para-program:help for guide"
+  "systemMessage": "💡 PARA-Programming available\n   Run /para:init to set up | /para:help for guide"
 }
 EOF
     exit 0
@@ -44,7 +44,7 @@ fi
 # Output formatted status
 cat <<EOF
 {
-  "systemMessage": "${STATUS_LINE}\n${CURRENT_LINE}\n   Commands: /para-program:plan /para-program:status /para-program:help"
+  "systemMessage": "${STATUS_LINE}\n${CURRENT_LINE}\n   Commands: /para:plan /para:status /para:help"
 }
 EOF
 

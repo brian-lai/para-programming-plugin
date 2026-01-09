@@ -20,7 +20,7 @@ This command implements the **Execute** phase of the PARA workflow:
 ### Simple Plans
 
 ```
-/para-program:execute
+/para:execute
 ```
 
 The command automatically:
@@ -31,9 +31,9 @@ The command automatically:
 ### Phased Plans
 
 ```
-/para-program:execute --phase=1               # Execute specific phase
-/para-program:execute --phase=2               # Execute next phase
-/para-program:execute                         # Will prompt for which phase to execute
+/para:execute --phase=1               # Execute specific phase
+/para:execute --phase=2               # Execute next phase
+/para:execute                         # Will prompt for which phase to execute
 ```
 
 For phased plans:
@@ -45,9 +45,9 @@ For phased plans:
 ### Options
 
 ```
-/para-program:execute --branch=custom-name    # Use custom branch name (simple plans only)
-/para-program:execute --no-branch             # Skip branch creation (continue on current branch)
-/para-program:execute --phase=N               # Execute specific phase (phased plans only)
+/para:execute --branch=custom-name    # Use custom branch name (simple plans only)
+/para:execute --no-branch             # Skip branch creation (continue on current branch)
+/para:execute --phase=N               # Execute specific phase (phased plans only)
 ```
 
 ## Workflow Integration
@@ -56,24 +56,24 @@ For phased plans:
 
 This command bridges planning and summarizing:
 
-1. **Plan** - `/para-program:plan` creates the plan (done before this)
+1. **Plan** - `/para:plan` creates the plan (done before this)
 2. **Review** - Human validates the approach (done before this)
-3. **Execute** - `/para-program:execute` sets up execution tracking ← YOU ARE HERE
-4. **Summarize** - `/para-program:summarize` captures results (after work is done)
-5. **Archive** - `/para-program:archive` cleans up (after summarizing)
+3. **Execute** - `/para:execute` sets up execution tracking ← YOU ARE HERE
+4. **Summarize** - `/para:summarize` captures results (after work is done)
+5. **Archive** - `/para:archive` cleans up (after summarizing)
 
 ### Phased Plan Workflow
 
 For each phase:
 
-1. **Plan** - `/para-program:plan` creates master + sub-plans (done before this)
+1. **Plan** - `/para:plan` creates master + sub-plans (done before this)
 2. **Review** - Human validates all phases (done before this)
-3. **Execute Phase N** - `/para-program:execute --phase=N` sets up phase tracking ← YOU ARE HERE
+3. **Execute Phase N** - `/para:execute --phase=N` sets up phase tracking ← YOU ARE HERE
 4. **Implement** - Work through phase to-dos, commit incrementally
-5. **Summarize Phase N** - `/para-program:summarize --phase=N` captures phase results
+5. **Summarize Phase N** - `/para:summarize --phase=N` captures phase results
 6. **PR & Merge** - Create PR, get review, merge to main
 7. **Repeat** - Move to next phase
-8. **Archive** - `/para-program:archive` cleans up after all phases complete
+8. **Archive** - `/para:archive` cleans up after all phases complete
 
 ## Implementation
 
@@ -86,7 +86,7 @@ For each phase:
    - Otherwise → simple plan
 4. For simple plans:
    - Verify exactly one active plan exists (if multiple, ask user which one)
-   - If no active plan, error with: "No active plan found. Run `/para-program:plan` first."
+   - If no active plan, error with: "No active plan found. Run `/para:plan` first."
 5. For phased plans:
    - If `--phase=N` option provided, validate phase N exists
    - If no `--phase` option, prompt user: "Which phase should we execute? (1-N)"
@@ -269,7 +269,7 @@ For each to-do:
 4. Commit immediately: `git commit -m "feat: {description}"`
 5. Move to the next to-do
 
-When all items are complete, run `/para-program:summarize`
+When all items are complete, run `/para:summarize`
 
 ⚠️ **Why commit after each to-do?**
 - Creates clear checkpoints for rollback if needed
@@ -314,7 +314,7 @@ When all items are complete, run `/para-program:summarize`
          ↓
     More to-dos?
     ├─ Yes → Loop back
-    └─ No  → /para-program:summarize
+    └─ No  → /para:summarize
 ```
 
 ### Commit Message Guidelines
@@ -365,7 +365,7 @@ git add -A
 git commit -m "feat: Implement JWT token generation and refresh"
 ```
 
-**Continue until all items are `[x]`, then run `/para-program:summarize`.**
+**Continue until all items are `[x]`, then run `/para:summarize`.**
 
 ## Edge Cases
 
@@ -418,5 +418,5 @@ Choice:
 - To-dos are extracted automatically but can be manually adjusted
 - **ALWAYS commit after completing each to-do** - this is required, not optional
 - The execution tracking in `context/context.md` provides resume capability
-- Run `/para-program:status` anytime to see current progress
+- Run `/para:status` anytime to see current progress
 - If a to-do is too large, break it into smaller sub-items before implementing
