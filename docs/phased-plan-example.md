@@ -22,7 +22,7 @@ This document demonstrates a complete phased plan workflow from start to finish.
 ### Command
 
 ```bash
-/plan implement-user-authentication
+/para-program:plan implement-user-authentication
 ```
 
 ### Claude Analysis
@@ -203,7 +203,7 @@ User reviews all 4 plan files (master + 3 phases) and approves the approach.
 ### Command
 
 ```bash
-/execute --phase=1
+/para-program:execute --phase=1
 ```
 
 ### What Happens
@@ -294,7 +294,7 @@ Claude (or user) works through the to-dos:
 ### Command
 
 ```bash
-/summarize --phase=1
+/para-program:summarize --phase=1
 ```
 
 ### What Happens
@@ -398,7 +398,7 @@ gh pr create --title "feat: User auth - Phase 1 (Database Schema)" \
 ### Command
 
 ```bash
-/execute --phase=2
+/para-program:execute --phase=2
 ```
 
 ### What Happens
@@ -427,7 +427,7 @@ Same process for frontend integration.
 After all phases are complete and merged:
 
 ```bash
-/archive
+/para-program:archive
 ```
 
 This:
