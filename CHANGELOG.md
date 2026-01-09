@@ -69,6 +69,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Planned
 
 - MCP tool implementations for automation
+
+## [1.1.0] - 2026-01-09
+
+### Added
+
+- **Global CLAUDE.md Setup:**
+  - `/para-program:init` now includes global CLAUDE.md setup step
+  - Added `resources/` directory with CLAUDE.md template
+  - Updated install script to handle global file setup
+
+### Changed
+
+- **Command Pattern Simplification:**
+  - Simplified command pattern to `/para-program:<command>` format
+  - Removed redundant `para-` prefix from individual command names
+  - Updated init command output to show correct command prefixes
+
+### Fixed
+
+- Fixed command prefix display in `/para-program:init` output
+- Fixed summarize and archive workflow issues
+- Corrected plugin installation syntax in documentation
+
+### Documentation
+
+- Updated README with plugin-focused content
+- Updated INSTALL.md with global setup instructions
+- Emphasized commit-per-todo workflow in `/para-program:execute` command
 - GitHub Actions workflow for CI/CD
 - Example projects demonstrating PARA methodology
 - Video tutorials and screencasts
@@ -81,4 +109,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.1.0** - Global CLAUDE.md setup, command pattern simplification, bug fixes
 - **1.0.0** - Initial release with core commands and documentation
