@@ -18,15 +18,15 @@ This command helps you create a structured plan before executing work:
 ## Usage
 
 ```
-/plan [task-description]
+/para-program:plan [task-description]
 ```
 
 ### Examples
 
 ```
-/plan add-user-authentication
-/plan fix-memory-leak
-/plan refactor-api-layer
+/para-program:plan add-user-authentication
+/para-program:plan fix-memory-leak
+/para-program:plan refactor-api-layer
 ```
 
 If no task description is provided, Claude will ask for it.
@@ -110,17 +110,17 @@ context/plans/YYYY-MM-DD-task-name-phase-3.md  (Phase 3 details)
 After creating a simple plan:
 
 1. **Review** - Human validates the approach
-2. **Execute** - `/execute` implements the plan
-3. **Summarize** - `/summarize` captures results
-4. **Archive** - `/archive` moves context to archives
+2. **Execute** - `/para-program:execute` implements the plan
+3. **Summarize** - `/para-program:summarize` captures results
+4. **Archive** - `/para-program:archive` moves context to archives
 
 ### Phased Plan Flow
 
 After creating a phased plan:
 
 1. **Review** - Human validates the overall approach and all phases
-2. **Execute Phase 1** - `/execute --phase=1` implements first phase
-3. **Summarize Phase 1** - `/summarize --phase=1` captures results
+2. **Execute Phase 1** - `/para-program:execute --phase=1` implements first phase
+3. **Summarize Phase 1** - `/para-program:summarize --phase=1` captures results
 4. **Merge Phase 1** - Create PR, get review, merge to main
 5. **Execute Phase 2** - Repeat for subsequent phases
 6. **Final Archive** - After all phases complete, archive the master plan
@@ -135,7 +135,7 @@ Each phase is:
 
 ### Detection Logic
 
-When `/plan` is invoked, Claude should:
+When `/para-program:plan` is invoked, Claude should:
 
 1. Analyze the task description and explore relevant codebase areas
 2. Determine if the work should be phased based on:
@@ -202,7 +202,7 @@ When `/plan` is invoked, Claude should:
 ### Example: Simple Plan
 
 ```
-User: /plan add-logging-middleware
+User: /para-program:plan add-logging-middleware
 
 Claude analyzes:
 - Will touch 2-3 files
@@ -216,7 +216,7 @@ Creates: context/plans/2025-12-18-add-logging-middleware.md
 ### Example: Phased Plan
 
 ```
-User: /plan implement-user-authentication
+User: /para-program:plan implement-user-authentication
 
 Claude analyzes:
 - Will touch 10+ files across multiple layers

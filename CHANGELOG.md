@@ -10,14 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Slash Commands:**
-  - `/init` - Initialize PARA structure in projects
-  - `/plan` - Create structured planning documents
-  - `/execute` - Start execution with branch and to-dos
-  - `/summarize` - Generate summaries from work sessions
-  - `/archive` - Archive completed contexts
-  - `/status` - Display current workflow state
-  - `/check` - Decision helper for workflow application
-  - `/help` - Comprehensive PARA guide
+  - `/para-program:init` - Initialize PARA structure in projects
+  - `/para-program:plan` - Create structured planning documents
+  - `/para-program:execute` - Start execution with branch and to-dos
+  - `/para-program:summarize` - Generate summaries from work sessions
+  - `/para-program:archive` - Archive completed contexts
+  - `/para-program:status` - Display current workflow state
+  - `/para-program:check` - Decision helper for workflow application
+  - `/para-program:help` - Comprehensive PARA guide
 
 - **Templates:**
   - Plan template with standard structure

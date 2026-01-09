@@ -17,7 +17,7 @@ This command creates a structured summary after completing work:
 ### Simple Plans
 
 ```
-/summarize
+/para-program:summarize
 ```
 
 The command will automatically:
@@ -28,8 +28,8 @@ The command will automatically:
 ### Phased Plans
 
 ```
-/summarize --phase=1         # Summarize specific phase
-/summarize                   # Will prompt for which phase to summarize
+/para-program:summarize --phase=1         # Summarize specific phase
+/para-program:summarize                   # Will prompt for which phase to summarize
 ```
 
 For phased plans:
@@ -56,7 +56,7 @@ After summarizing:
 1. Summary added to `context/summaries/`
 2. `context/context.md` updated to reference the summary
 3. Plan moved from `active_context` to `completed_summaries`
-4. Ready for `/archive` to clean up
+4. Ready for `/para-program:archive` to clean up
 
 ## Implementation
 

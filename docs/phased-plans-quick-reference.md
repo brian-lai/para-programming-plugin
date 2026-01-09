@@ -36,23 +36,23 @@ Create a phased plan when ANY of these apply:
 
 | Step | Command | Output |
 |------|---------|--------|
-| Plan | `/plan task-name` | `context/plans/YYYY-MM-DD-task-name.md` |
-| Execute | `/execute` | Branch: `para/task-name` |
-| Summarize | `/summarize` | `context/summaries/YYYY-MM-DD-task-name-summary.md` |
-| Archive | `/archive` | Moves context to archives |
+| Plan | `/para-program:plan task-name` | `context/plans/YYYY-MM-DD-task-name.md` |
+| Execute | `/para-program:execute` | Branch: `para/task-name` |
+| Summarize | `/para-program:summarize` | `context/summaries/YYYY-MM-DD-task-name-summary.md` |
+| Archive | `/para-program:archive` | Moves context to archives |
 
 ### Phased Plan
 
 | Step | Command | Output |
 |------|---------|--------|
-| Plan | `/plan task-name` | Master + N phase plans |
+| Plan | `/para-program:plan task-name` | Master + N phase plans |
 | Review | (Manual) | Review all phases |
-| Execute Phase 1 | `/execute --phase=1` | Branch: `para/task-name-phase-1` |
-| Summarize Phase 1 | `/summarize --phase=1` | Phase 1 summary |
+| Execute Phase 1 | `/para-program:execute --phase=1` | Branch: `para/task-name-phase-1` |
+| Summarize Phase 1 | `/para-program:summarize --phase=1` | Phase 1 summary |
 | Merge Phase 1 | `gh pr create` + merge | Phase 1 in main |
-| Execute Phase 2 | `/execute --phase=2` | Branch: `para/task-name-phase-2` |
+| Execute Phase 2 | `/para-program:execute --phase=2` | Branch: `para/task-name-phase-2` |
 | ... | (Repeat for each phase) | ... |
-| Archive | `/archive` | After all phases complete |
+| Archive | `/para-program:archive` | After all phases complete |
 
 ---
 
