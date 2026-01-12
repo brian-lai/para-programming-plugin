@@ -769,17 +769,17 @@ This section instructs Claude Code (and other AI tools) on how to present PARA-P
 
 Show PARA-Programming guidance in these situations:
 
-1. **After Initialization** - Always show comprehensive output after `/para-init`
+1. **After Initialization** - Always show comprehensive output after `/para:init`
 2. **User Asks for Help** - When user asks "how do I use PARA?" or similar
 3. **User Seems Uncertain** - When user appears unsure about workflow
-4. **After Archiving** - Brief reminder of next steps after `/para-archive`
+4. **After Archiving** - Brief reminder of next steps after `/para:archive`
 5. **First Interaction** - If user mentions PARA but hasn't used it yet
 
 ### Standard Output Format
 
 When presenting PARA-Programming guidance, use this structure:
 
-#### For `/para-init` (Comprehensive Onboarding)
+#### For `/para:init` (Comprehensive Onboarding)
 
 ```markdown
 ## ✅ Directory Structure Created/Verified
@@ -797,9 +797,9 @@ When presenting PARA-Programming guidance, use this structure:
 **Rule of thumb:** If it results in git changes, use PARA workflow.
 
 ## 🚀 Next Steps
-1. Create your first plan: `/para-plan <task-description>`
-2. Check workflow status: `/para-status`
-3. Get help anytime: `/para-help`
+1. Create your first plan: `/para:plan <task-description>`
+2. Check workflow status: `/para:status`
+3. Get help anytime: `/para:help`
 
 ## 📚 Available Commands
 [List all 6 PARA commands with brief descriptions]
@@ -826,11 +826,11 @@ Your PARA-Programming environment is ready! 🎉
 - ❌ Explanations ("How does X work?")
 
 **Commands:**
-- `/para-plan` - Create plan
-- `/para-help` - Full guide
-- `/para-status` - Check state
+- `/para:plan` - Create plan
+- `/para:help` - Full guide
+- `/para:status` - Check state
 
-**Need help?** Run `/para-help` for the complete guide.
+**Need help?** Run `/para:help` for the complete guide.
 ```
 
 ### Communication Principles
@@ -859,7 +859,7 @@ When interacting with users about PARA-Programming:
 
 #### For CLI Tools (Claude Code)
 - Use tree command output format for directory structures
-- Format commands with backticks: `/para-init`
+- Format commands with backticks: `/para:init`
 - Use markdown tables for comparisons
 - Keep output scannable with clear headers
 
@@ -872,9 +872,9 @@ When interacting with users about PARA-Programming:
 ### Timing and Frequency
 
 **First Time Users:**
-- Show comprehensive guidance after `/para-init`
-- Offer `/para-help` in every response until they use it
-- Provide decision support with `/para-check` reference
+- Show comprehensive guidance after `/para:init`
+- Offer `/para:help` in every response until they use it
+- Provide decision support with `/para:check` reference
 
 **Returning Users:**
 - Compact reminders when needed
@@ -882,9 +882,9 @@ When interacting with users about PARA-Programming:
 - Focus on specific help they request
 
 **All Users:**
-- Always available via `/para-help`
-- Status check via `/para-status`
-- Decision support via `/para-check`
+- Always available via `/para:help`
+- Status check via `/para:status`
+- Decision support via `/para:check`
 
 ### Example Interactions
 
@@ -895,10 +895,10 @@ Claude: I'll help you learn PARA-Programming! It's a structured workflow for wor
 
 [Shows compact version of guidance from above]
 
-For the complete guide, run `/para-help`.
+For the complete guide, run `/para:help`.
 ```
 
-#### Example 2: After Running `/para-init`
+#### Example 2: After Running `/para:init`
 ```
 [Claude automatically shows comprehensive onboarding output per template above]
 ```
@@ -909,7 +909,7 @@ User: "Add authentication to the API"
 
 Claude: I'll create a plan for implementing authentication. This requires code changes, so let's follow the PARA workflow.
 
-[Claude runs /para-plan internally or prompts user to run it]
+[Claude runs /para:plan internally or prompts user to run it]
 ```
 
 #### Example 4: User Asks Simple Question
@@ -928,10 +928,10 @@ Claude: The authentication middleware is in src/middleware/auth.ts:45-89.
 **Goal:** Make PARA-Programming accessible and intuitive for all users, especially newcomers.
 
 **Method:**
-1. **Automatic guidance** after `/para-init`
-2. **On-demand help** via `/para-help`
+1. **Automatic guidance** after `/para:init`
+2. **On-demand help** via `/para:help`
 3. **Context-aware assistance** based on user familiarity
-4. **Decision support** via `/para-check`
+4. **Decision support** via `/para:check`
 
 **Tone:** Helpful, encouraging, practical (not overwhelming or academic)
 
