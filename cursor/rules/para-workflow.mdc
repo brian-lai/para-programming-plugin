@@ -1,0 +1,29 @@
+---
+description: PARA-Programming workflow – when to use plans and slash commands
+globs: context/**/*
+alwaysApply: false
+---
+
+# PARA-Programming in Cursor
+
+This project uses the PARA workflow. When the user asks for **code or file changes** (features, bugs, refactors, config, DB, tests), use the PARA flow: Plan → Review → Execute → Summarize → Archive.
+
+## When to use PARA
+
+- **Use PARA:** Code changes, features, bug fixes, refactors, architecture decisions, file modifications, DB changes, tests.
+- **Skip PARA:** "Where is X?", "How does Y work?", explanations, navigation, simple lookups.
+
+**Rule of thumb:** If it would result in git changes, use PARA. If it's read-only, answer directly.
+
+## Slash commands (type `/` in chat)
+
+- `/para-init` – Initialize PARA in this project (first time)
+- `/para-plan` – Create a plan (add task description)
+- `/para-execute` – Start execution (branch + to-dos)
+- `/para-summarize` – Write summary from completed work
+- `/para-archive` – Archive context for next task
+- `/para-status` – Show current workflow state
+- `/para-check` – Decide: use PARA or answer directly
+- `/para-help` – Full guide
+
+When the user requests work that changes code or files, suggest running `/para-plan "task description"` or run the plan step yourself and then proceed with execute/summarize/archive as appropriate.

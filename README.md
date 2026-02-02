@@ -76,6 +76,12 @@ claude
 - Example workflows
 - Documentation
 
+### Cursor IDE
+
+- **Slash commands** – Use PARA in [Cursor](https://cursor.com) via `/para-init`, `/para-plan`, etc. Type `/` in Cursor chat to see them.
+- **Easy setup** – Copy `cursor/commands` and `cursor/rules` into your project’s `.cursor/` directory, or run `./scripts/setup-cursor.sh /path/to/your/project` from this repo.
+- **Docs** – See [docs/cursor-setup.md](docs/cursor-setup.md) for step-by-step Cursor setup.
+
 ---
 
 ## 🔁 The PARA Workflow
@@ -89,12 +95,14 @@ claude
 ### When to Use
 
 **✅ ALWAYS for:**
+
 - Code changes (features, bugs, refactoring)
 - Architecture decisions
 - Configuration changes
 - Database modifications
 
 **❌ SKIP for:**
+
 - Informational queries
 - Code explanations
 - Navigation
@@ -182,7 +190,7 @@ claude
 para-programming-plugin/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin manifest
-├── commands/                # Slash commands
+├── commands/                # Claude Code slash commands
 │   ├── init.md
 │   ├── plan.md
 │   ├── execute.md
@@ -191,6 +199,9 @@ para-programming-plugin/
 │   ├── status.md
 │   ├── check.md
 │   └── help.md
+├── cursor/                  # Cursor IDE setup
+│   ├── commands/            # Cursor slash commands (para-init.md, etc.)
+│   └── rules/               # Cursor rules (para-workflow.mdc)
 ├── hooks/                   # Event handlers
 │   ├── hooks.json
 │   └── para-session-start.sh
@@ -212,26 +223,34 @@ para-programming-plugin/
 ## 🎯 Key Features
 
 ### Structured Planning
+
 Every task starts with a plan that includes:
+
 - Clear objective
 - Step-by-step approach
 - Risk analysis
 - Success criteria
 
 ### Persistent Context
+
 Context persists across sessions:
+
 - Active plans tracked in `context/context.md`
 - Summaries document what was done
 - Archives preserve historical state
 
 ### Git Integration
+
 PARA workflow integrates with git:
+
 - Creates feature branches automatically
 - Tracks to-dos as commits
 - Generates summaries from diffs
 
 ### Token Efficiency
+
 Minimizes token usage through:
+
 - Structured context files
 - MCP preprocessing (optional)
 - Selective loading of relevant context
