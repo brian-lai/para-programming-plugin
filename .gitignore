@@ -2,3 +2,7 @@
 
 # codetect index
 .codetect/
+
+# Development-only files (not part of plugin bundle)
+.mcp.json
+context/
