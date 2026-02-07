@@ -19,7 +19,9 @@ Fixing hooks.json schema validation error and releasing patch version 1.2.1.
   "active_context": [
     "context/plans/2026-02-07-fix-hooks-json-schema.md"
   ],
-  "completed_summaries": [],
-  "last_updated": "2026-02-07T23:45:00Z"
+  "completed_summaries": [
+    "context/summaries/2026-02-07-fix-hooks-json-schema-summary.md"
+  ],
+  "last_updated": "2026-02-07T23:55:00Z"
 }
 ```
