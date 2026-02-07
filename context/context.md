@@ -19,7 +19,9 @@ Removing duplicate hooks reference from plugin.json and releasing patch version 
   "active_context": [
     "context/plans/2026-02-08-remove-duplicate-hooks-reference.md"
   ],
-  "completed_summaries": [],
-  "last_updated": "2026-02-08T00:40:00Z"
+  "completed_summaries": [
+    "context/summaries/2026-02-08-remove-duplicate-hooks-summary.md"
+  ],
+  "last_updated": "2026-02-08T00:50:00Z"
 }
 ```
