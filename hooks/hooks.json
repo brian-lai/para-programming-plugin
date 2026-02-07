@@ -2,8 +2,13 @@
   "hooks": {
     "SessionStart": [
       {
-        "action": "shell",
-        "command": "./hooks/para-session-start.sh"
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/para-session-start.sh"
+          }
+        ]
       }
     ]
   }
