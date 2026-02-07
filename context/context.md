@@ -7,9 +7,9 @@ Fixing hooks.json nested schema structure and releasing patch version 1.2.3.
 - [x] Stage and commit hooks.json changes
 - [x] Push branch to origin
 - [x] Create PR via gh CLI
-- [ ] Merge PR to main
-- [ ] Checkout main and pull latest
-- [ ] Update version to 1.2.3 in plugin files
+- [x] Merge PR to main
+- [x] Checkout main and pull latest
+- [x] Update version to 1.2.3 in plugin files
 - [ ] Create git tag v1.2.3
 - [ ] Push tag to origin
 
