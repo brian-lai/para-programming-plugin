@@ -18,6 +18,5 @@
     "ai-assisted-development",
     "pair-programming",
     "persistent-memory"
-  ],
-  "hooks": "./hooks/hooks.json"
+  ]
 }
