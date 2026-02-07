@@ -4,8 +4,8 @@ Fixing hooks.json nested schema structure and releasing patch version 1.2.3.
 
 ## Todos
 - [x] Create branch `fix/hooks-nested-schema-2026-02-08`
-- [ ] Stage and commit hooks.json changes
-- [ ] Push branch to origin
+- [x] Stage and commit hooks.json changes
+- [x] Push branch to origin
 - [ ] Create PR via gh CLI
 - [ ] Merge PR to main
 - [ ] Checkout main and pull latest
