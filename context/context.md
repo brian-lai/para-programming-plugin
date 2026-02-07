@@ -6,7 +6,7 @@ Fixing hooks.json schema validation error and releasing patch version 1.2.1.
 - [x] Create branch `fix/hooks-json-schema-2026-02-07`
 - [x] Stage and commit hooks.json changes
 - [x] Push branch to origin
-- [ ] Create PR via gh CLI
+- [x] Create PR via gh CLI
 - [ ] Merge PR to main
 - [ ] Checkout main and pull latest
 - [ ] Check if package.json exists and update version if needed
