@@ -19,7 +19,9 @@ Fixing hooks.json nested schema structure and releasing patch version 1.2.3.
   "active_context": [
     "context/plans/2026-02-08-fix-hooks-nested-schema.md"
   ],
-  "completed_summaries": [],
-  "last_updated": "2026-02-08T00:20:00Z"
+  "completed_summaries": [
+    "context/summaries/2026-02-08-fix-hooks-nested-schema-summary.md"
+  ],
+  "last_updated": "2026-02-08T00:35:00Z"
 }
 ```
