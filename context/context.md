@@ -10,8 +10,8 @@ Fixing hooks.json schema validation error and releasing patch version 1.2.1.
 - [x] Merge PR to main
 - [x] Checkout main and pull latest
 - [x] Check if package.json exists and update version if needed
-- [ ] Create git tag v1.2.1
-- [ ] Push tag to origin
+- [x] Create git tag v1.2.1
+- [x] Push tag to origin
 
 ---
 ```json
