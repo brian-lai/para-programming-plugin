@@ -10,8 +10,8 @@ Removing duplicate hooks reference from plugin.json and releasing patch version 
 - [x] Merge PR to main
 - [x] Checkout main and pull latest
 - [x] Update version to 1.2.4 in plugin files
-- [ ] Create git tag v1.2.4
-- [ ] Push tag to origin
+- [x] Create git tag v1.2.4
+- [x] Push tag to origin
 
 ---
 ```json
