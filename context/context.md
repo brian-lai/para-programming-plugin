@@ -4,8 +4,8 @@ Fixing hooks.json array schema validation error and releasing patch version 1.2.
 
 ## Todos
 - [x] Create branch `fix/hooks-array-schema-2026-02-07`
-- [ ] Stage and commit hooks.json changes
-- [ ] Push branch to origin
+- [x] Stage and commit hooks.json changes
+- [x] Push branch to origin
 - [ ] Create PR via gh CLI
 - [ ] Merge PR to main
 - [ ] Checkout main and pull latest
