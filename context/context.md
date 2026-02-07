@@ -6,7 +6,7 @@ Removing duplicate hooks reference from plugin.json and releasing patch version 
 - [x] Create branch `fix/remove-duplicate-hooks-2026-02-08`
 - [x] Stage and commit plugin.json changes
 - [x] Push branch to origin
-- [ ] Create PR via gh CLI
+- [x] Create PR via gh CLI
 - [ ] Merge PR to main
 - [ ] Checkout main and pull latest
 - [ ] Update version to 1.2.4 in plugin files
