@@ -1,6 +1,8 @@
 {
-  "SessionStart": {
-    "action": "shell",
-    "command": "./hooks/para-session-start.sh"
+  "hooks": {
+    "SessionStart": {
+      "action": "shell",
+      "command": "./hooks/para-session-start.sh"
+    }
   }
 }
