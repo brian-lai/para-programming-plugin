@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "codetect": {
+      "command": "codetect",
+      "args": ["mcp"]
+    }
+  }
+}

@@ -1,4 +1,4 @@
 .claude
-.repo_search
 
-context
+# codetect index
+.codetect/
