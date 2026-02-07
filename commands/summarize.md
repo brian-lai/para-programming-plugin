@@ -2,85 +2,38 @@
 
 Generate a summary document from the current work session. Supports both simple and phased plans.
 
-## What This Does
+## Usage
 
-This command creates a structured summary after completing work:
+```
+/para:summarize                   # Auto-detect active plan/phase
+/para:summarize --phase=N         # Summarize specific phase
+```
+
+## What It Does
 
 1. Analyzes git changes (files modified, added, deleted)
 2. Reviews the active plan (or phase) from `context/context.md`
-3. Generates a summary with proper date prefix: `context/summaries/YYYY-MM-DD-task-name-summary.md` or `context/summaries/YYYY-MM-DD-task-name-phase-N-summary.md`
-4. Documents what changed, why, and key learnings
-5. Updates `context/context.md` to mark work (or phase) as complete
+3. Creates summary: `context/summaries/YYYY-MM-DD-task-name-summary.md` (or `...-phase-N-summary.md`)
+4. Updates `context/context.md`: moves plan from `active_context` to `completed_summaries`, updates timestamp
+5. For phased plans, marks phase status as "completed"
 
-## Usage
+## Summary Sections
 
-### Simple Plans
-
-```
-/para:summarize
-```
-
-The command will automatically:
-- Detect the current active plan
-- Analyze git diff for changes
-- Generate a comprehensive summary
-
-### Phased Plans
-
-```
-/para:summarize --phase=1         # Summarize specific phase
-/para:summarize                   # Will prompt for which phase to summarize
-```
-
-For phased plans:
-- Each phase gets its own summary file
-- Phase status changes from "in_progress" → "completed"
-- Summary includes phase-specific success criteria validation
-- After all phases complete, a final summary can be generated
-
-## Summary Template Structure
-
-The generated summary includes:
-
-- **Date & Status** - When completed, success/failure status
-- **Changes Made** - Files modified/created with line references
-- **Rationale** - Why these changes were made
-- **MCP Tools Used** - Which preprocessing tools were utilized
-- **Key Learnings** - Insights, follow-up tasks, gotchas
-- **Test Results** - Pass/fail status, coverage metrics
-
-## Workflow Integration
-
-After summarizing:
-
-1. Summary added to `context/summaries/`
-2. `context/context.md` updated to reference the summary
-3. Plan moved from `active_context` to `completed_summaries`
-4. Ready for `/para:archive` to clean up
+- **Date & Status** -- when completed, success/failure
+- **Changes Made** -- files modified/created with line references
+- **Rationale** -- why these changes were made
+- **MCP Tools Used** -- preprocessing tools utilized
+- **Key Learnings** -- insights, follow-up tasks, gotchas
+- **Test Results** -- pass/fail status, coverage metrics
 
 ## Implementation
 
 1. Get current date in `YYYY-MM-DD` format
 2. Read `context/context.md` to find active plan
-3. Run `git diff` to see changes
-4. Run `git status` to see staged/unstaged files
-5. Extract task name from active plan filename
-6. Create summary file: `context/summaries/YYYY-MM-DD-{task-name}-summary.md`
-7. Populate with template from `templates/summary-template.md`
-8. Fill in:
-   - Changed files with line numbers
-   - Rationale from plan
-   - Test results if available
-   - Key learnings
-9. Update `context/context.md`:
-   - Move plan from `active_context` to `completed_summaries`
-   - Update `last_updated` timestamp
-10. Display summary location
+3. Run `git diff` and `git status` to analyze changes
+4. Extract task name from plan filename
+5. Create summary file with template from `templates/summary-template.md`
+6. Update `context/context.md` metadata
+7. Display summary location
 
-## Notes
-
-- Summaries should be concise but complete
-- Include file:line references for easy navigation
-- Document both what changed and why
-- Capture learnings for future reference
-- All project work MUST end with a summary (per PARA workflow)
+After summarizing, run `/para:archive` to clean up.
