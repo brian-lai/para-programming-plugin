@@ -4,12 +4,41 @@
 # Provides contextual guidance when Claude Code starts
 #
 
+# Get plugin directory (where this script lives)
+PLUGIN_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# Check for version updates
+VERSION_FILE="$HOME/.claude/.para-version-seen"
+CURRENT_VERSION=$(grep '"version"' "$PLUGIN_DIR/.claude-plugin/plugin.json" | head -1 | sed 's/.*"version": "\(.*\)".*/\1/')
+
+# Initialize version tracking if needed
+mkdir -p "$HOME/.claude"
+if [ ! -f "$VERSION_FILE" ]; then
+    echo "$CURRENT_VERSION" > "$VERSION_FILE"
+    LAST_VERSION=""
+else
+    LAST_VERSION=$(cat "$VERSION_FILE")
+fi
+
+# Check if version changed
+VERSION_CHANGED=false
+if [ -n "$LAST_VERSION" ] && [ "$LAST_VERSION" != "$CURRENT_VERSION" ]; then
+    VERSION_CHANGED=true
+    echo "$CURRENT_VERSION" > "$VERSION_FILE"
+fi
+
+# Build version update message if applicable
+VERSION_MSG=""
+if [ "$VERSION_CHANGED" = true ]; then
+    VERSION_MSG="🎉 PARA-Programming updated to v${CURRENT_VERSION}\n   What's new: https://github.com/brian-lai/para-programming-plugin/releases/tag/v${CURRENT_VERSION}\n\n"
+fi
+
 # Check if context directory exists
 if [ ! -d "context" ]; then
     # PARA not initialized in this project
-    cat <<'EOF'
+    cat <<EOF
 {
-  "systemMessage": "💡 PARA-Programming available\n   Run /para:init to set up | /para:help for guide"
+  "systemMessage": "${VERSION_MSG}💡 PARA-Programming available\n   Run /para:init to set up | /para:help for guide"
 }
 EOF
     exit 0
@@ -44,7 +73,7 @@ fi
 # Output formatted status
 cat <<EOF
 {
-  "systemMessage": "${STATUS_LINE}\n${CURRENT_LINE}\n   Commands: /para:plan /para:status /para:help"
+  "systemMessage": "${VERSION_MSG}${STATUS_LINE}\n${CURRENT_LINE}\n   Commands: /para:plan /para:status /para:help"
 }
 EOF
 
