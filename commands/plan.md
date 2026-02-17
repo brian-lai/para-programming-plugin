@@ -23,7 +23,7 @@ When `/para:plan` is invoked:
    - Reference existing codebase patterns when relevant ("I see you use X elsewhere, should we follow that?")
    - Skip only if ALL of these are true: task is very narrow, only one reasonable approach exists, no risk of breaking changes, user gave extremely detailed requirements.
 
-3. **Explore the codebase** with clarifications in hand -- identify patterns, conventions, affected components, and complexity.
+3. **Explore the codebase** with clarifications in hand -- identify patterns, conventions, affected components, complexity, and existing test patterns (test framework, test file locations, naming conventions).
 
 4. **Determine plan type:**
    - **Simple plan** (single file) for straightforward tasks
@@ -31,6 +31,9 @@ When `/para:plan` is invoked:
    - If proposing a phased plan, confirm with the user first.
 
 5. **Draft the plan** and request human review.
+   - Every implementation step MUST include a `Tests:` annotation specifying what tests to write
+   - Include a Testing Strategy section with concrete, specific tests (not generic placeholders)
+   - Tests should reference actual functions, modules, and behaviors from the codebase
 
 6. **After the plan is written**, ask the user if they'd like to proceed to implementation by running `/para:execute`. Use **AskUserQuestion** with options like:
    - "Yes, run `/para:execute`" — proceed to implementation
@@ -48,6 +51,7 @@ Sections:
 - **Approach** -- step-by-step methodology
 - **Risks** -- potential issues and edge cases
 - **Success Criteria** -- measurable outcomes
+- **Testing Strategy** -- unit tests, integration tests, manual verification
 
 ### Phased Plan
 
@@ -57,7 +61,7 @@ Files:
 - `context/plans/YYYY-MM-DD-task-name-phase-2.md`
 - etc.
 
-Each phase should be independently reviewable and mergeable.
+Each phase should be independently reviewable and mergeable. Sub-plan implementation steps must include per-step `Tests:` annotations specifying what to test.
 
 ## Context Update
 

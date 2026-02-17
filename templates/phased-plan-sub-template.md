@@ -40,18 +40,23 @@
 
 ### Detailed Implementation Steps
 
+[Each step follows TDD: write tests first, then implement.]
+
 1. **[Step 1 Name]**
    - [Sub-task A]
    - [Sub-task B]
    - [Sub-task C]
+   - **Tests:** [Specific tests for this step]
 
 2. **[Step 2 Name]**
    - [Sub-task A]
    - [Sub-task B]
+   - **Tests:** [Specific tests for this step]
 
 3. **[Step 3 Name]**
    - [Sub-task A]
    - [Sub-task B]
+   - **Tests:** [Specific tests for this step]
 
 [Add more steps as needed]
 
@@ -172,6 +177,7 @@ Before executing this phase:
 - [ ] Prerequisites met (previous phases complete if applicable)
 - [ ] Approach is clear and detailed
 - [ ] All files to be modified are identified
+- [ ] Each implementation step has associated tests defined
 - [ ] Testing strategy is comprehensive
 - [ ] Success criteria are measurable
 - [ ] Risks are identified with mitigations

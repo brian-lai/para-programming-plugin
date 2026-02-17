@@ -65,15 +65,19 @@ _Update this section as you complete items._
 
 For phased plans, add `phased_execution` block with phase statuses and `current_phase: N`. The branch becomes `para/{task-name}-phase-N` and both master and phase plans are listed in `active_context`.
 
-## Commit-Per-Todo Rule
+## Commit-Per-Todo Rule (TDD)
 
-**Committing after each todo is mandatory.**
+**Committing after each todo is mandatory. Each todo follows a tests-first cycle.**
 
 For each todo:
-1. Implement the work
-2. Mark it `[x]` in `context/context.md`
-3. Stage changes: `git add -A`
-4. Commit immediately with the todo text as the message
+1. **Write tests first** — based on the plan's `Tests:` annotation for this step. Tests should initially fail.
+2. **Implement** — write the minimum code to make the tests pass.
+3. **Verify** — run the test suite to confirm all tests pass.
+4. Mark it `[x]` in `context/context.md`
+5. Stage changes: `git add -A`
+6. Commit immediately with the todo text as the message
+
+If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip the test-writing step.
 
 When all todos are complete, run `/para:summarize`.
 

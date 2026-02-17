@@ -44,6 +44,30 @@
 - [ ] [Criterion 1]
 - [ ] [Criterion 2]
 - [ ] [Criterion 3]
+- [ ] Tests written and passing for all implementation steps
+
+## Testing Strategy
+
+### Unit Tests
+
+[What unit tests need to be written]
+
+- [Test category 1]
+- [Test category 2]
+
+### Integration Tests
+
+[What integration tests need to be written]
+
+- [Test scenario 1]
+- [Test scenario 2]
+
+### Manual Verification
+
+[Manual steps to verify correctness]
+
+1. [Step 1]
+2. [Step 2]
 
 ## Implementation Steps
 
@@ -52,14 +76,17 @@
 1. **[Step 1 Name]**
    - [Sub-task]
    - [Sub-task]
+   - **Tests:** [What tests to write for this step]
 
 2. **[Step 2 Name]**
    - [Sub-task]
    - [Sub-task]
+   - **Tests:** [What tests to write for this step]
 
 3. **[Step 3 Name]**
    - [Sub-task]
    - [Sub-task]
+   - **Tests:** [What tests to write for this step]
 
 ## Review Checklist
 
@@ -68,6 +95,7 @@
 - [ ] Are the right MCP tools specified?
 - [ ] Is the scope appropriate (not too large)?
 - [ ] Are success criteria measurable?
+- [ ] Does each implementation step have associated tests defined?
 
 ---
 
