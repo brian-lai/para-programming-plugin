@@ -32,6 +32,11 @@ When `/para:plan` is invoked:
 
 5. **Draft the plan** and request human review.
 
+6. **After the plan is written**, ask the user if they'd like to proceed to implementation by running `/para:execute`. Use **AskUserQuestion** with options like:
+   - "Yes, run `/para:execute`" — proceed to implementation
+   - "I'd like to make adjustments first" — continue refining the plan
+   For phased plans, the prompt should reference `/para:execute --phase=1` to start with the first phase.
+
 ## Plan Structure
 
 ### Simple Plan

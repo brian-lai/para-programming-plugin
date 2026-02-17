@@ -71,4 +71,4 @@
 
 ---
 
-**Next Step:** Please review this plan. Does it align with your intent? Any adjustments needed before execution?
+**Next Step:** Please review this plan. When you're ready, run `/para:execute` to begin implementation.

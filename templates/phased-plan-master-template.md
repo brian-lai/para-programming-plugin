@@ -159,4 +159,4 @@ Before beginning execution:
 
 ---
 
-**Next Step:** Please review this master plan and all sub-plans. Does the phased approach make sense? Any adjustments needed before execution?
+**Next Step:** Please review this master plan and all sub-plans. When you're ready, run `/para:execute --phase=1` to begin the first phase.
