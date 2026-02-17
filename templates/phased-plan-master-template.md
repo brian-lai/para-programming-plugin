@@ -74,7 +74,7 @@
 
 ### Testing Strategy
 
-- **Phase-Level Testing:** [How each phase is tested independently]
+- **Phase-Level Testing:** [How each phase is tested — each phase follows TDD with per-step test criteria]
 - **Integration Testing:** [How phases are tested together]
 - **End-to-End Testing:** [Full system testing after all phases]
 

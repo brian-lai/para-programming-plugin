@@ -101,7 +101,10 @@ Pause and request human validation of the plan before proceeding.
 
 2. **Track todos in `context/context.md`** -- extract implementation steps from the plan as a checkbox list.
 
-3. **Commit after EVERY completed todo:**
+3. **Commit after EVERY completed todo (TDD cycle):**
+   - Write tests first based on the plan's `Tests:` annotations
+   - Implement the minimum code to make tests pass
+   - Run the test suite to verify all tests pass
    - Mark the todo `[x]` in `context/context.md`
    - Commit with the todo text as the message
    - Each commit = one atomic, complete unit of work
