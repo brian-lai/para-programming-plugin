@@ -65,19 +65,22 @@ _Update this section as you complete items._
 
 For phased plans, add `phased_execution` block with phase statuses and `current_phase: N`. The branch becomes `para/{task-name}-phase-N` and both master and phase plans are listed in `active_context`.
 
-## Commit-Per-Todo Rule (TDD)
+## Commit-Per-Todo Rule (Spec-Driven TDD)
 
-**Committing after each todo is mandatory. Each todo follows a tests-first cycle.**
+**Committing after each todo is mandatory. Each todo follows a spec-first, tests-first cycle.**
+
+Before starting any todo, verify that the active plan references a spec file (`context/data/*-spec.yaml` or equivalent contract). If missing, prompt the user to create the spec before proceeding.
 
 For each todo:
-1. **Write tests first** — based on the plan's `Tests:` annotation for this step. Tests should initially fail.
-2. **Implement** — write the minimum code to make the tests pass.
-3. **Verify** — run the test suite to confirm all tests pass.
-4. Mark it `[x]` in `context/context.md`
-5. Stage changes: `git add -A`
-6. Commit immediately with the todo text as the message
+1. **Confirm spec + stubs exist** — locate the stub source file(s) for this step. If stubs are missing (planning was skipped), create them now from the spec before writing tests.
+2. **Write tests first** — based on the plan's `Tests:` annotation and the spec. Tests import the stub and assert expected behavior; they should initially fail.
+3. **Implement** — replace stub bodies with real logic to make tests pass.
+4. **Verify** — run the test suite to confirm all tests pass.
+5. Mark it `[x]` in `context/context.md`
+6. Stage changes: `git add -A`
+7. Commit immediately with the todo text as the message
 
-If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip the test-writing step.
+If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip steps 1–4.
 
 When all todos are complete, run `/para:summarize`.
 
