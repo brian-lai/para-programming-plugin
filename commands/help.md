@@ -30,7 +30,7 @@ Display the following:
 |---------|---------|
 | `/para:init` | Initialize PARA structure in a project |
 | `/para:plan <task>` | Create a planning document (collaborative) |
-| `/para:execute` | Create branch, extract todos, start execution |
+| `/para:execute` | Create worktree, extract todos, start execution |
 | `/para:summarize` | Generate post-work summary |
 | `/para:archive` | Archive context and start fresh |
 | `/para:status` | Check current workflow state |
@@ -42,9 +42,11 @@ Display the following:
 ```
 /para:plan Add user authentication
   → Review the plan
-  → AI implements (commits after each todo)
+/para:execute
+  → Creates isolated worktree in .para-worktrees/
+  → AI implements in worktree (commits after each todo)
 /para:summarize
-/para:archive
+/para:archive   → Cleans up worktree
 ```
 
 ## File Structure
