@@ -121,6 +121,7 @@ your-project/
 │   ├── summaries/              # Post-work reports
 │   ├── archives/               # Historical snapshots
 │   └── servers/                # MCP tool wrappers
+├── .para-worktrees/            # Git worktree isolation (gitignored)
 ├── CLAUDE.md                   # Project-specific context
 └── [your project files...]
 ```
@@ -148,6 +149,7 @@ claude
 # 5. Start execution
 /para:execute
 
+# [Creates worktree: .para-worktrees/add-dark-mode-support]
 # [Creates branch: para/add-dark-mode-support]
 # [Updates context.md with to-do list]
 # [Commits: "chore: Initialize execution context"]
@@ -226,9 +228,11 @@ Context persists across sessions:
 
 ### Git Integration
 PARA workflow integrates with git:
-- Creates feature branches automatically
+- Creates isolated worktrees in `.para-worktrees/` so the agent works without disrupting your branch
+- Creates feature branches automatically (`para/{task-name}`)
 - Tracks to-dos as commits
-- Generates summaries from diffs
+- Generates summaries from worktree diffs
+- Cleans up worktrees on archive
 
 ### Token Efficiency
 Minimizes token usage through:
