@@ -48,6 +48,13 @@ fi
 ACTIVE_PLANS=$(find context/plans -name "*.md" -type f 2>/dev/null | wc -l | tr -d ' ')
 SUMMARIES=$(find context/summaries -name "*.md" -type f 2>/dev/null | wc -l | tr -d ' ')
 
+# Count active worktrees
+if [ -d ".para-worktrees" ]; then
+    WORKTREES=$(find .para-worktrees -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
+else
+    WORKTREES=0
+fi
+
 # Check if context.md exists and extract current state
 if [ -f "context/context.md" ]; then
     CONTEXT_SUMMARY=$(head -3 context/context.md | tail -1 | sed 's/^[[:space:]]*//')
@@ -56,7 +63,11 @@ else
 fi
 
 # Build status message with better formatting
-STATUS_LINE="📋 PARA: ${ACTIVE_PLANS} plan(s) • ${SUMMARIES} summary(ies)"
+if [ "$WORKTREES" -gt 0 ]; then
+    STATUS_LINE="📋 PARA: ${ACTIVE_PLANS} plan(s) • ${SUMMARIES} summary(ies) • ${WORKTREES} worktree(s)"
+else
+    STATUS_LINE="📋 PARA: ${ACTIVE_PLANS} plan(s) • ${SUMMARIES} summary(ies)"
+fi
 
 # Add current work if meaningful
 if [[ ! "$CONTEXT_SUMMARY" =~ "Ready to start" ]] && [ -n "$CONTEXT_SUMMARY" ]; then
