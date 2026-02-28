@@ -37,7 +37,7 @@ Create a phased plan when ANY of these apply:
 | Step | Command | Output |
 |------|---------|--------|
 | Plan | `/para:plan task-name` | `context/plans/YYYY-MM-DD-task-name.md` |
-| Execute | `/para:execute` | Branch: `para/task-name` |
+| Execute | `/para:execute` | Worktree: `.para-worktrees/task-name`, Branch: `para/task-name` |
 | Summarize | `/para:summarize` | `context/summaries/YYYY-MM-DD-task-name-summary.md` |
 | Archive | `/para:archive` | Moves context to archives |
 
@@ -47,10 +47,10 @@ Create a phased plan when ANY of these apply:
 |------|---------|--------|
 | Plan | `/para:plan task-name` | Master + N phase plans |
 | Review | (Manual) | Review all phases |
-| Execute Phase 1 | `/para:execute --phase=1` | Branch: `para/task-name-phase-1` |
+| Execute Phase 1 | `/para:execute --phase=1` | Worktree: `.para-worktrees/task-name-phase-1`, Branch: `para/task-name-phase-1` |
 | Summarize Phase 1 | `/para:summarize --phase=1` | Phase 1 summary |
 | Merge Phase 1 | `gh pr create` + merge | Phase 1 in main |
-| Execute Phase 2 | `/para:execute --phase=2` | Branch: `para/task-name-phase-2` |
+| Execute Phase 2 | `/para:execute --phase=2` | Worktree: `.para-worktrees/task-name-phase-2`, Branch: `para/task-name-phase-2` |
 | ... | (Repeat for each phase) | ... |
 | Archive | `/para:archive` | After all phases complete |
 
@@ -96,6 +96,7 @@ context/
   ],
   "completed_summaries": [],
   "execution_branch": "para/task-name",
+  "worktree_path": ".para-worktrees/task-name",
   "execution_started": "timestamp",
   "last_updated": "timestamp"
 }
@@ -113,6 +114,7 @@ context/
     "context/summaries/YYYY-MM-DD-task-name-phase-1-summary.md"
   ],
   "execution_branch": "para/task-name-phase-2",
+  "worktree_path": ".para-worktrees/task-name-phase-2",
   "execution_started": "timestamp",
   "phased_execution": {
     "master_plan": "context/plans/YYYY-MM-DD-task-name.md",
@@ -120,17 +122,23 @@ context/
       {
         "phase": 1,
         "plan": "context/plans/YYYY-MM-DD-task-name-phase-1.md",
-        "status": "completed"
+        "status": "completed",
+        "branch": "para/task-name-phase-1",
+        "worktree_path": null
       },
       {
         "phase": 2,
         "plan": "context/plans/YYYY-MM-DD-task-name-phase-2.md",
-        "status": "in_progress"
+        "status": "in_progress",
+        "branch": "para/task-name-phase-2",
+        "worktree_path": ".para-worktrees/task-name-phase-2"
       },
       {
         "phase": 3,
         "plan": "context/plans/YYYY-MM-DD-task-name-phase-3.md",
-        "status": "pending"
+        "status": "pending",
+        "branch": null,
+        "worktree_path": null
       }
     ],
     "current_phase": 2
