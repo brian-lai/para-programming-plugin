@@ -98,9 +98,9 @@ Pause and request human validation of the plan before proceeding.
 
 **Git workflow (mandatory in git repositories):**
 
-1. **Create an isolated worktree:** `git worktree add .para-worktrees/{task-name} -b para/{task-name} main`
+1. **Create an isolated worktree:** `git fetch origin main && git worktree add .para-worktrees/{task-name} -b para/{task-name} origin/main`
    - For phased plans: `.para-worktrees/{task-name}-phase-N` on branch `para/{task-name}-phase-N`
-   - The agent works inside the worktree directory; the main working tree stays on its current branch
+   - Using `origin/main` (not local `main`) ensures the worktree starts from the latest remote state regardless of what branch the main working tree is on
 
 2. **Track todos in `context/context.md`** (in the main working tree) -- extract implementation steps from the plan as a checkbox list.
 

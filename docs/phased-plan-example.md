@@ -210,8 +210,8 @@ User reviews all 4 plan files (master + 3 phases) and approves the approach.
 
 1. Claude reads `context/context.md` and detects phased plan
 2. Reads phase 1 plan: `2025-12-18-implement-user-authentication-phase-1.md`
-3. Pulls latest main: `git pull origin main`
-4. Creates worktree: `git worktree add .para-worktrees/implement-user-authentication-phase-1 -b para/implement-user-authentication-phase-1 main`
+3. Fetches latest main: `git fetch origin main` (safe regardless of current branch or HEAD state)
+4. Creates worktree from updated main: `git worktree add .para-worktrees/implement-user-authentication-phase-1 -b para/implement-user-authentication-phase-1 origin/main`
 5. Extracts implementation steps from phase 1 plan
 6. Updates `context/context.md`:
 
@@ -281,7 +281,7 @@ _Update this section as you complete items._
 ```
 ```
 
-7. Commits context from worktree: `git -C .para-worktrees/implement-user-authentication-phase-1 commit -m "chore: Initialize execution context for implement-user-authentication-phase-1"`
+7. Makes an empty initial commit from within the worktree to mark the branch start (context.md lives in the main working tree and is not staged in the worktree): `git -C .para-worktrees/implement-user-authentication-phase-1 commit --allow-empty -m "chore: Initialize execution context for implement-user-authentication-phase-1"`
 
 ### Implementation Work
 
@@ -412,8 +412,8 @@ gh pr create --title "feat: User auth - Phase 1 (Database Schema)" \
 ### What Happens
 
 1. Claude checks that phase 1 is "completed"
-2. Pulls latest main: `git pull origin main` (gets phase 1 changes)
-3. Creates new worktree: `git worktree add .para-worktrees/implement-user-authentication-phase-2 -b para/implement-user-authentication-phase-2 main`
+2. Fetches latest main: `git fetch origin main` (gets phase 1 changes; safe regardless of current HEAD state)
+3. Creates new worktree from updated main: `git worktree add .para-worktrees/implement-user-authentication-phase-2 -b para/implement-user-authentication-phase-2 origin/main`
 4. Reads phase 2 plan
 5. Updates `context/context.md` for phase 2 execution with new `worktree_path`
 6. Sets phase 2 status to "in_progress"
@@ -439,7 +439,13 @@ After all phases are complete and merged:
 ```
 
 This:
-1. Removes all phase worktrees: `git worktree remove .para-worktrees/implement-user-authentication-phase-*`
+1. Reads each `worktree_path` from the `phased_execution.phases` metadata and removes them individually:
+   ```bash
+   git worktree remove .para-worktrees/implement-user-authentication-phase-1
+   git worktree remove .para-worktrees/implement-user-authentication-phase-2
+   git worktree remove .para-worktrees/implement-user-authentication-phase-3
+   ```
+   (Glob patterns like `phase-*` are not used — paths are read directly from context.md metadata to avoid shell-expansion fragility.)
 2. Runs `git worktree prune` to clean up stale references
 3. Moves `context/context.md` to `context/archives/2025-12-18-context.md`
 4. Clears `phased_execution` from context

@@ -124,7 +124,7 @@ context/
         "plan": "context/plans/YYYY-MM-DD-task-name-phase-1.md",
         "status": "completed",
         "branch": "para/task-name-phase-1",
-        "worktree_path": null
+        "worktree_path": null    // worktree removed after phase was summarized and merged
       },
       {
         "phase": 2,

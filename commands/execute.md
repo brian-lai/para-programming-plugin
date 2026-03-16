@@ -16,14 +16,14 @@ Execute the active plan by creating an isolated worktree and tracking todos. Sup
 1. Read the active plan from `context/context.md`
 2. Detect simple vs phased plan (presence of `phased_execution` in JSON)
 3. For phased plans, determine which phase to execute (prompt if not specified; verify previous phases are completed)
-4. Create an isolated git worktree: `git worktree add .para-worktrees/{task-name} -b para/{task-name} main` (or `para/{task-name}-phase-N`)
+4. Fetch latest and create an isolated git worktree: `git fetch origin main && git worktree add .para-worktrees/{task-name} -b para/{task-name} origin/main` (or `para/{task-name}-phase-N`)
 5. Extract implementation steps from the plan as todos
-6. Update `context/context.md` with the todo list and worktree path
-7. Commit the context update as the first commit on the branch (from within the worktree)
+6. Update `context/context.md` with the todo list and worktree path (this file lives in the main working tree)
+7. Make the initial commit on the branch from within the worktree. Since `context/context.md` is in the main working tree, not the worktree, this first commit should instead be an empty commit to mark the start of the branch: `git -C .para-worktrees/{task-name} commit --allow-empty -m "chore: Initialize execution context for {task-name}"`
 
 ### `--no-worktree` Escape Hatch
 
-When `--no-worktree` is specified, fall back to the legacy behavior: `git checkout -b para/{task-name}`. This switches the current working directory to the new branch instead of creating a separate worktree. Use this only when worktree isolation is not desired (e.g., single-developer local workflow with no parallel work).
+When `--no-worktree` is specified, fall back to the legacy branch-based behavior: `git checkout -b para/{task-name}`. This still creates a branch — it just switches your current working directory to that branch instead of creating a separate worktree directory. There is no isolation: your main working tree moves to the new branch. Use this only for single-developer workflows where you don't need to keep the main working tree on its current branch.
 
 ## Prerequisites
 
@@ -91,6 +91,8 @@ For phased plans, add `phased_execution` block with phase statuses and `current_
 **Committing after each todo is mandatory. Each todo follows a tests-first cycle.**
 
 The agent works inside the worktree directory (`.para-worktrees/{task-name}/`). All file edits, test runs, and git operations happen within this directory, keeping the main working tree untouched.
+
+> **Design note:** `context/context.md` is intentionally kept in the main working tree (not the worktree) so it remains accessible regardless of which worktree is active. All PARA commands read from and write to the main working tree's `context/` directory.
 
 For each todo:
 1. **Write tests first** — based on the plan's `Tests:` annotation for this step. Tests should initially fail.

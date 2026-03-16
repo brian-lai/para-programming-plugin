@@ -17,7 +17,7 @@ Default: create fresh context with reference to completed summaries.
 1. Read `context/context.md` and extract worktree metadata (`worktree_path`, or per-phase `worktree_path` entries for phased plans)
 2. **Clean up worktrees:**
    - For each `worktree_path` found in metadata, run `git worktree remove {worktree_path}`
-   - If the worktree has uncommitted changes, warn the user and offer: force remove (`git worktree remove --force`), commit changes first, or cancel archive
+   - If the worktree has uncommitted changes, warn the user and require them to either commit or stash the changes first, then re-run `/para:archive`; do NOT force-remove (this would permanently destroy uncommitted work)
    - After removal, run `git worktree prune` to clean up stale references
    - Remove `.para-worktrees/` directory if empty
 3. Move `context/context.md` to `context/archives/YYYY-MM-DD-HHMM-context.md`
