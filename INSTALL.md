@@ -1,12 +1,36 @@
 # Installation Guide
 
-Complete installation instructions for the PARA-Programming Claude Code plugin.
+Complete installation instructions for the PARA-Programming plugin (Claude Code and Cursor).
 
 ---
 
-## Prerequisites
+## Cursor IDE (Quick Setup)
 
-Before installing, ensure you have:
+To use PARA in [Cursor](https://cursor.com):
+
+1. **Install from GitHub (no git clone)** – from your project root:
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/brian-lai/para-programming-plugin/main/scripts/setup-cursor.sh | bash -s -- --from-github
+   ```
+2. **Or from this repo**, run (replace with your project path):
+   ```bash
+   ./scripts/setup-cursor.sh /path/to/your/project
+   ```
+3. **Or copy manually** into your project:
+   ```bash
+   mkdir -p .cursor
+   cp -r /path/to/para-programming-plugin/cursor/commands .cursor/
+   cp -r /path/to/para-programming-plugin/cursor/rules .cursor/
+   ```
+4. In Cursor, open the project, type **/** in chat, and choose a **para-\*** command (e.g. **para-init**, **para-plan**).
+
+See **[docs/cursor-setup.md](docs/cursor-setup.md)** for install from GitHub (no git clone), global install, verification, and uninstall.
+
+---
+
+## Claude Code – Prerequisites
+
+Before installing the Claude Code plugin, ensure you have:
 
 - ✅ **Claude Code CLI** installed ([Get it here](https://claude.ai/claude-code))
 - ✅ **Git** installed (for project version control)
@@ -14,7 +38,7 @@ Before installing, ensure you have:
 
 ---
 
-## Plugin Installation (Recommended)
+## Claude Code – Plugin Installation (Recommended)
 
 ### Quick Install
 
@@ -40,6 +64,7 @@ claude
 ```
 
 You should see commands prefixed with `/para:`:
+
 - `/para:init`
 - `/para:plan`
 - `/para:execute`
@@ -59,6 +84,7 @@ claude
 ```
 
 This command automatically:
+
 - **Creates `~/.claude/CLAUDE.md`** (if it doesn't exist) - the global workflow methodology file
 - Creates the `context/` directory structure in your project
 - Creates a project-level `CLAUDE.md` for project-specific context
@@ -111,10 +137,10 @@ The plugin includes a **global workflow methodology file** that gets installed t
 
 ### How It's Installed
 
-| Method | When Global File Is Created |
-|--------|----------------------------|
-| Plugin + `/para:init` | Automatically on first init (if missing) |
-| Manual Installation | Via `cp resources/CLAUDE.md ~/.claude/CLAUDE.md` |
+| Method                | When Global File Is Created                      |
+| --------------------- | ------------------------------------------------ |
+| Plugin + `/para:init` | Automatically on first init (if missing)         |
+| Manual Installation   | Via `cp resources/CLAUDE.md ~/.claude/CLAUDE.md` |
 
 ### Important Notes
 
@@ -195,6 +221,7 @@ claude
 **Problem:** `/plugin install` shows "plugin not found"
 
 **Solution:**
+
 1. Verify marketplace is added:
    ```bash
    /plugin marketplace list
@@ -209,6 +236,7 @@ claude
 **Problem:** PARA commands don't show up in `/help`
 
 **Solution:**
+
 1. Check plugin is installed:
    ```bash
    /plugin list
@@ -224,6 +252,7 @@ claude
 **Problem:** "Permission denied" when installing
 
 **Solution:**
+
 ```bash
 # Ensure proper permissions on Claude directory
 chmod -R u+rw ~/.claude
@@ -251,10 +280,11 @@ chmod -R u+rw ~/.claude
 
 After successful installation:
 
-1. **Initialize your project:** `/para:init`
+1. **Initialize your project:** `/para:init` (Claude Code) or `/para-init` (Cursor)
 2. **Try the example workflow:** See [examples/example-workflow.md](examples/example-workflow.md)
 3. **Read the documentation:** [Main PARA Guide](https://github.com/brian-lai/para-programming)
-4. **Start your first task:** `/para:plan "your task description"`
+4. **Start your first task:** `/para:plan "your task description"` (Claude Code) or `/para-plan "your task description"` (Cursor)
+5. **Using Cursor?** See [docs/cursor-setup.md](docs/cursor-setup.md) for setup and commands
 
 ---
 
