@@ -25,17 +25,22 @@ When `/para:plan` is invoked:
 
 3. **Explore the codebase** with clarifications in hand -- identify patterns, conventions, affected components, complexity, and existing test patterns (test framework, test file locations, naming conventions).
 
-4. **Determine plan type:**
+4. **Draft spec + stubs:**
+   - Create a spec file in `context/data/YYYY-MM-DD-task-name-spec.yaml` (OpenAPI/Swagger YAML for HTTP APIs; TypeScript interface file or markdown contract for UI components, modules, and scripts)
+   - Create stub source files in the project tree with signatures matching the spec but no implementation (return `null`, `{}`, or `501 Not Implemented` as appropriate)
+   - Reference the spec and stub file paths in the plan
+
+5. **Determine plan type:**
    - **Simple plan** (single file) for straightforward tasks
    - **Phased plan** (master + sub-plans) when work spans >5-10 files, crosses architectural boundaries, or has natural dependency ordering
    - If proposing a phased plan, confirm with the user first.
 
-5. **Draft the plan** and request human review.
+6. **Draft the plan** and request human review.
    - Every implementation step MUST include a `Tests:` annotation specifying what tests to write
    - Include a Testing Strategy section with concrete, specific tests (not generic placeholders)
    - Tests should reference actual functions, modules, and behaviors from the codebase
 
-6. **After the plan is written**, ask the user if they'd like to proceed to implementation by running `/para:execute`. Use **AskUserQuestion** with options like:
+7. **After the plan is written**, ask the user if they'd like to proceed to implementation by running `/para:execute`. Use **AskUserQuestion** with options like:
    - "Yes, run `/para:execute`" — proceed to implementation
    - "I'd like to make adjustments first" — continue refining the plan
    For phased plans, the prompt should reference `/para:execute --phase=1` to start with the first phase.
@@ -48,6 +53,8 @@ File: `context/plans/YYYY-MM-DD-task-name.md`
 
 Sections:
 - **Objective** -- what needs to be done
+- **Spec** -- path to spec file (`context/data/YYYY-MM-DD-task-name-spec.yaml` or equivalent) and what it covers
+- **Stubs** -- list of stub source files to be created and their locations
 - **Approach** -- step-by-step methodology
 - **Risks** -- potential issues and edge cases
 - **Success Criteria** -- measurable outcomes

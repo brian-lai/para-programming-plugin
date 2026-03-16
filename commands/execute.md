@@ -86,23 +86,26 @@ For phased plans, add `phased_execution` block with phase statuses and `current_
 }
 ```
 
-## Commit-Per-Todo Rule (TDD)
+## Commit-Per-Todo Rule (Spec-Driven TDD)
 
-**Committing after each todo is mandatory. Each todo follows a tests-first cycle.**
+**Committing after each todo is mandatory. Each todo follows a spec-first, tests-first cycle.**
+
+Before starting any todo, verify that the active plan references a spec file (`context/data/*-spec.yaml` or equivalent contract). If missing, prompt the user to create the spec before proceeding.
 
 The agent works inside the worktree directory (`.para-worktrees/{task-name}/`). All file edits, test runs, and git operations happen within this directory, keeping the main working tree untouched.
 
 > **Design note:** `context/context.md` is intentionally kept in the main working tree (not the worktree) so it remains accessible regardless of which worktree is active. All PARA commands read from and write to the main working tree's `context/` directory.
 
 For each todo:
-1. **Write tests first** — based on the plan's `Tests:` annotation for this step. Tests should initially fail.
-2. **Implement** — write the minimum code to make the tests pass.
-3. **Verify** — run the test suite to confirm all tests pass.
-4. Mark it `[x]` in `context/context.md` (in the main working tree)
-5. Stage changes in the worktree: `git -C .para-worktrees/{task-name} add -A`
-6. Commit from the worktree: `git -C .para-worktrees/{task-name} commit -m "todo text"`
+1. **Confirm spec + stubs exist** — locate the stub source file(s) for this step. If stubs are missing (planning was skipped), create them now from the spec before writing tests.
+2. **Write tests first** — based on the plan's `Tests:` annotation and the spec. Tests import the stub and assert expected behavior; they should initially fail.
+3. **Implement** — replace stub bodies with real logic to make tests pass.
+4. **Verify** — run the test suite to confirm all tests pass.
+5. Mark it `[x]` in `context/context.md` (in the main working tree)
+6. Stage changes in the worktree: `git -C .para-worktrees/{task-name} add -A`
+7. Commit from the worktree: `git -C .para-worktrees/{task-name} commit -m "todo text"`
 
-If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip the test-writing step.
+If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip steps 1–4.
 
 When all todos are complete, run `/para:summarize`.
 
