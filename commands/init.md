@@ -33,6 +33,10 @@ Initialize PARA-Programming structure in the current project.
    ```
    ````
 4. **Create project `CLAUDE.md`** (if missing) from template based on `--template` option
+5. **Update `.gitignore`** to include `.para-worktrees/`:
+   - If `.gitignore` exists, check for `.para-worktrees/` entry; append if missing
+   - If `.gitignore` does not exist, create it with `.para-worktrees/` as its content
+   - This prevents worktree directories from being tracked by git
 
 ## Success Output
 
@@ -49,10 +53,13 @@ context/
 ├── summaries/    # Post-work reports
 └── context.md    # Active session context
 
+.para-worktrees/  # Git worktree isolation (gitignored)
+
 Files created/updated:
 - ~/.claude/CLAUDE.md (global methodology, if it didn't exist)
 - context/context.md (fresh context file)
 - CLAUDE.md (project-specific context, if it didn't exist)
+- .gitignore (added .para-worktrees/ entry)
 
 Next steps:
 1. Edit CLAUDE.md with your project-specific context
