@@ -52,6 +52,17 @@ Enhancing payroll API with token-efficient MCP integration.
 
 ---
 
+## Non-Negotiable Rules
+
+### Never commit directly to main
+**All code changes go through the full PARA workflow: plan → worktree branch → PR → review → merge.**
+
+This includes small changes: version bumps, one-liner fixes, config tweaks, documentation updates. There is no such thing as "too small for a PR."
+
+If a request sounds like it could bypass this (e.g. "make a quick update", "just bump the version", "minor fix"), **always ask the user for explicit confirmation before proceeding outside the workflow.** Only skip if the user explicitly and directly instructs otherwise.
+
+---
+
 ## When to Use PARA
 
 **Use PARA** for any task that results in git changes: features, bug fixes, refactoring, config changes, migrations, tests, complex debugging.
