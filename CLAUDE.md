@@ -5,6 +5,8 @@ This document contains project-specific context only.
 # CRITICAL (MUST FOLLOW RULES)
 **Workflow Methodology:** Follow the global workflow guide at `~/.claude/CLAUDE.md`
 
+**Never commit directly to main.** All code changes — including small fixes, version bumps, and one-liners — must go through the full PARA workflow: plan → worktree branch → PR → review → merge. If a request sounds like it could bypass this, ask the user for confirmation first.
+
 ## About This Project
 
 The PARA-Programming Plugin is a CLI tool that implements the PARA (Plan → Review → Execute → Summarize → Archive) methodology for structured AI-assisted development workflows. It provides commands for managing planning documents, execution tracking, summaries, and context archival.
