@@ -1,6 +1,8 @@
 # Research: {TASK_NAME}
 
 **Date:** {DATE}
+**Status:** Draft | Complete
+**Scope:** [Full codebase | Focused on {area}]
 **Focus:** [What we're researching and why — the task or area of the codebase being analyzed]
 
 ---

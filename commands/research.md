@@ -14,9 +14,9 @@ If no task description is provided, Claude will ask for one.
 
 ## What It Does
 
-1. **Accept focus area** — understand what area of the codebase or what task the research should support.
+1. **Clarify focus** — if the task description is broad or ambiguous, use **AskUserQuestion** to clarify scope, depth, and any specific concerns before proceeding. Skip if the task is narrow and well-defined.
 
-2. **Deep codebase exploration** — use Agent tool with `subagent_type=Explore` (thoroughness: "very thorough") to investigate:
+2. **Deep codebase exploration** — perform thorough investigation across the relevant area:
    - File structure and organization across the relevant area
    - Key interfaces and contracts (OpenAPI specs, TypeScript interfaces, Protobuf, shared types)
    - Test patterns, test coverage, and test framework conventions
