@@ -44,3 +44,31 @@ When `--plan` is specified:
    - Are test annotations concrete (function signatures, not vague descriptions)?
 
 3. **Present review results** to the user with issues categorized as MUST FIX / SHOULD FIX / NIT.
+
+## PR Review Process
+
+When `--pr` is specified:
+
+1. **Identify the PR** — use the current branch's PR (or the PR number provided). Run `gh pr diff` to get the full diff.
+
+2. **Spawn a subagent** with the Staff+ persona. The subagent reads the diff, the changed files, and the active plan, then checks:
+   - Does each commit match a plan checklist item?
+   - Are tests written before implementation (check commit order)?
+   - Do tests actually test meaningful behavior (not just smoke tests)?
+   - Are there any untested code paths?
+   - Does the code follow project conventions and patterns?
+   - Are there any security concerns (input validation, secrets, injection)?
+
+3. **Present review results** to the user with issues categorized as MUST FIX / SHOULD FIX / NIT.
+
+## Review Loop
+
+After the initial review (plan or PR), the loop proceeds:
+
+4. **Address issues** — implement fixes for all MUST FIX items. Apply SHOULD FIX items where appropriate. NITs are optional.
+
+5. **Re-submit for review** — spawn a **fresh** subagent (not the same one) with the Staff+ persona for independent re-review. A fresh subagent avoids anchoring bias from the previous round.
+
+6. **Loop until approved** — repeat steps 4-5 until the reviewer explicitly states "APPROVED."
+
+7. **Record approval** — note in `context/context.md` progress notes: "Staff+ review: APPROVED (N rounds)".
