@@ -9,93 +9,122 @@
 
 [Clear statement of what needs to be accomplished]
 
-## Approach
+## Core Principles
 
-[Step-by-step methodology for implementation]
+1. **[Principle 1].** [One-sentence explanation]
+2. **[Principle 2].** [One-sentence explanation]
+3. **[Principle 3].** [One-sentence explanation]
 
-1. [First major step]
-2. [Second major step]
-3. [Third major step]
+[3-6 principles that guide implementation decisions. These should be opinionated and specific to this task, not generic software engineering truisms.]
+
+## Architecture Decisions
+
+| Decision | Choice | Rationale | Alternatives Rejected |
+|----------|--------|-----------|----------------------|
+| [Decision 1] | [What was chosen] | [Why] | [What was considered and why it lost] |
+| [Decision 2] | [What was chosen] | [Why] | [What was considered and why it lost] |
+
+## Interface Boundaries
+
+[Every cross-system, cross-module, or cross-layer boundary that this plan introduces or modifies. Each boundary needs a defined contract. Include when applicable — omit for simple tasks with no cross-boundary changes.]
+
+### {Boundary 1 Name}
+
+**Between:** [System A] and [System B]
+**Contract:** [Interface definition, API spec path, message schema, or shared type]
+
+```
+[Contract sketch — function signature, type definition, or API shape]
+```
+
+## Graceful Degradation
+
+[Include when the task involves external dependencies. Omit for purely internal changes.]
+
+| Failure Scenario | Expected Behavior |
+|-----------------|-------------------|
+| [External dependency 1] unavailable | [What the system does — error message, fallback, retry policy] |
+| [External dependency 2] times out | [What the system does] |
+
+## Implementation Steps
+
+> Each checklist item below maps to one git commit. The checkbox text is the commit message.
+> Tests come BEFORE the implementation they cover (TDD).
+
+- [ ] **Write contract tests for {boundary}**
+  - [Sub-task]
+  - **Tests:** `TestContractName` — [what it asserts]
+
+- [ ] **Write acceptance test skeleton**
+  - [Sub-task]
+  - **Tests:** `TestAcceptanceName` — [stays red until step N]
+
+- [ ] **Implement {component}**
+  - [Sub-task]
+  - [Sub-task]
+  - **Makes green:** [Which contract tests now pass]
+
+- [ ] **Implement {component}**
+  - [Sub-task]
+  - [Sub-task]
+  - **Makes green:** [Which tests now pass, including acceptance test]
 
 ## Risks & Edge Cases
-
-[Potential issues to watch out for]
 
 - **Risk 1:** [Description and mitigation]
 - **Risk 2:** [Description and mitigation]
 
-## Data Sources
-
-[Required files, APIs, or external data]
-
-- [Source 1]: [Purpose]
-- [Source 2]: [Purpose]
-
-## MCP Tools
-
-[Preprocessing tools to be used]
-
-- `context/servers/{tool}.ts` - [Purpose]
-
 ## Success Criteria
-
-[Measurable outcomes that define completion]
 
 - [ ] [Criterion 1]
 - [ ] [Criterion 2]
 - [ ] [Criterion 3]
-- [ ] Tests written and passing for all implementation steps
+- [ ] All tests written and passing
 
 ## Testing Strategy
 
+### Contract Tests (Written FIRST)
+
+[Contract tests for every interface boundary defined above. These are written before any implementation.]
+
+```
+[Test suite sketch — function signatures, test case names, key assertions]
+```
+
 ### Unit Tests
 
-[What unit tests need to be written]
+[Unit tests for business logic and pure functions.]
 
-- [Test category 1]
-- [Test category 2]
+- `TestFunctionA` — [what it verifies]
+- `TestFunctionB` — [what it verifies]
 
 ### Integration Tests
 
-[What integration tests need to be written]
+[Tests that verify components work together with real dependencies.]
 
-- [Test scenario 1]
-- [Test scenario 2]
+- `TestIntegrationScenario1` — [what it verifies]
+- `TestIntegrationScenario2` — [what it verifies]
 
-### Manual Verification
+### Acceptance Test
 
-[Manual steps to verify correctness]
+[One or more end-to-end tests that verify the feature works from the user's perspective. Written as a skeleton on day 1 — stays red until implementation is complete.]
 
-1. [Step 1]
-2. [Step 2]
-
-## Implementation Steps
-
-[Detailed breakdown of execution]
-
-1. **[Step 1 Name]**
-   - [Sub-task]
-   - [Sub-task]
-   - **Tests:** [What tests to write for this step]
-
-2. **[Step 2 Name]**
-   - [Sub-task]
-   - [Sub-task]
-   - **Tests:** [What tests to write for this step]
-
-3. **[Step 3 Name]**
-   - [Sub-task]
-   - [Sub-task]
-   - **Tests:** [What tests to write for this step]
+```
+[Test skeleton — compiles/parses but assertions fail]
+```
 
 ## Review Checklist
 
 - [ ] Does this approach align with project architecture?
+- [ ] Are all interface boundaries identified with defined contracts?
+- [ ] Is there a contract test for every interface boundary?
 - [ ] Are all edge cases considered?
-- [ ] Are the right MCP tools specified?
+- [ ] Is graceful degradation defined for every external dependency?
+- [ ] Is there an over-engineering check — are we building only what's needed?
+- [ ] Do tests come before implementation in the step ordering (TDD)?
+- [ ] Is observability addressed (logging with correlation IDs, monitoring)?
 - [ ] Is the scope appropriate (not too large)?
 - [ ] Are success criteria measurable?
-- [ ] Does each implementation step have associated tests defined?
 
 ---
 

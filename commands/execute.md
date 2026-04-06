@@ -17,7 +17,7 @@ Execute the active plan by creating an isolated worktree and tracking todos. Sup
 2. Detect simple vs phased plan (presence of `phased_execution` in JSON)
 3. For phased plans, determine which phase to execute (prompt if not specified; verify previous phases are completed)
 4. Fetch latest and create an isolated git worktree: `git fetch origin main && git worktree add .para-worktrees/{task-name} -b para/{task-name} origin/main` (or `para/{task-name}-phase-N`)
-5. Extract implementation steps from the plan as todos
+5. Extract checkbox items (`- [ ] ...`) from the plan's Implementation Steps section as todos. The checkbox text becomes both the todo item and the eventual commit message.
 6. Update `context/context.md` with the todo list and worktree path (this file lives in the main working tree)
 7. Make the initial commit on the branch from within the worktree. Since `context/context.md` is in the main working tree, not the worktree, this first commit should instead be an empty commit to mark the start of the branch: `git -C .para-worktrees/{task-name} commit --allow-empty -m "chore: Initialize execution context for {task-name}"`
 
@@ -88,7 +88,7 @@ For phased plans, add `phased_execution` block with phase statuses and `current_
 
 ## Commit-Per-Todo Rule (Spec-Driven TDD)
 
-**Committing after each todo is mandatory. Each todo follows a spec-first, tests-first cycle.**
+**Committing after each todo is mandatory. The checkbox text from the plan IS the commit message — use it verbatim (or lightly cleaned up for git conventions). Each todo follows a spec-first, tests-first cycle.**
 
 Before starting any todo, verify that the active plan references a spec file (`context/data/*-spec.yaml` or equivalent contract). If missing, prompt the user to create the spec before proceeding.
 
@@ -98,16 +98,15 @@ The agent works inside the worktree directory (`.para-worktrees/{task-name}/`). 
 
 For each todo:
 1. **Confirm spec + stubs exist** — locate the stub source file(s) for this step. If stubs are missing (planning was skipped), create them now from the spec before writing tests.
-2. **Write tests first** — based on the plan's `Tests:` annotation and the spec. Tests import the stub and assert expected behavior; they should initially fail.
-3. **Implement** — replace stub bodies with real logic to make tests pass.
-4. **Verify** — run the test suite to confirm all tests pass.
-5. Mark it `[x]` in `context/context.md` (in the main working tree)
-6. Stage changes in the worktree: `git -C .para-worktrees/{task-name} add -A`
-7. Commit from the worktree: `git -C .para-worktrees/{task-name} commit -m "todo text"`
+2. **Write tests first** — based on the plan's `Tests:` annotation and the spec. Tests import the stub and assert expected behavior.
+3. **Run tests to see them fail (red)** — confirm tests fail for the right reason (missing implementation, not syntax errors).
+4. **Implement** — replace stub bodies with real logic to make tests pass.
+5. **Run tests to see them pass (green)** — verify all tests pass. If any fail, fix before proceeding.
+6. **Mark complete + commit** — mark `[x]` in `context/context.md` (in the main working tree), stage changes in the worktree with `git -C .para-worktrees/{task-name} add -A`, commit with the checklist item text as the commit message.
 
-If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip steps 1–4.
+If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip steps 1–5.
 
-When all todos are complete, run `/para:summarize`.
+When all todos are complete, if `/para:review` is available, suggest running `/para:review --pr` for independent Staff+ review before merging. Then run `/para:summarize`.
 
 ## Edge Cases
 

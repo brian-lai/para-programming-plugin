@@ -91,6 +91,7 @@ Plan → Review → Execute → Summarize → Archive
 
 3. **Explore codebase:**
    - Identify existing patterns, conventions, and affected components
+   - Identify interface boundaries between systems and existing graceful degradation patterns
 
 4. **Draft plan:**
    - Create `context/plans/YYYY-MM-DD-task-name.md`
@@ -98,6 +99,7 @@ Plan → Review → Execute → Summarize → Archive
    - For complex work (>5-10 files or multiple architectural layers), propose a phased plan:
      - Master plan: `YYYY-MM-DD-task-name.md`
      - Sub-plans: `YYYY-MM-DD-task-name-phase-1.md`, `...-phase-2.md`, etc.
+   - Complex plans undergo 2-3 automatic self-review rounds (correctness, testing/TDD, consistency) before being presented for human review
 
 **Default to asking questions.** Plans created collaboratively succeed more often than plans based on assumptions.
 
