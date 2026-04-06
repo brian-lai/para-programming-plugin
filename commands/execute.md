@@ -81,7 +81,7 @@ For each todo:
 
 If a todo has no meaningful automated tests (e.g., config changes, documentation, template updates), note this in the commit and skip steps 1–5.
 
-When all todos are complete, suggest running `/para:review --pr` for independent Staff+ review before merging. Then run `/para:summarize`.
+When all todos are complete, if `/para:review` is available, suggest running `/para:review --pr` for independent Staff+ review before merging. Then run `/para:summarize`.
 
 ## Edge Cases
 

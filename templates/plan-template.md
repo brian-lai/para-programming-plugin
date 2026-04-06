@@ -62,12 +62,12 @@
 - [ ] **Implement {component}**
   - [Sub-task]
   - [Sub-task]
-  - **Tests:** [Which contract tests now go green]
+  - **Makes green:** [Which contract tests now pass]
 
 - [ ] **Implement {component}**
   - [Sub-task]
   - [Sub-task]
-  - **Tests:** [Which tests now go green, including acceptance test]
+  - **Makes green:** [Which tests now pass, including acceptance test]
 
 ## Risks & Edge Cases
 
