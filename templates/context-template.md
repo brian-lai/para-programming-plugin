@@ -9,6 +9,9 @@
   "active_context": [
     {ACTIVE_PLANS}
   ],
+  "research_docs": [
+    {RESEARCH_DOCS}
+  ],
   "completed_summaries": [
     {COMPLETED_SUMMARIES}
   ],
