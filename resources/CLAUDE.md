@@ -74,67 +74,81 @@ If a request sounds like it could bypass this (e.g. "make a quick update", "just
 ## Workflow Loop
 
 ```
-Plan → Review → Execute → Summarize → Archive
+Research → Plan → Review Plan → Execute → Review PR → Summarize → Archive
 ```
 
-### 1. Plan (Collaborative)
+For multi-phase work, use `/para:workflow` to orchestrate the full cycle automatically.
+
+### 1. Research (Optional but Recommended)
+
+Run `/para:research` to perform deep codebase exploration before planning:
+- Produces a structured research doc at `context/data/YYYY-MM-DD-task-name-research.md`
+- Covers architecture, components, API contracts, patterns, graceful degradation, gaps
+- Becomes primary input for the planning phase
+
+### 2. Plan (Collaborative)
 
 1. **Ensure context directory exists:**
    ```bash
    mkdir -p context/{data,plans,summaries,archives,servers}
    ```
 
-2. **Ask clarifying questions (CRITICAL):**
+2. **Check for research doc** — use as primary input if available
+
+3. **Ask clarifying questions (CRITICAL):**
    - Use **AskUserQuestion** for 1-4 focused questions about scope, approach, constraints, and preferences
    - Skip only if the task is trivially simple with no meaningful choices
-   - Explore the codebase *after* getting answers, not before
 
-3. **Explore codebase:**
+4. **Explore codebase:**
    - Identify existing patterns, conventions, and affected components
    - Identify interface boundaries between systems and existing graceful degradation patterns
 
-4. **Draft plan:**
-   - Create `context/plans/YYYY-MM-DD-task-name.md`
-   - Include: Objective, Approach, Risks, Success Criteria
-   - For complex work (>5-10 files or multiple architectural layers), propose a phased plan:
-     - Master plan: `YYYY-MM-DD-task-name.md`
-     - Sub-plans: `YYYY-MM-DD-task-name-phase-1.md`, `...-phase-2.md`, etc.
-   - Complex plans undergo 2-3 automatic self-review rounds (correctness, testing/TDD, consistency) before being presented for human review
+5. **Draft plan** applying Staff+ engineering criteria:
+   - Core principles, architecture decisions, interface boundaries, graceful degradation
+   - Implementation steps as checklist items (each item = one git commit message)
+   - TDD ordering: tests before implementation
+   - For complex work, propose a phased plan (master + sub-plans)
+   - Complex plans undergo 2-3 automatic self-review rounds before being presented for human review
 
 **Default to asking questions.** Plans created collaboratively succeed more often than plans based on assumptions.
 
-### 2. Review
+### 3. Review Plan
 
-Pause and request human validation of the plan before proceeding.
+Run `/para:review --plan` for independent Staff+ subagent review:
+- Spawns a separate agent with Staff+ FAANG engineer persona
+- Reviews architecture, TDD ordering, completeness, scope
+- Loops until approved (MUST FIX → address → re-review)
 
-### 3. Execute
+### 4. Execute
 
 **Git workflow (mandatory in git repositories):**
 
 1. **Create an isolated worktree:** `git fetch origin main && git worktree add .para-worktrees/{task-name} -b para/{task-name} origin/main`
    - For phased plans: `.para-worktrees/{task-name}-phase-N` on branch `para/{task-name}-phase-N`
-   - Using `origin/main` (not local `main`) ensures the worktree starts from the latest remote state regardless of what branch the main working tree is on
 
-2. **Track todos in `context/context.md`** (in the main working tree) -- extract implementation steps from the plan as a checkbox list.
+2. **Track todos in `context/context.md`** — extract checklist items from the plan. Each item's text becomes the commit message.
 
 3. **Commit after EVERY completed todo (TDD cycle):**
-   - Write tests first based on the plan's `Tests:` annotations
-   - Implement the minimum code to make tests pass
-   - Run the test suite to verify all tests pass
-   - Mark the todo `[x]` in `context/context.md`
-   - Commit from the worktree: `git -C .para-worktrees/{task-name} commit`
-   - Each commit = one atomic, complete unit of work
+   - Confirm spec + stubs exist
+   - Write tests first (red)
+   - Implement to make tests pass (green)
+   - Mark `[x]` in `context/context.md`
+   - Commit with the checklist item text as the message
 
-**MCP integration:** Use wrappers in `context/servers/` to preprocess large data before passing results into model context.
+### 5. Review PR
 
-### 4. Summarize
+Run `/para:review --pr` for independent Staff+ subagent review of the implementation:
+- Checks commit-plan alignment, test quality, conventions
+- Loops until approved
+
+### 6. Summarize
 
 Write a report to `context/summaries/YYYY-MM-DD-task-name-summary.md` covering:
 - What changed and why
-- MCP tools or data sources used
 - Key learnings
+- Staff+ review results
 
-### 5. Archive
+### 7. Archive
 
 - Remove worktrees: `git worktree remove .para-worktrees/{task-name}` and `git worktree prune`
 - Move `context/context.md` to `context/archives/YYYY-MM-DD-context.md`
