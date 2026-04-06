@@ -67,7 +67,7 @@ After the initial review (plan or PR), the loop proceeds:
 
 4. **Address issues** — implement fixes for all MUST FIX items. Apply SHOULD FIX items where appropriate. NITs are optional.
 
-5. **Re-submit for review** — spawn a **fresh** subagent (not the same one) with the Staff+ persona for independent re-review. A fresh subagent avoids anchoring bias from the previous round.
+5. **Re-submit for review** — spawn a **fresh** subagent (not the same one) with the Staff+ persona. Provide the subagent with: (a) the same source material as the initial review (plan docs or PR diff), (b) the previous round's issue list, and (c) a summary of what was changed in response. This lets the fresh subagent verify fixes without anchoring on the previous reviewer's perspective.
 
 6. **Loop until approved** — repeat steps 4-5 until the reviewer explicitly states "APPROVED."
 
