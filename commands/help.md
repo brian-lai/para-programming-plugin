@@ -16,7 +16,7 @@ Display the following:
 
 # PARA-Programming Quick Reference
 
-**Workflow:** Plan → Review → Execute → Summarize → Archive
+**Workflow:** Research → Plan → Review → Execute → Review → Summarize → Archive
 
 ## When to Use PARA
 
@@ -29,8 +29,11 @@ Display the following:
 | Command | Purpose |
 |---------|---------|
 | `/para:init` | Initialize PARA structure in a project |
+| `/para:research <task>` | Deep codebase research before planning |
 | `/para:plan <task>` | Create a planning document (collaborative) |
+| `/para:review --plan\|--pr` | Staff+ FAANG engineer review loop |
 | `/para:execute` | Create worktree, extract todos, start execution |
+| `/para:workflow` | Orchestrate full execute → review → summarize → archive cycle |
 | `/para:summarize` | Generate post-work summary |
 | `/para:archive` | Archive context and start fresh |
 | `/para:status` | Check current workflow state |
@@ -40,13 +43,14 @@ Display the following:
 ## Typical Flow
 
 ```
+/para:research Add user authentication
 /para:plan Add user authentication
-  → Review the plan
-/para:execute
-  → Creates isolated worktree in .para-worktrees/
-  → AI implements in worktree (commits after each todo)
-/para:summarize
-/para:archive   → Cleans up worktree
+/para:review --plan
+/para:workflow           # or manually:
+  /para:execute          #   → Creates worktree, implements with TDD
+  /para:review --pr      #   → Staff+ review loop
+  /para:summarize        #   → Generate summary
+  /para:archive          #   → Clean up worktree
 ```
 
 ## File Structure
