@@ -207,7 +207,7 @@ para-programming-plugin/
 
 ## Contributing
 
-We welcome contributions: additional commands, templates, documentation improvements, bug fixes. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions: additional commands, templates, documentation improvements, bug fixes.
 
 ## License
 
