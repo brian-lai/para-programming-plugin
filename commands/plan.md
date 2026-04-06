@@ -23,7 +23,7 @@ When `/para:plan` is invoked:
    - Reference existing codebase patterns when relevant ("I see you use X elsewhere, should we follow that?")
    - Skip only if ALL of these are true: task is very narrow, only one reasonable approach exists, no risk of breaking changes, user gave extremely detailed requirements.
 
-3. **Check for research doc.** If a research document exists (`context/data/YYYY-MM-DD-task-name-research.md`), use it as primary input for steps 4-6. If no research doc exists for a non-trivial task and `/para:research` is available, suggest running it first.
+3. **Check for research doc.** If a research document exists (`context/data/YYYY-MM-DD-task-name-research.md`), use it as primary input for steps 4-6. If no research doc exists for a non-trivial task, suggest running `/para:research` first.
 
 4. **Explore the codebase** with clarifications in hand -- identify:
    - Existing patterns, conventions, and affected components
@@ -77,7 +77,7 @@ When `/para:plan` is invoked:
 9. **Present the plan** to the user for review. Note how many self-review rounds were completed and summarize the key changes made during self-review (e.g., "Self-review completed (2 rounds). Key changes: added missing error handling for Redis connection failures, reordered steps so contract tests come before implementation.").
 
 10. **After the plan is written**, ask the user if they'd like to proceed. Use **AskUserQuestion** with options like:
-    - "Run `/para:review --plan` for Staff+ review" -- independent subagent review before execution (if `/para:review` is available)
+    - "Run `/para:review --plan` for Staff+ review" -- independent subagent review before execution
     - "Yes, run `/para:execute`" -- proceed directly to implementation
     - "I'd like to make adjustments first" -- continue refining the plan
     For phased plans, the prompt should reference `/para:execute --phase=1` to start with the first phase.
