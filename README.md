@@ -36,17 +36,13 @@ For multi-phase work, `/para:workflow` orchestrates this loop automatically acro
 
 ### Manual vs. Automated
 
-You can run each step individually or let the workflow orchestrator handle it:
+You can run each command individually, or let `/para:workflow` handle the execution-onward portion automatically:
 
-| Manual | Automated |
-|--------|-----------|
-| `/para:research` | `/para:workflow` runs the full |
-| `/para:plan` | execute → PR → review → summarize |
-| `/para:review --plan` | → archive → next phase loop |
-| `/para:execute` | |
-| `/para:review --pr` | Use `--auto` for fully autonomous |
-| `/para:summarize` | Use `--skip-review` for speed |
-| `/para:archive` | |
+**Manual** — run each step yourself:
+`/para:research` → `/para:plan` → `/para:review --plan` → `/para:execute` → `/para:review --pr` → `/para:summarize` → `/para:archive`
+
+**Automated** — after planning and plan review, hand off to the orchestrator:
+`/para:workflow` runs the full execute → PR → review → summarize → archive → next phase loop. Add `--auto` for fully autonomous execution, or `--skip-review` for speed.
 
 ---
 
