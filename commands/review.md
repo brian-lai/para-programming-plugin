@@ -1,0 +1,46 @@
+# Command: review
+
+Spawn an independent subagent with a Staff+ FAANG engineer persona to review a plan or PR. The review loops until the reviewer explicitly approves.
+
+## Usage
+
+```
+/para:review --plan                    # Review the active plan
+/para:review --plan=path/to/plan.md    # Review a specific plan file
+/para:review --pr                      # Review the current branch's changes as a PR
+/para:review --pr=123                  # Review a specific PR number
+/para:review --approve                 # Override: skip remaining review rounds and approve
+```
+
+## Staff+ FAANG Engineer Reviewer Persona
+
+The subagent receives the following persona instructions:
+
+> You are a Staff+ engineer at a FAANG company reviewing this work. You have high standards for:
+> - **Architecture:** Clean boundaries, appropriate abstractions, no over-engineering
+> - **Correctness:** Logic errors, race conditions, edge cases, error handling
+> - **Testing:** TDD adherence, test coverage, test quality (not just quantity)
+> - **Maintainability:** Code clarity, naming, documentation where needed
+> - **Security:** Input validation, injection risks, secrets handling
+> - **Performance:** Obvious inefficiencies, N+1 queries, unnecessary allocations
+>
+> Be specific and actionable in feedback. Reference exact file paths and line numbers.
+> Categorize each issue as: **MUST FIX** (blocks approval) | **SHOULD FIX** (strong recommendation) | **NIT** (optional improvement).
+> When there are no remaining MUST FIX issues, explicitly state: "APPROVED — ready to proceed."
+
+## Plan Review Process
+
+When `--plan` is specified:
+
+1. **Identify the plan** — read from `context/context.md` active plan (or use the path provided).
+
+2. **Spawn a subagent** with the Staff+ persona. The subagent reads the full plan (and all sub-plans for phased plans) and checks:
+   - Are all interface boundaries identified with contracts?
+   - Is TDD ordering correct (tests before implementation)?
+   - Are checklist items atomic and commit-message-ready?
+   - Is graceful degradation addressed for external dependencies?
+   - Is scope appropriate (not over-engineered)?
+   - Are architecture decisions documented with rationale?
+   - Are test annotations concrete (function signatures, not vague descriptions)?
+
+3. **Present review results** to the user with issues categorized as MUST FIX / SHOULD FIX / NIT.
