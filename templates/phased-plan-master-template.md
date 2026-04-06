@@ -80,6 +80,31 @@ Phase {PHASE_3_ID} → + [which additional test suites go green, including E2E]
 
 ---
 
+## Execution Plan
+
+1. **Review all phases** - Ensure entire approach is sound before starting
+2. **Execute Phase 1** - Run `/para:execute --phase=1` (creates worktree at `.para-worktrees/{task-name}-phase-1`)
+3. **Summarize Phase 1** - Run `/para:summarize --phase=1` (analyzes diff from worktree)
+4. **Review & Merge Phase 1** - Push branch, create PR, review, merge to main
+5. **Execute Phase 2** - Run `/para:execute --phase=2` (creates new worktree from updated main)
+6. **Continue** - Repeat summarize → review → merge → execute for remaining phases
+7. **Final Verification** - Ensure overall success criteria met
+8. **Archive** - Run `/para:archive` (removes all worktrees and prunes)
+
+### Worktree & Branch Strategy
+
+Each phase uses an isolated git worktree alongside a dedicated branch:
+
+| Phase | Branch | Worktree Path |
+|-------|--------|---------------|
+| Phase 1 | `para/{task-name}-phase-1` | `.para-worktrees/{task-name}-phase-1` |
+| Phase 2 | `para/{task-name}-phase-2` | `.para-worktrees/{task-name}-phase-2` |
+| Phase 3 | `para/{task-name}-phase-3` | `.para-worktrees/{task-name}-phase-3` |
+
+Each branch starts from `main` (with previous phases already merged). Worktrees are created by `/para:execute` and cleaned up by `/para:archive`.
+
+---
+
 ## New Components
 
 | Component | Location | Purpose |

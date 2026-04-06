@@ -253,6 +253,7 @@ Implementing authentication system with OAuth2 support.
     "context/summaries/2025-11-20-user-model-setup.md"
   ],
   "execution_branch": "para/add-authentication",
+  "worktree_path": ".para-worktrees/add-authentication",
   "last_updated": "2025-11-24T14:30:00Z"
 }
 ```
@@ -352,6 +353,7 @@ project-root/
 │   ├── archives/               # Historical snapshots
 │   │   └── context-YYYY-MM-DD-HHMM.md
 │   └── servers/                # MCP tool wrappers (optional)
+├── .para-worktrees/            # Git worktree isolation (gitignored)
 ├── CLAUDE.md                   # Project-specific context
 └── [your project files...]
 ```

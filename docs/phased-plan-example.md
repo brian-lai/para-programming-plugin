@@ -210,8 +210,8 @@ User reviews all 4 plan files (master + 3 phases) and approves the approach.
 
 1. Claude reads `context/context.md` and detects phased plan
 2. Reads phase 1 plan: `2025-12-18-implement-user-authentication-phase-1.md`
-3. Checks out `main` and pulls latest: `git checkout main && git pull`
-4. Creates branch: `git checkout -b para/implement-user-authentication-phase-1`
+3. Fetches latest main: `git fetch origin main` (safe regardless of current branch or HEAD state)
+4. Creates worktree from updated main: `git worktree add .para-worktrees/implement-user-authentication-phase-1 -b para/implement-user-authentication-phase-1 origin/main`
 5. Extracts implementation steps from phase 1 plan
 6. Updates `context/context.md`:
 
@@ -221,6 +221,7 @@ User reviews all 4 plan files (master + 3 phases) and approves the approach.
 Executing: Implement User Authentication - Phase 1: Database Schema & Migrations
 
 **Branch:** `para/implement-user-authentication-phase-1`
+**Worktree:** `.para-worktrees/implement-user-authentication-phase-1`
 **Master Plan:** context/plans/2025-12-18-implement-user-authentication.md
 **Phase Plan:** context/plans/2025-12-18-implement-user-authentication-phase-1.md
 
@@ -246,6 +247,7 @@ _Update this section as you complete items._
   ],
   "completed_summaries": [],
   "execution_branch": "para/implement-user-authentication-phase-1",
+  "worktree_path": ".para-worktrees/implement-user-authentication-phase-1",
   "execution_started": "2025-12-18T10:00:00Z",
   "phased_execution": {
     "master_plan": "context/plans/2025-12-18-implement-user-authentication.md",
@@ -253,17 +255,23 @@ _Update this section as you complete items._
       {
         "phase": 1,
         "plan": "context/plans/2025-12-18-implement-user-authentication-phase-1.md",
-        "status": "in_progress"
+        "status": "in_progress",
+        "branch": "para/implement-user-authentication-phase-1",
+        "worktree_path": ".para-worktrees/implement-user-authentication-phase-1"
       },
       {
         "phase": 2,
         "plan": "context/plans/2025-12-18-implement-user-authentication-phase-2.md",
-        "status": "pending"
+        "status": "pending",
+        "branch": null,
+        "worktree_path": null
       },
       {
         "phase": 3,
         "plan": "context/plans/2025-12-18-implement-user-authentication-phase-3.md",
-        "status": "pending"
+        "status": "pending",
+        "branch": null,
+        "worktree_path": null
       }
     ],
     "current_phase": 1
@@ -273,7 +281,7 @@ _Update this section as you complete items._
 ```
 ```
 
-7. Commits context: `git commit -m "chore: Initialize execution context for implement-user-authentication-phase-1"`
+7. Makes an empty initial commit from within the worktree to mark the branch start (context.md lives in the main working tree and is not staged in the worktree): `git -C .para-worktrees/implement-user-authentication-phase-1 commit --allow-empty -m "chore: Initialize execution context for implement-user-authentication-phase-1"`
 
 ### Implementation Work
 
@@ -299,7 +307,7 @@ Claude (or user) works through the to-dos:
 
 ### What Happens
 
-1. Claude analyzes git diff on branch `para/implement-user-authentication-phase-1`
+1. Claude analyzes changes in worktree: `git -C .para-worktrees/implement-user-authentication-phase-1 diff main...HEAD`
 2. Reads phase 1 plan and success criteria
 3. Creates summary: `context/summaries/2025-12-18-implement-user-authentication-phase-1-summary.md`
 4. Updates `context/context.md`:
@@ -381,7 +389,7 @@ Create user authentication tables and JWT refresh token storage.
 ### User Actions
 
 ```bash
-git push origin para/implement-user-authentication-phase-1
+git -C .para-worktrees/implement-user-authentication-phase-1 push -u origin para/implement-user-authentication-phase-1
 gh pr create --title "feat: User auth - Phase 1 (Database Schema)" \
   --body "Part of #123. Adds database tables for user authentication."
 ```
@@ -403,11 +411,11 @@ gh pr create --title "feat: User auth - Phase 1 (Database Schema)" \
 
 ### What Happens
 
-1. Claude checks that phase 1 is "completed" ✅
-2. Checks out main: `git checkout main && git pull` (gets phase 1 changes)
-3. Creates new branch: `git checkout -b para/implement-user-authentication-phase-2`
+1. Claude checks that phase 1 is "completed"
+2. Fetches latest main: `git fetch origin main` (gets phase 1 changes; safe regardless of current HEAD state)
+3. Creates new worktree from updated main: `git worktree add .para-worktrees/implement-user-authentication-phase-2 -b para/implement-user-authentication-phase-2 origin/main`
 4. Reads phase 2 plan
-5. Updates `context/context.md` for phase 2 execution
+5. Updates `context/context.md` for phase 2 execution with new `worktree_path`
 6. Sets phase 2 status to "in_progress"
 
 ### Implementation continues...
@@ -431,9 +439,17 @@ After all phases are complete and merged:
 ```
 
 This:
-1. Moves `context/context.md` to `context/archives/2025-12-18-context.md`
-2. Clears `phased_execution` from context
-3. Marks entire master plan as complete
+1. Reads each `worktree_path` from the `phased_execution.phases` metadata and removes them individually:
+   ```bash
+   git worktree remove .para-worktrees/implement-user-authentication-phase-1
+   git worktree remove .para-worktrees/implement-user-authentication-phase-2
+   git worktree remove .para-worktrees/implement-user-authentication-phase-3
+   ```
+   (Glob patterns like `phase-*` are not used — paths are read directly from context.md metadata to avoid shell-expansion fragility.)
+2. Runs `git worktree prune` to clean up stale references
+3. Moves `context/context.md` to `context/archives/2025-12-18-context.md`
+4. Clears `phased_execution` from context
+5. Creates fresh `context/context.md`
 
 ---
 
