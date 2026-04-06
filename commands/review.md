@@ -72,3 +72,35 @@ After the initial review (plan or PR), the loop proceeds:
 6. **Loop until approved** — repeat steps 4-5 until the reviewer explicitly states "APPROVED."
 
 7. **Record approval** — note in `context/context.md` progress notes: "Staff+ review: APPROVED (N rounds)".
+
+## Convergence & Escalation
+
+**Maximum rounds:** 5. If the review has not converged after 5 rounds, escalate to the user:
+
+> "Review has not converged after 5 rounds. Here are the remaining issues: [list]. Would you like to:
+> 1. Continue addressing issues
+> 2. Override and approve (`/para:review --approve`)
+> 3. Revise the approach"
+
+**Convergence check:** If two consecutive rounds produce the same MUST FIX issues (no progress), escalate immediately rather than waiting for round 5. This prevents infinite loops where fixes for one issue reintroduce another.
+
+## Override
+
+When `--approve` is specified:
+
+1. Skip all remaining review rounds
+2. Record in `context/context.md` progress notes: "Staff+ review: OVERRIDDEN by user"
+3. Proceed to the next workflow step
+
+Use sparingly — the review loop exists to catch real issues. Override is for cases where:
+- The reviewer is flagging stylistic preferences that don't apply to this project
+- The remaining issues are known and intentionally deferred
+- Time pressure requires proceeding despite open items
+
+## Notes
+
+- Each review round spawns a fresh subagent for independence — never continue a previous reviewer's context
+- The reviewer sees the same persona instructions every round for consistency
+- Plan reviews check the plan document(s); PR reviews check the diff and commit history
+- Review results are presented to the user, not silently applied — the user decides what to fix
+- The `--approve` flag is a user-initiated override, not an automatic approval
