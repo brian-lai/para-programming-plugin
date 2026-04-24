@@ -7,7 +7,6 @@ Execute the active plan by creating an isolated worktree and tracking todos. Sup
 ```
 /para:execute                    # Auto-detect plan; prompts for phase if phased
 /para:execute --phase=N          # Execute specific phase
-/para:execute --branch=name      # Custom branch name (simple plans only)
 /para:execute --no-worktree      # Skip worktree creation; fall back to git checkout -b
 ```
 
