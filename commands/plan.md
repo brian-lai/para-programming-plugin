@@ -87,6 +87,7 @@ When `/para:plan` is invoked:
 ### Simple Plan
 
 File: `context/plans/YYYY-MM-DD-task-name.md`
+Simple plans use the template at `templates/plan-template.md`.
 
 Sections:
 - **Objective** -- what needs to be done
