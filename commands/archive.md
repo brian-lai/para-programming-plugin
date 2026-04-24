@@ -32,13 +32,13 @@ Ready for next task.
 ```json
 {
   "active_context": [],
-  "completed_summaries": [
-    "context/summaries/YYYY-MM-DD-*.md"
-  ],
+  "completed_summaries": [],
   "last_updated": "TIMESTAMP"
 }
 ```
 ````
+
+   See `templates/context-schema.md` for the full field reference.
 
 5. Displays: archive location, worktrees removed, confirmation of fresh context, readiness for new task
 
