@@ -18,6 +18,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Team collaboration features
 - VS Code extension for non-Claude-Code users
 
+## [2.0.0] - 2026-04-05
+
+### Added
+
+- **Staff+ Agent Workflow:** Full 7-step workflow loop — Research → Plan → Review Plan → Execute → Review PR → Summarize → Archive
+- **New commands:** `/para:research` (deep codebase exploration), `/para:review` (Staff+ subagent review with 5-round convergence), `/para:workflow` (multi-phase orchestrator with `--auto` mode)
+- **Research template** (`templates/research-template.md`) for structured codebase analysis output
+- **Comprehensive methodology doc** (`docs/METHODOLOGY.md`) covering design philosophy, command deep-dives, and agent team patterns
+
+### Changed
+
+- **Plan command** (`commands/plan.md`): added research doc check, checklist=commit rule, 2-3 round self-review loop, Staff+ review option
+- **Execute command** (`commands/execute.md`): reconciled TDD cycle to 6 spec-first steps (red → green → commit), enforced checklist text as commit message
+- **Plan templates** (`templates/plan-template.md`, `templates/phased-plan-master-template.md`, `templates/phased-plan-sub-template.md`): restructured for TDD ordering, architecture decision tables, progressive regression
+- **Help command** (`commands/help.md`): updated to 11 commands with workflow diagram
+- **Global methodology** (`resources/CLAUDE.md`): complete v2 rewrite with 7-step workflow, research and dual review steps
+- **README.md**: full rewrite with workflow-first positioning, all 11 commands listed, v2 examples
+- **Version bump:** plugin manifests updated from v1.6.2 to v2.0.0
+
+### Documentation
+
+- Removed broken CONTRIBUTING.md link from README
+
 ## [1.2.0] - 2026-01-09
 
 ### Changed
@@ -119,6 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.0.0** - Staff+ agent workflow: research, review, workflow commands; TDD-first execution; comprehensive methodology doc
 - **1.2.0** - Shortened command prefix from `para-program` to `para`
 - **1.1.0** - Global CLAUDE.md setup, command pattern simplification, bug fixes
 - **1.0.0** - Initial release with core commands and documentation
