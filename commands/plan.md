@@ -117,21 +117,7 @@ Each phase should be independently reviewable and mergeable.
 
 After creating the plan, update `context/context.md`:
 - Add plan file(s) to `active_context` array
-- For phased plans, add `phased_execution` metadata with phase status tracking:
-  ```json
-  {
-    "phased_execution": {
-      "master_plan": "context/plans/YYYY-MM-DD-task-name.md",
-      "phases": [
-        { "phase": 1, "plan": "context/plans/YYYY-MM-DD-task-name-phase-1.md", "status": "pending", "branch": null, "worktree_path": null },
-        { "phase": 2, "plan": "context/plans/YYYY-MM-DD-task-name-phase-2.md", "status": "pending", "branch": null, "worktree_path": null }
-      ],
-      "current_phase": null
-    }
-  }
-  ```
-
-Note: `branch` and `worktree_path` are set to `null` at plan time. They are populated by `/para:execute` when a phase begins execution.
+- For phased plans, add `phased_execution` metadata with phase status tracking. See `templates/context-schema.md` for the full `phased_execution` field reference. Note: `branch` and `worktree_path` are set to `null` at plan time. They are populated by `/para:execute` when a phase begins execution.
 - Update `last_updated` timestamp
 
 ## Example
