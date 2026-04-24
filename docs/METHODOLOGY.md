@@ -6,6 +6,7 @@ This document explains how the PARA-Programming workflow is structured, what eac
 
 ## Table of Contents
 
+- [Motivation](#motivation)
 - [The Problem](#the-problem)
 - [The Workflow](#the-workflow)
 - [Design Principles](#design-principles)
@@ -26,6 +27,18 @@ This document explains how the PARA-Programming workflow is structured, what eac
 
 ---
 
+## Motivation
+
+PARA-Programming emerged from three insights about how AI collaboration should work.
+
+**Treat AI as a pair-programming partner, not a code generator.** Like pair programming with a human, effective AI collaboration requires shared understanding through plans, review gates before execution, documented decisions and rationale, and clear communication of intent. The goal is collaboration, not delegation.
+
+**Apply human-in-the-loop data pipeline principles.** The workflow's structure draws from experience building data pipelines for scientists working with non-deterministic data — systems where humans reviewed intermediate results before proceeding, creating audit trails of "what was analyzed, when, and why." Software development has the same properties: code changes are non-deterministic (many valid approaches), engineers need to review the AI's approach before implementation, and audit trails enable debugging and knowledge transfer. PARA applies the same pattern: structured phases with human review gates between each.
+
+**Externalize memory into structure for token efficiency.** The `context/` directory acts as externalized long-term memory. Instead of loading an entire codebase into every prompt, PARA keeps only the relevant context active — the current plan, research docs, and progress state. The AI loads what it needs from the structured file system rather than carrying everything in context. This mirrors how human cognition works: short-term memory (the context window) is small and focused, while long-term memory (the file system) is large and persistent. The result is substantial token reduction through externalized memory, as demonstrated by [Anthropic's research on Model Context Protocol](https://www.anthropic.com/engineering/code-execution-with-mcp) which showed that externalized computation allows models to focus on reasoning with minimal, purposeful context.
+
+---
+
 ## The Problem
 
 AI-assisted development tends toward one of two failure modes:
@@ -34,7 +47,7 @@ AI-assisted development tends toward one of two failure modes:
 
 2. **Over-specification.** The developer writes a detailed specification up front and hands it to the agent as a single prompt. The agent follows instructions literally but can't adapt when the spec is wrong or incomplete. There's no feedback loop, no collaborative refinement, and no quality gate between planning and execution.
 
-PARA addresses both by structuring the collaboration as a loop — Research, Plan, Review, Execute, Review, Summarize, Archive — where each phase has a clear purpose, defined inputs and outputs, and explicit quality gates.
+PARA addresses both by structuring the collaboration as a loop — Research, Plan, Review Plan, Execute, Review PR, Summarize, Archive — where each phase has a clear purpose, defined inputs and outputs, and explicit quality gates.
 
 ---
 
