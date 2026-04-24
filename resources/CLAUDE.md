@@ -117,6 +117,7 @@ Run `/para:review --plan` for independent Staff+ subagent review:
 - Spawns a separate agent with Staff+ FAANG engineer persona
 - Reviews architecture, TDD ordering, completeness, scope
 - Loops until approved (MUST FIX → address → re-review)
+- Review loops are capped at 5 rounds with convergence detection; see `commands/review.md` for details.
 
 ### 4. Execute
 
@@ -134,11 +135,14 @@ Run `/para:review --plan` for independent Staff+ subagent review:
    - Mark `[x]` in `context/context.md`
    - Commit with the checklist item text as the message
 
+   `/para:execute` enforces spec + stubs + TDD for code-bearing plans. Plans that are markdown-only or docs-only may relax this in their Out-of-Scope section.
+
 ### 5. Review PR
 
 Run `/para:review --pr` for independent Staff+ subagent review of the implementation:
 - Checks commit-plan alignment, test quality, conventions
 - Loops until approved
+- Review loops are capped at 5 rounds with convergence detection; see `commands/review.md` for details.
 
 ### 6. Summarize
 

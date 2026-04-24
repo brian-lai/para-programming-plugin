@@ -16,7 +16,7 @@ Display the following:
 
 # PARA-Programming Quick Reference
 
-**Workflow:** Research → Plan → Review → Execute → Review → Summarize → Archive
+**Workflow:** Research → Plan → Review Plan → Execute → Review PR → Summarize → Archive
 
 ## When to Use PARA
 

@@ -32,7 +32,7 @@ Run `/para:execute --phase=N`.
 
 ### Step 2: Create PR
 
-Create a pull request for the phase branch.
+Create a pull request for the phase branch. This step owns PR creation for workflow runs. `/para:summarize` (Step 4) will detect that it's running inside the orchestrator and skip its standalone push/PR guidance.
 
 - **PR title:** `para/{task-name} phase N: {phase title}`
 - **PR body:** auto-generated from:

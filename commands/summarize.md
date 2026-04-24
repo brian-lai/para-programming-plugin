@@ -42,7 +42,9 @@ Generate a summary document from the current work session. Supports both simple 
 
 ## Post-Summarize Guidance
 
-After summarizing, the next steps are:
+If `/para:summarize` was run standalone (not as part of `/para:workflow`), the next steps are:
 1. Push the branch: `git -C {worktree_path} push -u origin para/{task-name}`
 2. Create a PR: `gh pr create` from the worktree branch
 3. Run `/para:archive` to clean up the worktree and archive context
+
+If `/para:summarize` was invoked as Step 4 of `/para:workflow`, the PR was already created in Step 2 of the workflow — skip the manual push/PR instructions above.
