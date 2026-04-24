@@ -18,7 +18,7 @@ Execute the active plan by creating an isolated worktree and tracking todos. Sup
 4. Fetch latest and create an isolated git worktree: `git fetch origin main && git worktree add .para-worktrees/{task-name} -b para/{task-name} origin/main` (or `para/{task-name}-phase-N`)
 5. Extract checkbox items (`- [ ] ...`) from the plan's Implementation Steps section as todos. The checkbox text becomes both the todo item and the eventual commit message.
 6. Update `context/context.md` with the todo list and worktree path (this file lives in the main working tree)
-7. Make the initial commit on the branch from within the worktree. Since `context/context.md` is in the main working tree, not the worktree, this first commit should instead be an empty commit to mark the start of the branch: `git -C .para-worktrees/{task-name} commit --allow-empty -m "chore: Initialize execution context for {task-name}"`
+7. Make an empty initial commit in the worktree (see "context/context.md lives in main tree" design note below the Commit-Per-Todo Rule section): `git -C .para-worktrees/{task-name} commit --allow-empty -m "chore: Initialize execution context for {task-name}"`
 
 ### `--no-worktree` Escape Hatch
 
@@ -82,7 +82,7 @@ Before starting any todo, verify that the active plan references a spec file (`c
 
 The agent works inside the worktree directory (`.para-worktrees/{task-name}/`). All file edits, test runs, and git operations happen within this directory, keeping the main working tree untouched.
 
-> **Design note:** `context/context.md` is intentionally kept in the main working tree (not the worktree) so it remains accessible regardless of which worktree is active. All PARA commands read from and write to the main working tree's `context/` directory.
+> **Design note — context/context.md lives in main tree:** `context/context.md` is intentionally kept in the main working tree (not the worktree) so it remains accessible regardless of which worktree is active. All PARA commands read from and write to the main working tree's `context/` directory. This is why the initial commit on each branch is an empty commit — there are no worktree-local files to commit at that point.
 
 For each todo:
 1. **Confirm spec + stubs exist** — locate the stub source file(s) for this step. If stubs are missing (planning was skipped), create them now from the spec before writing tests.
