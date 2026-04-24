@@ -37,9 +37,12 @@ When `/para:plan` is invoked:
    - Reference the spec and stub file paths in the plan
 
 6. **Determine plan type:**
-   - **Simple plan** (single file) for straightforward tasks
-   - **Phased plan** (master + sub-plans) when work spans >5-10 files, crosses architectural boundaries, or has natural dependency ordering
-   - If proposing a phased plan, confirm with the user first.
+   - **Simple plan** (single file) unless any of the following apply:
+   - **Phased plan** (master + sub-plans) when at least one trigger is met:
+     1. More than 5 files with cross-file refactoring (not just independent edits to many files)
+     2. Work spans 2 or more architectural layers (e.g., API + UI + DB)
+     3. Later work requires earlier work to be **merged** to `main` — not just complete — before it can begin (dependency chain)
+   - If none of these triggers apply, use a simple plan. If proposing a phased plan, confirm with the user first.
 
 7. **Draft the plan** applying Staff+ engineering criteria:
    - **Think about what NOT to build.** Explicitly state what is deferred or out of scope and why. Resist over-engineering -- if a simple approach works, prefer it and document the rationale.
