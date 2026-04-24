@@ -162,6 +162,7 @@ your-project/
 - **[Phased Plans Quick Reference](docs/phased-plans-quick-reference.md)** — Guide for multi-phase work
 - **[Phased Plan Example](docs/phased-plan-example.md)** — Worked example of a phased plan
 - **[INSTALL.md](INSTALL.md)** — Detailed installation instructions
+- **[Example Workflow](examples/example-workflow.md)** — Annotated walkthrough of a full PARA cycle
 - **[CHANGELOG.md](CHANGELOG.md)** — Version history
 - **[UPGRADING.md](UPGRADING.md)** — Migration and upgrade guides
 
@@ -186,18 +187,21 @@ para-programming-plugin/
 │   ├── status.md               # Workflow state display
 │   ├── check.md                # Decision helper
 │   └── help.md                 # Quick reference
-├── templates/                  # File templates (8)
+├── templates/                  # File templates (9)
 │   ├── plan-template.md        # Implementation plan
 │   ├── phased-plan-master-template.md  # Architecture reference
 │   ├── phased-plan-sub-template.md     # Phase sub-plan
 │   ├── research-template.md    # Research output
 │   ├── summary-template.md     # Work summary
 │   ├── context-template.md     # Session state
+│   ├── context-schema.md       # context.md JSON schema reference
 │   ├── claude-basic-template.md    # Project CLAUDE.md (minimal)
 │   └── claude-full-template.md     # Project CLAUDE.md (comprehensive)
 ├── hooks/                      # Event handlers
 │   ├── hooks.json
 │   └── para-session-start.sh
+├── examples/                   # Worked examples
+│   └── example-workflow.md     # Full PARA cycle walkthrough
 ├── resources/                  # Global methodology
 │   └── CLAUDE.md
 └── docs/                       # Documentation

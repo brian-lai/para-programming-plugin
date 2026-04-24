@@ -17,7 +17,7 @@ Initialize PARA-Programming structure in the current project.
    ```bash
    mkdir -p context/{data,plans,summaries,archives,servers}
    ```
-3. **Create `context/context.md`** with initial structure:
+3. **Create `context/context.md`** seeded from `templates/context-template.md`:
    ````markdown
    # Current Work Summary
 
@@ -33,7 +33,7 @@ Initialize PARA-Programming structure in the current project.
    ```
    ````
    See `templates/context-schema.md` for the full field reference.
-4. **Create project `CLAUDE.md`** (if missing) from template based on `--template` option
+4. **Create project `CLAUDE.md`** (if missing) from `templates/claude-basic-template.md` (default, `--template=basic`) or `templates/claude-full-template.md` (`--template=full`)
 5. **Update `.gitignore`** to include `.para-worktrees/`:
    - If `.gitignore` exists, check for `.para-worktrees/` entry; append if missing
    - If `.gitignore` does not exist, create it with `.para-worktrees/` as its content

@@ -87,6 +87,7 @@ When `/para:plan` is invoked:
 ### Simple Plan
 
 File: `context/plans/YYYY-MM-DD-task-name.md`
+Simple plans use the template at `templates/plan-template.md`.
 
 Sections:
 - **Objective** -- what needs to be done
@@ -104,8 +105,8 @@ Sections:
 ### Phased Plan
 
 Files:
-- `context/plans/YYYY-MM-DD-task-name.md` (master plan: architecture-only reference document with core principles, architecture decisions, responsibility split, graceful degradation, progressive regression rule)
-- `context/plans/YYYY-MM-DD-task-name-phase-1.md` (self-contained implementation-ready sub-plan with TDD ordering)
+- `context/plans/YYYY-MM-DD-task-name.md` — master plan using `templates/phased-plan-master-template.md` (architecture-only reference document with core principles, architecture decisions, responsibility split, graceful degradation, progressive regression rule)
+- `context/plans/YYYY-MM-DD-task-name-phase-1.md` — sub-plan using `templates/phased-plan-sub-template.md` (self-contained implementation-ready sub-plan with TDD ordering)
 - `context/plans/YYYY-MM-DD-task-name-phase-2.md`
 - etc.
 

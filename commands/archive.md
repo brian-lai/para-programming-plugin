@@ -21,7 +21,7 @@ Default: create fresh context with reference to completed summaries.
    - After removal, run `git worktree prune` to clean up stale references
    - Remove `.para-worktrees/` directory if empty
 3. Move `context/context.md` to `context/archives/YYYY-MM-DD-HHMM-context.md`
-4. Create a fresh `context/context.md`:
+4. Create a fresh `context/context.md` seeded from `templates/context-template.md`:
 
 ````markdown
 # Current Work Summary

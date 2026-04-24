@@ -17,6 +17,19 @@
 
 [3-6 principles that guide implementation decisions. These should be opinionated and specific to this task, not generic software engineering truisms.]
 
+## Spec
+
+**Spec file:** `context/data/YYYY-MM-DD-task-name-spec.yaml`
+
+[One-sentence description of what the spec covers — API contract, interface definition, or markdown contract.]
+
+## Stubs
+
+- `path/to/stub-file-1.ext` — [what this stub covers]
+- `path/to/stub-file-2.ext` — [what this stub covers]
+
+[Stub source files with signatures matching the spec but no implementation.]
+
 ## Architecture Decisions
 
 | Decision | Choice | Rationale | Alternatives Rejected |
@@ -69,7 +82,7 @@
   - [Sub-task]
   - **Makes green:** [Which tests now pass, including acceptance test]
 
-## Risks & Edge Cases
+## Risks
 
 - **Risk 1:** [Description and mitigation]
 - **Risk 2:** [Description and mitigation]
