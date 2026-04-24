@@ -71,20 +71,9 @@ _Update this section as you complete items._
 ```
 ```
 
-For phased plans, add `phased_execution` block with phase statuses and `current_phase: N`. The branch becomes `para/{task-name}-phase-N`, the worktree becomes `.para-worktrees/{task-name}-phase-N`, and both master and phase plans are listed in `active_context`. Each phase entry includes `branch` and `worktree_path` fields:
+See `templates/context-schema.md` for the full field reference.
 
-```json
-{
-  "phased_execution": {
-    "master_plan": "context/plans/YYYY-MM-DD-task-name.md",
-    "phases": [
-      { "phase": 1, "plan": "...", "status": "in_progress", "branch": "para/{task-name}-phase-1", "worktree_path": ".para-worktrees/{task-name}-phase-1" },
-      { "phase": 2, "plan": "...", "status": "pending", "branch": null, "worktree_path": null }
-    ],
-    "current_phase": 1
-  }
-}
-```
+For phased plans, add a `phased_execution` block with phase statuses and `current_phase: N`. The branch becomes `para/{task-name}-phase-N`, the worktree becomes `.para-worktrees/{task-name}-phase-N`, and both master and phase plans are listed in `active_context`. Each phase entry includes `branch` and `worktree_path` fields that are populated when execution begins.
 
 ## Commit-Per-Todo Rule (Spec-Driven TDD)
 
