@@ -164,7 +164,6 @@ your-project/
 - **[INSTALL.md](INSTALL.md)** — Detailed installation instructions
 - **[Example Workflow](examples/example-workflow.md)** — Annotated walkthrough of a full PARA cycle
 - **[CHANGELOG.md](CHANGELOG.md)** — Version history
-- **[UPGRADING.md](UPGRADING.md)** — Migration and upgrade guides
 
 ---
 
