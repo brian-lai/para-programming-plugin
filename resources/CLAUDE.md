@@ -135,6 +135,8 @@ Run `/para:review --plan` for independent Staff+ subagent review:
    - Mark `[x]` in `context/context.md`
    - Commit with the checklist item text as the message
 
+   `/para:execute` enforces spec + stubs + TDD for code-bearing plans. Plans that are markdown-only or docs-only may relax this in their Out-of-Scope section.
+
 ### 5. Review PR
 
 Run `/para:review --pr` for independent Staff+ subagent review of the implementation:
