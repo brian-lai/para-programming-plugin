@@ -17,7 +17,7 @@ Initialize PARA-Programming structure in the current project.
    ```bash
    mkdir -p context/{data,plans,summaries,archives,servers}
    ```
-3. **Create `context/context.md`** with initial structure:
+3. **Create `context/context.md`** seeded from `templates/context-template.md`:
    ````markdown
    # Current Work Summary
 
