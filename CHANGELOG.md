@@ -37,7 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **README.md**: full rewrite with workflow-first positioning, all 11 commands listed, v2 examples
 - **Version bump:** plugin manifests updated from v1.6.2 to v2.0.0
 
-### Documentation
+### Fixed
 
 - Removed broken CONTRIBUTING.md link from README
 

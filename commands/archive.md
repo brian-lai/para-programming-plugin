@@ -32,7 +32,9 @@ Ready for next task.
 ```json
 {
   "active_context": [],
-  "completed_summaries": [],
+  "completed_summaries": [
+    "context/summaries/YYYY-MM-DD-task-name-summary.md"
+  ],
   "last_updated": "TIMESTAMP"
 }
 ```
