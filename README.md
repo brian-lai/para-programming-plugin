@@ -186,13 +186,14 @@ para-programming-plugin/
 │   ├── status.md               # Workflow state display
 │   ├── check.md                # Decision helper
 │   └── help.md                 # Quick reference
-├── templates/                  # File templates (8)
+├── templates/                  # File templates (9)
 │   ├── plan-template.md        # Implementation plan
 │   ├── phased-plan-master-template.md  # Architecture reference
 │   ├── phased-plan-sub-template.md     # Phase sub-plan
 │   ├── research-template.md    # Research output
 │   ├── summary-template.md     # Work summary
 │   ├── context-template.md     # Session state
+│   ├── context-schema.md       # context.md JSON schema reference
 │   ├── claude-basic-template.md    # Project CLAUDE.md (minimal)
 │   └── claude-full-template.md     # Project CLAUDE.md (comprehensive)
 ├── hooks/                      # Event handlers
