@@ -32,6 +32,7 @@ Initialize PARA-Programming structure in the current project.
    }
    ```
    ````
+   See `templates/context-schema.md` for the full field reference.
 4. **Create project `CLAUDE.md`** (if missing) from template based on `--template` option
 5. **Update `.gitignore`** to include `.para-worktrees/`:
    - If `.gitignore` exists, check for `.para-worktrees/` entry; append if missing
