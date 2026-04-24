@@ -200,6 +200,8 @@ para-programming-plugin/
 ├── hooks/                      # Event handlers
 │   ├── hooks.json
 │   └── para-session-start.sh
+├── examples/                   # Worked examples
+│   └── example-workflow.md     # Full PARA cycle walkthrough
 ├── resources/                  # Global methodology
 │   └── CLAUDE.md
 └── docs/                       # Documentation
