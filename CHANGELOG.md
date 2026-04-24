@@ -18,6 +18,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Team collaboration features
 - VS Code extension for non-Claude-Code users
 
+## [2.1.0] - 2026-04-24
+
+### Added
+
+- **Canonical context.md schema** (`templates/context-schema.md`) — single source of truth for all `context/context.md` JSON fields, with field tables and three examples (idle, simple-plan, phased execution)
+- **Motivation section** in `docs/METHODOLOGY.md` — preserves unique content from retired PRESENTATION.md (pair-programming philosophy, human-in-the-loop data-pipeline parallel, token-efficiency framing)
+
+### Changed
+
+- **Schema consolidation:** 7 files now reference `templates/context-schema.md` instead of inlining partial JSON schema subsets
+- **Template wiring:** All 6 previously-orphaned templates are now referenced by their commands (plan-template, phased-plan templates, claude templates, context-template)
+- **Plan template** (`templates/plan-template.md`) — added `## Spec` and `## Stubs` sections; renamed `## Risks & Edge Cases` to `## Risks` to match command spec
+- **Phase-split criteria** (`commands/plan.md`) — replaced vague heuristic with 3 concrete triggers
+- **PR-creation handoff** — clarified ownership between `/para:summarize` (standalone) and `/para:workflow` (orchestrated)
+- **Workflow loop phrasing** — all 4 canonical files now use identical 7-step form with qualified review labels
+- **resources/CLAUDE.md** — added 5-round review cap mention and spec-first TDD default note
+- **README.md** — updated plugin-structure tree (9 templates, added examples/, removed scripts/)
+
+### Removed
+
+- `scripts/install.sh` and `scripts/uninstall.sh` — obsolete symlink-based install model
+- `PRESENTATION.md` — unique content preserved in `docs/METHODOLOGY.md`
+- `UPGRADING.md` — assumed obsolete symlink install model
+- `RELEASE-NOTES.md` — frozen at v1.0.0; CHANGELOG.md is authoritative
+- Dead `--branch=name` flag from `commands/execute.md`
+
 ## [2.0.0] - 2026-04-05
 
 ### Added
@@ -142,6 +168,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.1.0** - Cleanup release: canonical schema, template wiring, prompt polish, docs consolidation
 - **2.0.0** - Staff+ agent workflow: research, review, workflow commands; TDD-first execution; comprehensive methodology doc
 - **1.2.0** - Shortened command prefix from `para-program` to `para`
 - **1.1.0** - Global CLAUDE.md setup, command pattern simplification, bug fixes
