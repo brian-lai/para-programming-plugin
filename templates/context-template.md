@@ -6,16 +6,10 @@
 
 ```json
 {
-  "active_context": [
-    {ACTIVE_PLANS}
-  ],
-  "research_docs": [
-    {RESEARCH_DOCS}
-  ],
-  "completed_summaries": [
-    {COMPLETED_SUMMARIES}
-  ],
-  "worktree_path": null,
+  "active_context": [],
+  "completed_summaries": [],
   "last_updated": "{TIMESTAMP}"
 }
 ```
+
+See `templates/context-schema.md` for the full field reference.

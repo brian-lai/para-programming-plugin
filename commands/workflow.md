@@ -84,19 +84,7 @@ If more phases remain:
 
 ## State Tracking
 
-Track workflow progress in `context/context.md` metadata:
-
-```json
-{
-  "workflow": {
-    "mode": "default|auto",
-    "current_step": "execute|pr|review|summarize|merge|archive",
-    "current_phase": 1,
-    "phases_completed": [],
-    "started": "ISO timestamp"
-  }
-}
-```
+Track workflow progress in `context/context.md` metadata via the `workflow` object. See `templates/context-schema.md` for the full field reference.
 
 This enables resumability — if the workflow is interrupted, running `/para:workflow` again picks up from the current step of the current phase.
 

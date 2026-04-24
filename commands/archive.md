@@ -33,12 +33,14 @@ Ready for next task.
 {
   "active_context": [],
   "completed_summaries": [
-    "context/summaries/YYYY-MM-DD-*.md"
+    "context/summaries/YYYY-MM-DD-task-name-summary.md"
   ],
   "last_updated": "TIMESTAMP"
 }
 ```
 ````
+
+   See `templates/context-schema.md` for the full field reference.
 
 5. Displays: archive location, worktrees removed, confirmation of fresh context, readiness for new task
 

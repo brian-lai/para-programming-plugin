@@ -41,14 +41,13 @@ Enhancing payroll API with token-efficient MCP integration.
   "active_context": [
     "context/plans/2025-11-08-payroll-api.md"
   ],
-  "completed_summaries": [
-    "context/summaries/2025-11-08-payroll-summary.md"
-  ],
-  "worktree_path": ".para-worktrees/payroll-api",
+  "completed_summaries": [],
   "last_updated": "2025-11-08T15:20:00Z"
 }
 ```
 ````
+
+See `templates/context-schema.md` in the plugin directory for the full field reference (including `worktree_path`, `phased_execution`, `workflow`, and other execution-time fields).
 
 ---
 
