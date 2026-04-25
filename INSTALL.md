@@ -165,21 +165,21 @@ mkdir -p ~/.claude
 cp resources/CLAUDE.md ~/.claude/CLAUDE.md
 ```
 
-### Step 3: Install Slash Commands
+### Step 3: Install Skills
 
 ```bash
-# Create commands directory
-mkdir -p ~/.claude/commands
+# Create skills directory
+mkdir -p ~/.claude/skills
 
-# Copy all PARA commands
-cp commands/*.md ~/.claude/commands/
+# Copy all PARA skills
+cp -r skills/* ~/.claude/skills/
 ```
 
 ### Step 4: Verify Installation
 
 ```bash
-# List installed commands
-ls ~/.claude/commands/*.md
+# List installed skills
+ls ~/.claude/skills/*/SKILL.md
 
 # Start Claude Code and check
 claude
@@ -236,13 +236,13 @@ chmod -R u+rw ~/.claude
 ### macOS / Linux
 
 - Default shell: bash or zsh
-- Commands directory: `~/.claude/commands/`
+- Skills directory: `~/.claude/skills/`
 - Plugin storage: `~/.claude/settings.json`
 
 ### Windows
 
 - Use Git Bash, WSL, or PowerShell
-- Commands directory: `C:\Users\YourName\.claude\commands\`
+- Skills directory: `C:\Users\YourName\.claude\skills\`
 - Plugin storage: `C:\Users\YourName\.claude\settings.json`
 
 ---
