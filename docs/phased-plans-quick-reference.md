@@ -325,6 +325,6 @@ Multiple layers? NO (just frontend)
 ## See Also
 
 - [Complete Phased Plan Example](./phased-plan-example.md)
-- [/plan Command Reference](../commands/plan.md)
-- [/execute Command Reference](../commands/execute.md)
-- [/summarize Command Reference](../commands/summarize.md)
+- [/plan Skill Reference](../skills/plan/SKILL.md)
+- [/execute Skill Reference](../skills/execute/SKILL.md)
+- [/summarize Skill Reference](../skills/summarize/SKILL.md)

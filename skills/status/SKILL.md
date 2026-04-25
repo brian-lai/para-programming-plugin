@@ -1,4 +1,9 @@
-# Command: status
+---
+name: status
+description: Display the current state of PARA context and workflow progress
+model: haiku
+effort: low
+---
 
 Display the current state of PARA context and workflow progress.
 

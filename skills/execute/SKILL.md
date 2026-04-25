@@ -1,4 +1,10 @@
-# Command: execute
+---
+name: execute
+description: Execute the active plan by creating an isolated worktree and tracking todos
+model: sonnet
+effort: medium
+disable-model-invocation: true
+---
 
 Execute the active plan by creating an isolated worktree and tracking todos. Supports both simple and phased plans.
 
@@ -70,7 +76,7 @@ _Update this section as you complete items._
 ```
 ```
 
-See `templates/context-schema.md` for the full field reference.
+See `../init/context-schema.md` for the full field reference.
 
 For phased plans, add a `phased_execution` block with phase statuses and `current_phase: N`. The branch becomes `para/{task-name}-phase-N`, the worktree becomes `.para-worktrees/{task-name}-phase-N`, and both master and phase plans are listed in `active_context`. Each phase entry includes `branch` and `worktree_path` fields that are populated when execution begins.
 

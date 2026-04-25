@@ -18,6 +18,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Team collaboration features
 - VS Code extension for non-Claude-Code users
 
+## [2.2.0] - 2026-04-25
+
+### Changed
+
+- **Migrated from `commands/` to `skills/` format** — all 11 plugin commands are now Agent Skills (`skills/<name>/SKILL.md`) following the [Agent Skills open standard](https://agentskills.io/specification) and [Claude Code skills docs](https://code.claude.com/docs/en/skills.md)
+- **Added `model` and `effort` frontmatter** to each skill — opus/high for research, plan, review; sonnet/medium for execute, workflow, summarize; haiku/low for init, archive, status, check, help
+- **Co-located 9 templates** within their primary skill directories — init (4), plan (3), research (1), summarize (1); cross-skill references use relative paths
+- **Added `disable-model-invocation: true`** to workflow commands (init, research, plan, review, execute, workflow, summarize, archive) to prevent auto-triggering; informational commands (status, check, help) remain auto-invocable
+
+### Removed
+
+- `commands/` directory — replaced by `skills/`
+- `templates/` directory — templates co-located in skill directories
+
 ## [2.1.0] - 2026-04-24
 
 ### Added
@@ -168,6 +182,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **2.2.0** - Skills migration: commands/ → skills/ with model/effort frontmatter and co-located templates
 - **2.1.0** - Cleanup release: canonical schema, template wiring, prompt polish, docs consolidation
 - **2.0.0** - Staff+ agent workflow: research, review, workflow commands; TDD-first execution; comprehensive methodology doc
 - **1.2.0** - Shortened command prefix from `para-program` to `para`

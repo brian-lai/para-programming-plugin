@@ -12,4 +12,4 @@
 }
 ```
 
-See `templates/context-schema.md` for the full field reference.
+See `context-schema.md` for the full field reference.

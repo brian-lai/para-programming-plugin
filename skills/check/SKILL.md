@@ -1,4 +1,9 @@
-# Command: check
+---
+name: check
+description: Decision helper to determine if PARA workflow should be used for a given request
+model: haiku
+effort: low
+---
 
 Decision helper to determine if PARA workflow should be used for a given request.
 

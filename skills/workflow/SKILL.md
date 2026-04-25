@@ -1,4 +1,10 @@
-# Command: workflow
+---
+name: workflow
+description: Orchestrate the full PARA execution cycle across phases
+model: sonnet
+effort: medium
+disable-model-invocation: true
+---
 
 Orchestrate the full PARA execution cycle across phases: execute → PR → review → summarize → archive → next phase. Supports both manual (pause at boundaries) and autonomous (`--auto`) modes.
 
@@ -84,7 +90,7 @@ If more phases remain:
 
 ## State Tracking
 
-Track workflow progress in `context/context.md` metadata via the `workflow` object. See `templates/context-schema.md` for the full field reference.
+Track workflow progress in `context/context.md` metadata via the `workflow` object. See `../init/context-schema.md` for the full field reference.
 
 This enables resumability — if the workflow is interrupted, running `/para:workflow` again picks up from the current step of the current phase.
 

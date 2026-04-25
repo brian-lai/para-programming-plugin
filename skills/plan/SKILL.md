@@ -1,4 +1,10 @@
-# Command: plan
+---
+name: plan
+description: Create a planning document through collaborative dialogue, with support for multi-phase plans
+model: opus
+effort: high
+disable-model-invocation: true
+---
 
 Create a planning document through collaborative dialogue, with support for multi-phase plans.
 
@@ -90,7 +96,7 @@ When `/para:plan` is invoked:
 ### Simple Plan
 
 File: `context/plans/YYYY-MM-DD-task-name.md`
-Simple plans use the template at `templates/plan-template.md`.
+Simple plans use the template at `plan-template.md`.
 
 Sections:
 - **Objective** -- what needs to be done
@@ -108,8 +114,8 @@ Sections:
 ### Phased Plan
 
 Files:
-- `context/plans/YYYY-MM-DD-task-name.md` — master plan using `templates/phased-plan-master-template.md` (architecture-only reference document with core principles, architecture decisions, responsibility split, graceful degradation, progressive regression rule)
-- `context/plans/YYYY-MM-DD-task-name-phase-1.md` — sub-plan using `templates/phased-plan-sub-template.md` (self-contained implementation-ready sub-plan with TDD ordering)
+- `context/plans/YYYY-MM-DD-task-name.md` — master plan using `phased-plan-master-template.md` (architecture-only reference document with core principles, architecture decisions, responsibility split, graceful degradation, progressive regression rule)
+- `context/plans/YYYY-MM-DD-task-name-phase-1.md` — sub-plan using `phased-plan-sub-template.md` (self-contained implementation-ready sub-plan with TDD ordering)
 - `context/plans/YYYY-MM-DD-task-name-phase-2.md`
 - etc.
 
@@ -121,7 +127,7 @@ Each phase should be independently reviewable and mergeable.
 
 After creating the plan, update `context/context.md`:
 - Add plan file(s) to `active_context` array
-- For phased plans, add `phased_execution` metadata with phase status tracking. See `templates/context-schema.md` for the full `phased_execution` field reference. Note: `branch` and `worktree_path` are set to `null` at plan time. They are populated by `/para:execute` when a phase begins execution.
+- For phased plans, add `phased_execution` metadata with phase status tracking. See `../init/context-schema.md` for the full `phased_execution` field reference. Note: `branch` and `worktree_path` are set to `null` at plan time. They are populated by `/para:execute` when a phase begins execution.
 - Update `last_updated` timestamp
 
 ## Example

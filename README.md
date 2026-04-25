@@ -174,28 +174,38 @@ para-programming-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json             # Plugin manifest
 │   └── marketplace.json        # Marketplace metadata
-├── commands/                   # Slash commands (11)
-│   ├── init.md                 # Initialize PARA structure
-│   ├── research.md             # Deep codebase research
-│   ├── plan.md                 # Collaborative planning
-│   ├── review.md               # Independent subagent review
-│   ├── execute.md              # TDD execution with worktrees
-│   ├── workflow.md             # Full-cycle orchestrator
-│   ├── summarize.md            # Post-work summaries
-│   ├── archive.md              # Context archival
-│   ├── status.md               # Workflow state display
-│   ├── check.md                # Decision helper
-│   └── help.md                 # Quick reference
-├── templates/                  # File templates (9)
-│   ├── plan-template.md        # Implementation plan
-│   ├── phased-plan-master-template.md  # Architecture reference
-│   ├── phased-plan-sub-template.md     # Phase sub-plan
-│   ├── research-template.md    # Research output
-│   ├── summary-template.md     # Work summary
-│   ├── context-template.md     # Session state
-│   ├── context-schema.md       # context.md JSON schema reference
-│   ├── claude-basic-template.md    # Project CLAUDE.md (minimal)
-│   └── claude-full-template.md     # Project CLAUDE.md (comprehensive)
+├── skills/                     # Agent Skills (11 skills, 9 co-located templates)
+│   ├── init/                   # Initialize PARA structure
+│   │   ├── SKILL.md
+│   │   ├── context-template.md
+│   │   ├── context-schema.md
+│   │   ├── claude-basic-template.md
+│   │   └── claude-full-template.md
+│   ├── research/               # Deep codebase research
+│   │   ├── SKILL.md
+│   │   └── research-template.md
+│   ├── plan/                   # Collaborative planning
+│   │   ├── SKILL.md
+│   │   ├── plan-template.md
+│   │   ├── phased-plan-master-template.md
+│   │   └── phased-plan-sub-template.md
+│   ├── review/                 # Independent subagent review
+│   │   └── SKILL.md
+│   ├── execute/                # TDD execution with worktrees
+│   │   └── SKILL.md
+│   ├── workflow/               # Full-cycle orchestrator
+│   │   └── SKILL.md
+│   ├── summarize/              # Post-work summaries
+│   │   ├── SKILL.md
+│   │   └── summary-template.md
+│   ├── archive/                # Context archival
+│   │   └── SKILL.md
+│   ├── status/                 # Workflow state display
+│   │   └── SKILL.md
+│   ├── check/                  # Decision helper
+│   │   └── SKILL.md
+│   └── help/                   # Quick reference
+│       └── SKILL.md
 ├── hooks/                      # Event handlers
 │   ├── hooks.json
 │   └── para-session-start.sh

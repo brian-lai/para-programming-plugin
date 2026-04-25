@@ -25,7 +25,7 @@ The PARA-Programming Plugin is a CLI tool that implements the PARA (Plan → Rev
 ```
 para-programming-plugin/
 ├── resources/          # Global CLAUDE.md methodology file
-├── commands/           # CLI command implementations
+├── skills/             # Agent Skills (11 skills with co-located templates)
 ├── context/            # PARA workflow directories
 │   ├── data/          # Input files, payloads, datasets
 │   ├── plans/         # Pre-work planning documents
@@ -38,7 +38,7 @@ para-programming-plugin/
 ## Key Files
 
 - `resources/CLAUDE.md`: Global workflow methodology template
-- `commands/*.md`: Command implementations and documentation
+- `skills/*/SKILL.md`: Skill definitions with model/effort frontmatter
 
 ## Conventions
 

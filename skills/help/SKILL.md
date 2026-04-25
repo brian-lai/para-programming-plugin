@@ -1,4 +1,9 @@
-# Command: help
+---
+name: help
+description: Display the PARA-Programming quick-reference guide
+model: haiku
+effort: low
+---
 
 Display the PARA-Programming quick-reference guide.
 

@@ -1,4 +1,10 @@
-# Command: summarize
+---
+name: summarize
+description: Generate a summary document from the current work session
+model: sonnet
+effort: medium
+disable-model-invocation: true
+---
 
 Generate a summary document from the current work session. Supports both simple and phased plans.
 
@@ -36,7 +42,7 @@ Generate a summary document from the current work session. Supports both simple 
    - `git -C {worktree_path} log main..HEAD --oneline` for commit history
 4. If no `worktree_path` (legacy or `--no-worktree` execution), fall back to `git diff` and `git status` on current branch
 5. Extract task name from plan filename
-6. Create summary file in main working tree with template from `templates/summary-template.md`
+6. Create summary file in main working tree with template from `summary-template.md`
 7. Update `context/context.md` metadata
 8. Display summary location
 

@@ -1,4 +1,10 @@
-# Command: archive
+---
+name: archive
+description: Archive the current context to create a clean slate for the next task
+model: haiku
+effort: low
+disable-model-invocation: true
+---
 
 Archive the current context to create a clean slate for the next task.
 
@@ -21,7 +27,7 @@ Default: create fresh context with reference to completed summaries.
    - After removal, run `git worktree prune` to clean up stale references
    - Remove `.para-worktrees/` directory if empty
 3. Move `context/context.md` to `context/archives/YYYY-MM-DD-HHMM-context.md`
-4. Create a fresh `context/context.md` seeded from `templates/context-template.md`:
+4. Create a fresh `context/context.md` seeded from `../init/context-template.md`:
 
 ````markdown
 # Current Work Summary
@@ -40,7 +46,7 @@ Ready for next task.
 ```
 ````
 
-   See `templates/context-schema.md` for the full field reference.
+   See `../init/context-schema.md` for the full field reference.
 
 5. Displays: archive location, worktrees removed, confirmation of fresh context, readiness for new task
 
