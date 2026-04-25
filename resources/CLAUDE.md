@@ -47,7 +47,7 @@ Enhancing payroll API with token-efficient MCP integration.
 ```
 ````
 
-See `templates/context-schema.md` in the plugin directory for the full field reference (including `worktree_path`, `phased_execution`, `workflow`, and other execution-time fields).
+See `skills/init/context-schema.md` in the plugin directory for the full field reference (including `worktree_path`, `phased_execution`, `workflow`, and other execution-time fields).
 
 ---
 
@@ -117,7 +117,7 @@ Run `/para:review --plan` for independent Staff+ subagent review:
 - Spawns a separate agent with Staff+ FAANG engineer persona
 - Reviews architecture, TDD ordering, completeness, scope
 - Loops until approved (MUST FIX → address → re-review)
-- Review loops are capped at 5 rounds with convergence detection; see `commands/review.md` for details.
+- Review loops are capped at 5 rounds with convergence detection; see `skills/review/SKILL.md` for details.
 
 ### 4. Execute
 
@@ -142,7 +142,7 @@ Run `/para:review --plan` for independent Staff+ subagent review:
 Run `/para:review --pr` for independent Staff+ subagent review of the implementation:
 - Checks commit-plan alignment, test quality, conventions
 - Loops until approved
-- Review loops are capped at 5 rounds with convergence detection; see `commands/review.md` for details.
+- Review loops are capped at 5 rounds with convergence detection; see `skills/review/SKILL.md` for details.
 
 ### 6. Summarize
 
