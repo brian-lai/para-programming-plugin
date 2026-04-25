@@ -350,9 +350,9 @@ If a simple plan is found to be too large during execution:
 
 - [Quick Reference Guide](./phased-plans-quick-reference.md)
 - [Complete Example](./phased-plan-example.md)
-- [/plan Command](../commands/plan.md)
-- [/execute Command](../commands/execute.md)
-- [/summarize Command](../commands/summarize.md)
+- [/plan Skill](../skills/plan/SKILL.md)
+- [/execute Skill](../skills/execute/SKILL.md)
+- [/summarize Skill](../skills/summarize/SKILL.md)
 
 ---
 
