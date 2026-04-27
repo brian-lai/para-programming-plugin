@@ -3,7 +3,6 @@ name: archive
 description: Archive the current context to create a clean slate for the next task
 model: haiku
 effort: low
-disable-model-invocation: true
 ---
 
 Archive the current context to create a clean slate for the next task.

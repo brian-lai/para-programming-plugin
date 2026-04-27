@@ -3,7 +3,6 @@ name: review
 description: Spawn an independent subagent with a Staff+ FAANG engineer persona to review a plan or PR
 model: opus
 effort: high
-disable-model-invocation: true
 ---
 
 Spawn an independent subagent with a Staff+ FAANG engineer persona to review a plan or PR. The review loops until the reviewer explicitly approves.
