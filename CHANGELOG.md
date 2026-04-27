@@ -18,6 +18,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Team collaboration features
 - VS Code extension for non-Claude-Code users
 
+## [2.2.1] - 2026-04-26
+
+### Fixed
+
+- **Removed `disable-model-invocation` from chainable skills** — review, execute, summarize, and archive were blocking skill chaining (e.g., plan could not invoke review via AskUserQuestion). Skills that are only user-initiated (init, research, plan, workflow) keep the flag.
+
 ## [2.2.0] - 2026-04-25
 
 ### Changed
@@ -25,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Migrated from `commands/` to `skills/` format** — all 11 plugin commands are now Agent Skills (`skills/<name>/SKILL.md`) following the [Agent Skills open standard](https://agentskills.io/specification) and [Claude Code skills docs](https://code.claude.com/docs/en/skills.md)
 - **Added `model` and `effort` frontmatter** to each skill — opus/high for research, plan, review; sonnet/medium for execute, workflow, summarize; haiku/low for init, archive, status, check, help
 - **Co-located 9 templates** within their primary skill directories — init (4), plan (3), research (1), summarize (1); cross-skill references use relative paths
-- **Added `disable-model-invocation: true`** to workflow commands (init, research, plan, review, execute, workflow, summarize, archive) to prevent auto-triggering; informational commands (status, check, help) remain auto-invocable
+- **Added `disable-model-invocation: true`** to user-initiated skills (init, research, plan, workflow) to prevent auto-triggering; chainable skills (review, execute, summarize, archive) and informational skills (status, check, help) remain model-invocable
 
 ### Removed
 
