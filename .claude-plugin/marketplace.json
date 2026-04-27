@@ -9,7 +9,7 @@
       "name": "para",
       "source": "./",
       "description": "PARA-Programming methodology for Claude Code - structured context, persistent memory, and intelligent execution",
-      "version": "2.2.0"
+      "version": "2.2.1"
     }
   ]
 }
