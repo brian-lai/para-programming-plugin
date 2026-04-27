@@ -3,7 +3,6 @@ name: execute
 description: Execute the active plan by creating an isolated worktree and tracking todos
 model: sonnet
 effort: medium
-disable-model-invocation: true
 ---
 
 Execute the active plan by creating an isolated worktree and tracking todos. Supports both simple and phased plans.
