@@ -3,7 +3,6 @@ name: plan
 description: Create a planning document through collaborative dialogue, with support for multi-phase plans
 model: opus
 effort: high
-disable-model-invocation: true
 ---
 
 Create a planning document through collaborative dialogue, with support for multi-phase plans.

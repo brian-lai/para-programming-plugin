@@ -3,7 +3,6 @@ name: init
 description: Initialize PARA-Programming structure in the current project
 model: haiku
 effort: low
-disable-model-invocation: true
 ---
 
 Initialize PARA-Programming structure in the current project.

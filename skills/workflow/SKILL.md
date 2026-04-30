@@ -3,7 +3,6 @@ name: workflow
 description: Orchestrate the full PARA execution cycle across phases
 model: sonnet
 effort: medium
-disable-model-invocation: true
 ---
 
 Orchestrate the full PARA execution cycle across phases: execute → PR → review → summarize → archive → next phase. Supports both manual (pause at boundaries) and autonomous (`--auto`) modes.

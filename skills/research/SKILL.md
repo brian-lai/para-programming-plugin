@@ -3,7 +3,6 @@ name: research
 description: Perform deep codebase exploration and produce a context-compressed research document
 model: opus
 effort: high
-disable-model-invocation: true
 ---
 
 Perform deep codebase exploration and produce a context-compressed research document. This document becomes the primary input for `/para:plan`.
